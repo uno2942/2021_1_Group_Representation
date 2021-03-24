@@ -1,0 +1,315 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{HW\#1}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{1}(10.4.2)
+As $\mathbb{Z}$ and $\mathbb{Z}/2\mathbb{Z}$ is tensored by $\mathbb{Z}$,
+\begin{equation}
+    2\otimes 1 = 2\cdot (1\otimes 1) = 1 \otimes 2 = 1 \otimes 0.
+\end{equation}
+Since
+\begin{equation}
+    1 \otimes 0 + 1 \otimes 0 = 1\otimes (0+0) = 1\otimes 0,
+\end{equation}
+$1\otimes 0 = 0$, i.e. zero element in $\mathbb{Z}\otimes_\mathbb{Z} \mathbb{Z}/2\mathbb{Z}$.\\
+
+\noindent \textbf{2}(10.4.3)
+Since $\mathbb{R}$ is a submodule of $\mathbb{C}$, $\mathbb{C}\otimes_\mathbb{R}\mathbb{C}$ is a $\mathbb{R}$-module.
+
+I'll show that $\mathbb{C}\otimes_\mathbb{C}\mathbb{C}$ is isomorphic to $\mathbb{C}$ as a $\mathbb{C}$-module. Construct a map $\varphi:\mathbb{C}\times \mathbb{C}\rightarrow \mathbb{C}$ by $\varphi:(a, b) \mapsto ab$. Since this is $\mathbb{C}$-linear, there exists a well-defined $\mathbb{C}$-module homomorphism $\Phi:\mathbb{C}\otimes_\mathbb{C} \mathbb{C}\rightarrow \mathbb{C}$ factor thorugh $\varphi$. Note that if $1\otimes a = 0$, then it means $a=0$.
+
+For any $\sum_{i=1}^n a_i\otimes b_i\in \mathbb{C}\otimes_\mathbb{C}\mathbb{C}$, we can make $\sum_{i=1}^n a_i\otimes b_i =\sum_{i=1}^n 1\otimes a_ib_i = 1\otimes \left(\sum_{i=1}^n a_ib_i\right)$, so any element in $\mathbb{C}\otimes_\mathbb{C}\mathbb{C}$ can be presented by $1\otimes a$ for some $a\in\mathbb{C}$. Furthermore, this presentation is unique as $1\otimes a_1 = 1\otimes a_2$ means $a_1=a_2$. This argument shows that $\Phi$ is bijective, so it is a $\mathbb{C}$-module isomorphism. Note that $\Phi$ is indeed $\mathbb{R}$-module isomorphism.
+
+From the example above,(p. 375) $\mathbb{C}\otimes_\mathbb{R}\mathbb{C}$ is free of rank $4$ as a module over $\mathbb{R}$, but $\mathbb{C}\otimes_\mathbb{C}\mathbb{C}\simeq \mathbb{C}$ is free of rank $2$ as a module over $\mathbb{R}$. Therefore, the two are not isomorphic.\\
+
+\noindent \textbf{3}(10.4.20)
+Assume that $2\otimes 2 + x\otimes x = a(x)\otimes b(x)$ for some $a(x),b(x)\in I$. Let's construct a $R$-bilinear map $\varphi : I\times I\mapsto R$ by defining
+\begin{equation}
+    \begin{split}
+        \varphi:(p(x), q(x))\mapsto p(x)q(x).
+    \end{split}
+\end{equation}
+This is well-defined $R$-linear map. By universal property of tensor product, there exists a $R$-module homomorphism $\Phi:I\otimes_R I\rightarrow R$. Since $2\otimes 2 + x\otimes x = a(x)\otimes b(x)$, $4+x^2 = a(x)b(x)$, but $x^2+4$ is irreducible polynomial in $\mathbb{Z}[x]$, so $a(x)=1$ or $b(x)=1$. Since $1\not\in I$, it is impossible. Therefore, $2\otimes 2 + x\otimes x$ can not be reduced to simple tensor.\\
+
+\noindent \textbf{4}(10.4.24)
+Let's define a map $\varphi:\mathbb{Z}[i]\times \mathbb{R}\rightarrow \mathbb{C}$ by $\varphi:(a+bi, r)\mapsto (ra)+(rb)i$. This is $\mathbb{Z}$-balanced map:
+\begin{equation}
+    \begin{split}
+        \varphi((a_1+b_1i)+(a_2+b_2i), r) &= r(a_1+a_2)+r(b_1+b_2)i = \varphi((a_1+b_1i), r) + \varphi((a_2+b_2i), r)\\
+        \varphi(a+bi, r_1+r_2) &= (r_1+r_2)a+(r_1+r_2)bi = \varphi(a+bi, r_1) + \varphi(a+bi, r_2)\\
+        \varphi(n(a+bi), r) &= nr(a+bi) = \varphi(a+bi, nr).
+    \end{split}
+\end{equation}
+Therefore, there exists a group homomorphism $\Phi:\mathbb{Z}[i]\otimes_{\mathbb{Z}} \mathbb{R}\rightarrow \mathbb{C}$ by universal property. 
+
+For any $(a+bi)\otimes r\in Z[i]\otimes_{\mathbb{Z}}\mathbb{R}$, we can decompose it to $a\otimes r + (bi)\otimes r$, so
+\begin{equation}
+\begin{split}
+    \sum_{j=1}^n (a_j+b_ji)\otimes r_j &= \sum_{j=1}^n a_j\otimes r_j + \sum_{j=1}^n (b_ji)\otimes r_j = \sum_{j=1}^n 1\otimes a_jr_j + \sum_{j=1}^n i\otimes b_jr_j\\
+    &= 1\otimes \left(\sum_{j=1}^n a_jr_j\right) + i\otimes \left(\sum_{j=1}^n b_jr_j\right).
+\end{split}
+\end{equation}
+It shows that any element in $Z[i]\otimes_{\mathbb{Z}}\mathbb{R}$ can be written by $1\otimes r_1+i\otimes r_2$ for some $r_1,r_2\in\mathbb{R}$.
+
+For any $a+bi\in \mathbb{C}$,  $\Phi:1\otimes a + i\otimes b\mapsto a+bi$, so $\Phi$ is surjective. Also, if $\Phi(1\otimes r_1+i\otimes r_2) = r_1+r_2 i = 0$, then $r_1=r_2=0$, so the kernel of $\varphi$ is trivial. Therefore, $\Phi$ is group isomorphism, and the presentation is unique.
+
+Let's give a ring structure on $Z[i]\otimes_{\mathbb{Z}}\mathbb{R}$ as following: for $1\otimes r_1 + i\otimes r_2, 1\otimes r_3 + i\otimes r_4\in Z[i]\otimes_{\mathbb{Z}}\mathbb{R}$,
+\begin{equation}
+    (1\otimes r_1 + i\otimes r_2)\cdot(1\otimes r_3 + i\otimes r_4) = 1\otimes (r_1r_3-r_2r_4) + i\otimes (r_2r_3+r_1r_4).
+\end{equation}
+Since the presentation is unique, this operation is well-defined on $Z[i]\otimes_{\mathbb{Z}}\mathbb{R}$. Now, I need to check that this operation satisfies the axiom of multiplication, but it is naturally follows as this operation imitate the multiplication in complex number. Also, it has $1$ which is $1\otimes 1 + i\otimes 0$. Therefore, $(Z[i]\otimes_{\mathbb{Z}}\mathbb{R}, +, \times)$ is a well-defined ring with $1$. Finally, $\Phi$ preserves multiplication operation since
+\begin{equation}
+    \Phi\left((1\otimes r_1 + i\otimes r_2)\cdot(1\otimes r_3 + i\otimes r_4)\right) = (r_1r_3-r_2r_4) + (r_2r_3+r_1r_4)i = \Phi\left((1\otimes r_1 + i\otimes r_2)\right)\Phi\left((1\otimes r_3 + i\otimes r_4)\right)
+\end{equation}
+It shows $\Phi$ is a ring isomorphism between $Z[i]\otimes_{\mathbb{Z}}\mathbb{R}$ and $\mathbb{C}$.\\
+
+\noindent \textbf{5}(10.4.25)
+(I'll first assume that $R\neq 0$. If $S=\mathbb{Z}$ and $R=0$, then $\mathbb{Z}[x]$ is not is not isomorphic to $\mathbb{Z}\otimes_R 0 = 0$. Also, I'll assume $1_R = 1_S$.)
+
+By seeing $S\otimes_R R[x]$ as a extension of scalar from $R$ to $S$, it is a well-defined $S$-module. Let $\varphi:R[x]\rightarrow S[x]$ be the natural inclusion map, which is $R$-module homomorphism, then by theorem 8, there exists $S$-module homomorphism $\Phi: S\otimes_R R[x]\rightarrow S[x]$ such that $\varphi$ factors through $\Phi$. I'll first show that this is in fact isomorphism.
+
+I'll first show that any element in $S\otimes_R R[x]$ can be written as $\sum_{i=0}^n s_i\otimes x^i$. For $s\in S$ and $p(x) = \sum_{i=0}^m r_ix^i\in R[x]$,
+\begin{equation}
+    s\otimes p(x) = \sum_{i=0}^m s\otimes r_i x^i = \sum_{i=0}^m sr_i\otimes x^i.
+\end{equation}
+Therefore, finite sum of simple tensors can be rearranged by collecting $\cdot \otimes x^i$ terms, so it can be written by $\sum_{i=0}^n s_i\otimes x^i$.
+
+For any $\sum_{i=0}^n s_ix^i\in S[x]$,
+\begin{equation}
+    \Phi:\sum_{i=0}^n s_i\otimes x^i\mapsto \sum_{i=0}^n s_ix^i.
+\end{equation}
+Also, if $\Phi\left(\sum_{i=0}^n s_i\otimes x^i\right) = 0$, then it means all $s_i=0$ and kernel is $0$. Therefore, $\Phi$ is isomorphism, and the presentation is unique.
+
+Using proposition 21, we can get $R$-algebra structure on $S\otimes_R R[x]$; as $1_R=1_S$, we can treat $S$ as a $R$-algebra. Explicitly, for $s_1,s_2\in S$ and $p_1(x),p_2(x)\in R[x]$, the multiplication operation is
+\begin{equation}
+       (s_1\otimes p_1(x))(s_2\otimes p_2(x)) = (s_1s_2\otimes p_1(x)p_2(x)).
+\end{equation}
+We can extend $S\otimes_R R[x]$ to $S$-algebra by defining right $S$ action by
+\begin{equation}
+    (s_1\otimes p(x))s_2 = (s_1s_2\otimes p(x))
+\end{equation}
+as $S$ is a commutative ring.
+
+\noindent \textbf{6}(11.5.8(a))
+Let $\frac{a}{b},\frac{c}{d}\in F$, i.e. $a,c\in R$ and $b,d\in R^\times$. As
+\begin{equation}
+    \begin{split}
+        \frac{a}{b}\otimes \frac{c}{d} &= \left(d\cdot \frac{a}{bd}\right)\otimes\frac{c}{d} =\frac{a}{bd} \otimes c = \frac{ca}{bd}\otimes 1\\
+        \frac{c}{d}\otimes \frac{a}{b} &= \left(b\cdot \frac{c}{bd}\right)\otimes\frac{a}{b} =\frac{c}{bd} \otimes a = \frac{ac}{bd}\otimes 1,
+    \end{split}
+\end{equation}
+it shows that $\frac{a}{b}\wedge \frac{c}{d} = 0$ and $\bigwedge^2 F = 0$.\\
+
+\noindent \textbf{7}(11.5.9)
+I'll first check that $M$ is $R$-module. Checking the $R$ action is well defined: for $r = r_1 = n_1+n_2\sigma$, $r_2 = n_3+n_4\sigma$, $m = m_1=a_1e_1+a_2e_2$, and $m_2 = a_3e_1+a_4e_2$,
+\begin{enumerate}
+    \item 
+    \begin{equation}
+        \begin{split}
+            (r_1+r_2)m &= ((n_1+n_3)+(n_2+n_4)\sigma)(a_1e_1+a_2e_2) \\
+            &= (n_1m + n_2\sigma(m)) + (n_3m + n_4\sigma(m))\\
+            &=r_1m+r_2m
+        \end{split}
+    \end{equation}
+    \item 
+    Let's first calculate $\sigma(\sigma(m))$.
+    \begin{equation}
+        \sigma(\sigma(m)) = \sigma(a_1(e_1+2e_2)-a_2e_2) = a_1(e_1+2e_2-2e_2)-a_2(-e_2) = m
+    \end{equation}
+    Therefore,
+        \begin{equation}
+        \begin{split}
+            r_1(r_2m) &= r_1(n_3m + n_4\sigma(m))\\
+            &=n_1n_3m + n_2n_3\sigma(m) + n_1n_4\sigma(m) + n_2n_4\sigma(\sigma(m))\\
+            &=(n_1n_3+n_2n_4)m + (n_1n_4+n_2n_3)\sigma(m)\\
+            &=(r_1r_2)m.
+        \end{split}
+    \end{equation}
+
+    \item \begin{equation}
+        \begin{split}
+            r(m_1+m_2) &= (n_1+n_3\sigma)((a_1+a_3)e_1+(a_2+a_4)e_2) \\
+            &= (n_1+n_3\sigma)(a_1e_1+a_2e_2) + (n_1+n_3\sigma)(a_3e_1+a_4e_2) = rm_1+rm_2
+        \end{split}
+    \end{equation}
+    \item
+    \begin{equation}
+        1(m) = m
+    \end{equation}
+\end{enumerate}
+Therefore, it is well-defined $R$-module. Since $e_1\wedge e_1 = e_2\wedge e_2 = 0$, $\bigwedge^2 M$ is generated by $e_1\wedge e_2$. Since
+    \begin{equation}
+        e_1\wedge e_2 = \sigma(e_1)\wedge \sigma(e_2) = (e_1+2e_2)\wedge (-e_2) = -e_1\wedge e_2,
+    \end{equation}
+    it is order $2$.\\
+
+\noindent \textbf{8}(18.1.1)
+$\varphi$ is a group homomorphism, so $\varphi$ induces faithful representation(=injective group homomorphism) from $G/\ker\varphi$ to $GL(V)$. (If $\varphi(a)=\varphi(b)$, then $\varphi(ab^{-1}) = \mathrm{id}$, so $ab^{-1}\in \ker\varphi$, and $[a]=[b]$ in $G/\ker\varphi$.)\\
+
+\noindent \textbf{9}(18.1.2)
+Let's define a group homomorphism $\phi:G\rightarrow F^\times$ by $\phi:g\mapsto \det(\varphi(g))$. Since $\det:GL_n(F)\rightarrow F^\times$ is a well-defined group homomorphism, $\phi$ is again well-defined group homomorphism. As $F^\times = GL_1(F)$, the representation has degree $1$.\\
+
+\noindent \textbf{10}(18.1.3)
+Let $\varphi:G\rightarrow GL_1(F)$ be a representation of $G$. For $g_1,g_2\in G$,
+\begin{equation}
+    \varphi([g_1,g_2]) = [\varphi(g_1),\varphi(g_2)] = 0
+\end{equation}
+as $GL_1(F)$ is an abelian group. Therefore, $\tilde{\varphi}:G/G'\rightarrow GL_1(F)$ is naturally induced from $\varphi$. Conversely, if a representation $\tilde{\varphi}:G/G'\rightarrow GL_1(F)$ is given, we can define $\varphi:G\rightarrow GL_1(F)$ by $\varphi(g) = \tilde{\varphi}(g+G')$ by the above reason.\\
+
+\noindent \textbf{11}(18.1.4)
+Let $G=\{g_1, \ldots, g_n\}$ where $n<\infty$. Consider a set $A = \{g_1v, \ldots, g_n v\}$. (Note that $1\in G$.) I claim that $M=\spn A$ on $F$ is a $FG$-module. If I prove it, then it has dimension not bigger than $\abs{G}$ containing $v$.
+
+Note that $M$ is already $F$-module, so I need to check that $FG$ action is well-defined, i.e. the result of $FG$ action on $M$ is again in $M$. For $a\in F$, $g\in G$, and $m = \sum_{i=1}^n b_i(g_iv)$,
+\begin{equation}
+    ag(m) = \sum_{i=1}^n (ag)(b_i(g_iv)) = \sum_{i=1}^n (ab_i)((gg_iv)),
+\end{equation}
+and as $gG = G$, it is in $M$. It ends the proof.\\
+
+\noindent \textbf{12}
+Let $M$ be a irreducible $FG$-module. By the above exercise, if $M$ has dimension bigger than $\abs{G}$, then it has non-trivial submodule of dimension not bigger than $\abs{G}$ by choosing $v\neq 0$, which is contradiction. Therefore, I can assume $M$ has dimension not bigger than $\abs{G}$.
+
+Assume $M$ has dimension $\abs{G}>1$. For non-zero $v$, consider
+\begin{equation}
+    w = \sum_{i=1}^{\abs{G}} g_i v.
+\end{equation}
+If $w\neq 0$, then as $w$ is $G$-stable, $\spn w$ forms a $1$-dim $FG$-submodule, which is contradiction, so $w$ should be $0$. It means that $\spn \{g_1v, \ldots, g_n v\}$ has dimension smaller than $\abs{G}$. Also, it should be $M$ to satisfy irreducible condition. Therefore, $M$ has dimension smaller than $\abs{G}$.\\
+
+\noindent \textbf{13}(18.1.8)
+\begin{enumerate}
+    \item[(a)] Let $\{e_i\}_{i=1}^n\subset V$ be the basis of $V$ and $v=\sum_{i=1}^n a_i e_i\in V$ be an element with $\{a_i\}\subset F$ satisfying $\sigma\cdot v =v$ for all $\sigma\in S_n$. Assume $a_{i_1}\neq a_{i_2}$ for some $i_1\neq i_2$. Then, for $(i_1~i_2)\in S_n$,
+\begin{equation}
+    (i_1~i_2)\cdot \left(\sum_{i=1}^n a_i e_i\right) = \left(\sum_{i=1, i\neq i_1,i_2}^n a_i e_i\right) + a_{i_2}e_{i_1}+a_{i_1}e_{i_2},
+\end{equation}
+which is different from $v$ as $V$ is vector space over $F$. It is contradiction, so all the coefficients must be same.
+    \item[(b)] For $n=2$ and $\textrm{char } F\neq 2$, there are two different submodules that each is generated by $e_1-e_2$ and $e_1+e_2$. Therefore, I'll assume $n\geq 3$.
+    
+    The submodule generated by $\sum_{i=1}^n e_i$ is definitely $1$-dim submodule, so I'll show that this is unique $1$-dim submodule. Assume there is another $1$-dim submodule $V$ and choose an element $v = \sum_{i=1}^n a_i e_i\in V$ with $\{a_i\}\subset F$. Assume $a_{i_1}\neq a_{i_2}$ for some $i_1\neq i_2$ and WLOG, assume $a_{i_1} \neq 0$. Then, for $(i_1~i_2)\in S_n$,
+    \begin{equation}
+        \sigma \cdot v - v = a_{i_2}e_{i_1}+a_{i_1}e_{i_2} - \left(a_{i_1}e_{i_1}+a_{i_2}e_{i_2}\right) = (a_{i_2}-a_{i_1})(e_{i_1}+e_{i_2})\neq 0.
+    \end{equation}
+    If $a_i\neq 0$ for some $i\neq i_1,i_2$, then $\sigma \cdot v - v$ and $v$ are linearly independent, which is contradiction to the dimension condition. Therefore, $a_i=0$ if $i\neq i_1,i_2$. However, it again generates contradiction since choosing $j\neq i_1,i_2$, $(j~i_1)(\sigma \cdot v - v)$ is again linearly independent to $(\sigma\cdot v - v)$. ($n\geq 3$ is used in this procedure.) Therefore, $V$ has the unique $1$-dim submodule.
+\end{enumerate}
+
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

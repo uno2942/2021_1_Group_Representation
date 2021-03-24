@@ -1,0 +1,245 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{HW\#3}
+\end{center}
+박성빈, 수학과, 20202120
+
+Notation: For each problem, I'll follow the notations in the problem if there is no additional mention.
+
+\noindent \textbf{1}(\textbf{D\&F} 18.1.10)
+Assume there is a subgroup of $GL_2(\mathbb{R})$ which is isomorphic to $Q_8$, and $i$ and $j$ corresponds to matrices $A$ and $B$. Since $A^4-I =(A-I)(A+I)(A^2+I)= 0$, the minimal polynomial of $A$ and $B$ can be $x-1$, $x+1$, $(x-1)(x+1)=x^2-1$, or $x^2+1$ as it should divide $x^4-1$ in $\mathbb{R}[x]$. Since $A^2\neq I$, the only possible case is $x^2+1=0$. Fix a basis for $A$ making it rational canonical form. The corresponding rational canonical form is
+\begin{equation}
+    \begin{pmatrix}
+        0 & -1\\
+        1 & 0
+    \end{pmatrix}.
+\end{equation}
+Let $B=\begin{pmatrix}
+    a & b\\ c & d
+\end{pmatrix}$. Then,
+\begin{equation}
+    \begin{pmatrix}
+        a^2+bc & b(a+d)\\
+        c(a+d) & d^2+bc
+    \end{pmatrix} = \begin{pmatrix}
+        -1 & 0\\
+        0 & -1
+    \end{pmatrix}
+\end{equation}
+If $b=0$ or $c=0$, then $a^2 = -1$, which is impossible. Therefore, $a=-d$. Also,
+\begin{equation}
+\begin{split}
+    \begin{pmatrix}
+        0 & -1\\
+        1 & 0
+    \end{pmatrix}\begin{pmatrix}
+    a & b\\ c & d
+\end{pmatrix} &= \begin{pmatrix}
+    -c & -d \\
+    a & b
+\end{pmatrix}\\
+\begin{pmatrix}
+    a & b\\ c & d
+\end{pmatrix}\begin{pmatrix}
+        0 & -1\\
+        1 & 0
+    \end{pmatrix} &= \begin{pmatrix}
+    b & -a \\
+    d & -c
+\end{pmatrix},
+\end{split}
+\end{equation}
+so $b=c$, which means that $a^2+b^2 = -1$, which is impossible. Therefore, there is no subgroup of $GL_2(\mathbb{R})$ which is isomorphic to $Q_8$.\\
+
+\noindent \textbf{2}(\textbf{S} 2.7)
+Let $r$ be the regular representation on $W$ with basis $\{e_s\}_{s\in G}$. Since $G$ acts on $\{e_s\}$ transitively, by the previous homework, we know that $W$ has only one unit representation $1$, which is irreducible. Therefore, for any character with $\rho_s = 0$ for all $s\neq 1$, for $c\in \mathbb{C}$ with $cr_G = \rho$,
+\begin{equation}
+    (\rho, 1) = c(r_G, 1) = c\in \mathbb{N}.
+\end{equation}
+
+\noindent \textbf{3}-\textbf{5}(\textbf{S} 2.8)
+\begin{enumerate}
+    \item[(a)] Decomposing $V$ into irreducible subspace, let $m_i = \dim V_i/\dim W_i$. Since we are only interested in calculating the dimension of $H_i$, transform each irreducible subspaces in $V_i$ is copy of $W_i$ by taking isomorphism for each space. Let each copy $W_{ij}$ for $1\leq j\leq m_i$. Abusing notation, we can treat $\rho$ as a irreducible representation on $W_{ij}$ in each $V_i$.
+    
+    Fix an non-zero element $w\in W_i$. Since $W_i$ is irreducible, $\mathbb{C}G\cdot w = W_i$. Now, assume $h(w)\in W_{ij}$ for some $j$ and non-zero; if $h(w) = 0$, then $h\equiv 0$ as $0 = h\circ \rho_s(w)$ for $s\in G$. Since $h\circ \rho_s(w) = \rho_s\circ h(w)\in W_{ij}$ and $W_i$ is irreducible, $\Im h\subset W_{ij}$. Using Schur's lemma, identifying $W_{ij}=W_i$, we get $h= \lambda\cdot \mathrm{id}$ for some $\lambda\in \mathbb{C}^\times$. If $h(w)\not\in V_i\setminus \{0\}$, then again by Schur's lemma, $h\equiv 0$. This argument illustrates the possible functions in $H_i$. Finally, if I set $h=\lambda\cdot\mathrm{id}:W_i\rightarrow W_{ij}$, it satisfies $h\circ \rho_s = \rho_s\circ h$, so such function exists in $H_i$.
+    
+    For any $h\in H_i$ we can decompose $h$ into $P_1\circ h, \ldots, P_{m_i}\circ h$ such that $P_j$ is the projection onto $W_{ij}$. Each $P_{j}\circ h$ is a multiple of $\mathrm{id}$ by the above argument, note that $P_j\circ \rho = \rho\circ P_j$ for representation $\rho$ on $V_i$ since $W_{ij}$ is $G$-stable. It shows that $H_i$ is spanned by $\{h_{ij}\}_{j=1}^{m_i}$ such that $h_{ij}:W_i\rightarrow W_{ij}$ and is identity by identifying $W_i = W_{ij}$. (By retrieving using the isomorphism, we can find the actual function $h_{ij}:W_i\rightarrow V_{ij}$ where $V_{ij}$ is the $j$th position of the decomposition of $V_i$.) It shows $\dim H_i = \dim V_i/\dim W_i$.
+    
+    \item[(b)] Let's define $F':H_i\times W_i\rightarrow V_i$ by
+    \begin{equation}
+        F':(h_\alpha, w_\alpha)\mapsto h_\alpha(w_\alpha)
+    \end{equation}
+    and extend it to satisfy $\mathbb{C}$-linearity. This is $\mathbb{C}$-bilinear, so by the universal property, we get the well-defined vector space homomorphism $F:H_i\otimes W_i\rightarrow V_i$ which factors through $F'$. By (a), we know that that $F'$ is surjective, so $F$ is surjective. By dimension analysis, it means $F$ is vector space isomorphism.
+    
+    \item[(c)] By tensor-hom adjuction, we get natural isomorphism
+    \begin{equation}
+        \mathrm{Hom}(H_i\otimes W_i, V_i)\simeq \mathrm{Hom}(H_i, \mathrm{Hom}(W_i, V_i)),
+    \end{equation}
+    which shows that the $F$ maps each $(h_1, \ldots, h_k)$ to a linear map $h:\oplus_{j=1}^{m_i}W_i\mapsto V_i$ by
+    \begin{equation}
+        h:(w_{i1}, \ldots, w_{im_i})\mapsto \sum_{j=1}^{m_i}h_j(w_{ij}).
+    \end{equation}
+    I'll show that $h$ is surjective, then by dimension analysis, it is vector space isomorphism. First, consider the basis $\{e_1, \ldots e_{m_i}\}\in H_i$ I set in (a), which is isomorphic from $W_i$ to $j$th irreducible component of $V_i$ in representation sense. In this setting, it is easy to see that $h$ is surjective. Now, let $\{h_1, \ldots, h_{m_i}\}\in H_i$ be an aribtrary basis of $H_i$, and let
+    \begin{equation}
+        h_\alpha = \sum_{\beta=1}^{m_i}a_{\alpha \beta}e_{\beta}.
+    \end{equation}
+    Let's denote $A = (a_{\alpha\beta})\in GL_{m_i}(\mathbb{C})$ and $A^{-1} = (b_{\alpha'\beta'})$. For $\sum_{j}v_{j}\in V_i$, there exists $(w_{i1}, \ldots, w_{im_i})\in \oplus_{j=1}^{m_i} W_i$ such that $e_j(w_{ij}) = v_j$ and $e_j(w_{ik})=0$ if $j\neq k$. Finally, for
+    \begin{equation}
+        w'_{i\alpha'} = \sum_{\beta'=1}^{m_i}b_{\beta'\alpha'}w_{i\beta'}
+    \end{equation}
+    we get
+    \begin{equation}
+        \sum_{\alpha=1}^{m_i} h_\alpha(w'_{i\alpha}) =\sum_{\alpha=1}^{m_i} \sum_{\beta=1}^{m_i}\sum_{\beta'=1}^{m_i}a_{\alpha \beta}e_\beta(b_{\beta'\alpha}w_{i\beta'}) = \sum_{\beta=1}^{m_i}\sum_{\alpha=1}^{m_i} a_{\alpha \beta}b_{\beta\alpha}v_{\beta} = \sum_{\beta=1}^{m_i} v_\beta.
+    \end{equation}
+    
+    Finally, it is isomorphism of representations as we chose $h_i$ to satisfy $\rho\circ h_i = h_i\circ \rho$.
+\end{enumerate}
+
+
+\noindent \textbf{6}(\textbf{S} 3.1)
+Let's decompose $V$ into irreducible subspaces $V_i$ with representation function $\rho_i$. For any $s_1,s_2\in G$, we get
+\begin{equation}
+    \left(\rho_i\right)_{s_1}\circ \left(\rho_i\right)_{s_2} = \left(\rho_i\right)_{s_2}\circ \left(\rho_i\right)_{s_1}
+\end{equation}
+as $G$ is abelian group. Using Schur's lemma, $\left(\rho_i\right)_{s} = \lambda_s\circ \mathrm{id}$ for some $\lambda\in \mathbb{C}^\times$ for all $s\in G$, but it means that $V_i$ is not irreducible if $\dim V_i>1$ since $\rho$ can be decomposed into block matrices. Therefore, all the $V_i$ are degree 1.
+
+\noindent \textbf{7}-\textbf{9}(\textbf{S} 3.2)
+\begin{enumerate}
+    \item[(a)] By the same argument in 3.1, $\rho_s$ is a homothety for each $s\in C$. Since eigenvalues of $\rho_s$ are absolute value $1$, we get $\abs{\chi(s)} = n$ for $s\in C$.
+    \item[(b)] Since $\abs{G}\geq \abs{C}$,
+    \begin{equation}
+        g = \sum_{s\in G}\abs{\chi(s)}^2\geq \sum_{s\in C}\abs{\chi(s)}^2 = cn^2,
+    \end{equation}
+    so $n^2\leq g/c$.
+    \item[(c)] For each $s\in C$, we can write the scalar $\lambda = \exp(2\pi i q)$ for some $q\in [0,2\pi)\cap \mathbb{Q}$. Let $q_0 = \min_{s\in C}q$. If $q_0=a/b$ with $(a,b)=1$, then by Fermat's little theorem, we get $1/b\leq a/b$, so $q_0$ is of form $1/n$ for some $n\in\mathbb{N}$ and corresponding group element $s_0$. Assume there exists $s'$ which is not in $\{1, s, \ldots, s^{n-1}\}$ and the corresponding phase $q'=1/b'$. If $b'\nmid n$, we can make phase $1/\mathrm{lcm}(b', n)$ taking combination of $s$ and $s'$, so assume $b'\mid n$. However, it also makes a contradiction since
+    \begin{equation}
+        s^{n/b'}(s')^{-1} = 1.
+    \end{equation}
+    Therefore, $C$ is a cyclic group.
+\end{enumerate}
+    
+\noindent \textbf{10}(\textbf{S} 3.3)
+Since $G$ is abelian, any irreducible representation has degree $1$. For irreducible representations $\rho_1$ and $\rho_2$ on $V_1$ and $V_2$, $\rho_1\otimes \rho_2$ is again irreducible since $V_1\otimes V_2$ also has degree $1$. Therefore, for any irreducible character $\chi_1$ and $\chi_2$, $\chi_1\chi_2$ is also irreducible. As a function from $G$ to $\mathbb{C}$, this operation satisfies associative, has identity element $\chi(s) = 1$ for all $s$, and inverse $\overline{\chi}$: for a representation $\rho:G\rightarrow \mathbb{C}^\times$, $\overline{\rho}$ is also a representation having character $\overline{\chi}$. Since the number of classes of $G$ is $g$, the number of irreducible representations is $g$, so $\hat{G}$ is an abelian group of order $g$.
+
+For fixed $x\in G$, let's define $\varphi_x:\hat{G}\rightarrow \mathbb{C}$ by $\varphi_x(\chi) = \chi(x)$. This is well-defined group homomorphism with image in $\mathbb{C}^\times$, so it is an element of the $\hat{\hat{G}}$. Let $h:G\rightarrow \hat{\hat{G}}$ by $h(x) = \varphi_x$. $h$ is group homomorphism since $\varphi_{xy^{-1}}(\chi) = \chi(xy^{-1}) = \chi(x)\chi(y^{-1}) = \varphi_x\varphi_{y^{-1}}$. If $\varphi_x \equiv 1$, then it means $\chi(x) = 1$ for all irreducible character $\chi\in \hat{G}$. If $x\neq 1$, then $\sum_{i=1}^g\chi_i(1)^*\chi_i(x) = g\neq 0$ according to proposition 7 in chapter 2, which is contradiction. Therefore, $x=1$, and it shows $\ker h = 0$. Since $\abs{\hat{\hat{G}}}=g$, $h$ is an isomorphism.
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

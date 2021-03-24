@@ -1,0 +1,319 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{HW\#2}
+\end{center}
+박성빈, 수학과, 20202120
+
+Notation: For each problem, I'll follow the notations in the problem if there is no additional mention.
+
+\noindent \textbf{1}(\textbf{D\&F} 18.3.5)
+Let $G$ be a group and $V$ be a $\mathbb{C}$ vector space. Let $f$ be a class function.
+
+\begin{enumerate}
+    \item[$\Rightarrow$] It means that there exists a linear representation $\phi:G\rightarrow GL(V)$ which generates characteristic $f$. Let's decompose $V$ by irreducible subspaces: there exist $V_1, \ldots, V_k$ and $m_1, \ldots, m_k\in \mathbb{N}$ such that $V$ is isomorphic to
+    \begin{equation}
+        V = m_1V_1\oplus \cdots \oplus m_k V_k.
+    \end{equation}
+    Let $\chi_i$ be the irreducible character for each $V_i$, then we get
+    \begin{equation}
+        f = \sum_{i=1}^k m_i \chi_i.
+    \end{equation}
+    \item[$\Leftarrow$] Assume $\chi_i$ be the irreducible character for each $V_i$, and
+    \begin{equation}
+        f = \sum_{i=1}^k m_i \chi_i
+    \end{equation}
+    for $m_1, \ldots, m_k\in \mathbb{N}$. Let $V=\oplus_{i=1}^k \oplus_{j=1}^{m_i} V_i$, and $\phi_i$ be irreducible linear representation on $V_i$. We can construct $\phi:G\rightarrow GL(V)$ by
+    \begin{equation}
+        \phi(g)v = \left(\phi_1(g)v_{11}, \ldots, \phi_1(g)v_{1m_1}, \phi_2(g)v_{21}, \ldots, \phi_k(g)v_{km_k}\right)
+    \end{equation}
+    for $v = (v_{11}, \ldots, v_{1m_1}, v_{21}, \ldots, v_{km_k})\in V$ with $v_{i\cdot}\in V_i$. Since $\phi(g)$ is a $\mathbb{C}$-linear map and invertible with inverse $\phi(g^{-1})$, it is well-defined, and group homomorphism by the definition, so it is a representation. Finally, we get $\chi$ as a characteristic of the $\phi$.
+\end{enumerate}
+
+\noindent \textbf{2}(\textbf{D\&F} 18.3.6)
+Note that $W$ is $G$-stable subspace, so we can decompose $V$ by $V=W\oplus W^0$ where $W^0$ is complement to $W$ and $G$-stable. Since any $1$-dim subspace of $W$ is $G$-stable, taking irreducible subspace decomposition, it is completely decomposed into $1$-dim subspaces, which is irreducible. Since $\varphi$ is identity on each subspace, these irreducible representations are isomorphic to trivial representations.
+
+To show that $(\psi, \chi_1)=\dim W$, I need to show that there is no irreducible subspaces in irreducible decomposition of $W^0$. Assume there is such subspace $W'\leq W^0$ and $f:\mathbb{C}\rightarrow W'$ be a representation isomorphism. Since $\dim W' = 1$, it is generated by one-element, and let the element $f(1) = w'$. Since it is not in $W$, there exists $g\in G$ such that $g\cdot w'\neq w'$, but it means that
+\begin{equation}
+    g\cdot f(1) = g\cdot w'\neq  w' = f(g\cdot 1).
+\end{equation}
+Therefore, it is contradiction, and we get the identity.\\
+
+\noindent \textbf{3}(\textbf{S} 2.1) 
+Let $\rho:G\rightarrow GL(V_1)$ and $\rho':G\rightarrow GL(V_2)$ be representations of $G$ generating characters $\chi$ and $\chi'$. Then, $\chi+\chi'$ is the character of the direct sum representation on $V_1\oplus V_2$.
+
+Let $s\in G$. Using proposition $3$, we get
+\begin{equation}
+    \begin{split}
+        (\chi+\chi')_\sigma^2(s) &= \frac{1}{2}\left((\chi+\chi')^2(s)+(\chi+\chi')(s^2)\right)\\
+        &=\frac{1}{2}\left(\chi^2(s)+\chi(s^2) + (\chi')^2(s) + \chi'(s^2) + 2\chi(s)\chi'(s)\right)\\
+        &=\chi_\sigma^2(s)+(\chi')_\sigma^2(s) + \chi\chi'(s).
+    \end{split}
+\end{equation}
+Therefore,
+\begin{equation}
+    (\chi+\chi')_\sigma^2 =\chi_\sigma^2+\left(\chi'\right)_\sigma^2 + \chi\chi'.
+\end{equation}
+By the similar calculation, we get
+\begin{equation}
+    \begin{split}
+        (\chi+\chi')_\alpha^2(s) &= \frac{1}{2}\left((\chi+\chi')^2(s)-(\chi+\chi')(s^2)\right)\\
+        &=\frac{1}{2}\left(\chi^2(s)-\chi(s^2) + (\chi')^2(s) - \chi'(s^2) + 2\chi(s)\chi'(s)\right)\\
+        &=\chi_\alpha^2(s)+\left(\chi'\right)_\alpha^2(s) + \chi\chi'(s).
+    \end{split}
+\end{equation}\\
+
+\noindent \textbf{4}(\textbf{S} 2.2)
+Let's enumerate $X=\{x_1, \ldots, x_n\}$. Let's define index set $I_s = \{i\in \{1, \ldots, n\}:s\cdot x_i = x_i\}$, Writing $\rho_s$ as a matrix $A_s = (a_{ij})$ with basis $\{x_1, \ldots, x_n\}$, we get $a_{ji} = 1$ if and only if $s\cdot x_i = x_j$. Therefore,
+\begin{equation}
+    \tr A_s = \sum_{i=1}^n a_{ii} = \sum_{i\in I} 1 = \abs{I}. 
+\end{equation}
+It shows that $\chi_{X}(s) = \tr A_s$ is the number of elements of $X$ fixed by $s$.\\
+
+\noindent \textbf{5}(\textbf{S} 2.3)
+I'll first show the uniqueness: If there exist such representations $\rho'_1$ and $\rho'_2$, then for fixed $x'\in V'$ and $s\in G$,
+\begin{equation}
+    \langle \rho_s x, \left((\rho'_1)_s-(\rho'_2)_s\right)x'\rangle = \langle x,x'\rangle - \langle x,x'\rangle = 0
+\end{equation}
+for all $x\in V$. Since $\rho_s\in GL(V)$, it is automorphism on $V$, and it means that $\rho'_1 = \rho'_2$.
+
+Now, I'll show the existence. Let's define $\rho'_s x' \coloneqq x'\circ \rho_{s^{-1}}$. Since $\rho_s$ is invertible and linear, $\rho'_s$ is well-defined linear mapping. Also, it satisfies
+\begin{equation}
+    \langle \rho_s x, \rho'_s x'\rangle = x'\left(\rho_{s^{-1}}(\rho_s x)\right) = x'(x) = \langle x, x'\rangle.
+\end{equation}
+Finally, it satisfies homomorphism property since for $s,t\in G$,
+\begin{equation}
+    \rho'_t(\rho'_s x') = (x'\circ \rho_{s^{-1}})\circ \rho_{t^{-1}} = x'\circ (\rho_{s^{-1}}\circ \rho_{t^{-1}}) = x'\circ (\rho_{(ts)^{-1}}) = \rho'_{ts}x'.
+\end{equation}
+It ends the proof.\\
+
+\noindent \textbf{6} (\textbf{S} 2.4)
+I'll first check that $\rho$ is a linear representation. By definition, it is indeed linear, and for $s,t\in G$, 
+\begin{equation}
+    \begin{split}
+        \rho_t(\rho_s f) &= \rho_{2,t}\circ \left(\rho_{2,s}\circ f\circ \rho_{1,s}^{-1}\right)\circ \rho_{1, t}^{-1} \\
+        &= \rho_{2,ts}\circ f\circ \rho_{1,ts}^{-1} = \rho_{ts} f
+    \end{split}
+\end{equation}
+
+To compute the character, let's fix a basis of $V_1$ and $V_2$. Let $m$ and $n$ be the dimension of $V_1$ and $V_2$ over $\mathbb{C}$, then we can write $f\in W$ as a $m$ by $n$ matrix. Let's choose the basis for $W$ by the matrix basis:
+\begin{equation}
+    \{\beta_{11}, \ldots, \beta_{mn}\} = \left\{\begin{pmatrix}1 & 0 & \hdots & 0\\
+    0 & 0 & \hdots & 0\\
+    \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & \hdots & 0
+    \end{pmatrix}, \begin{pmatrix}0 & 1 & \hdots & 0\\
+    0 & 0 & \hdots & 0\\
+    \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & \hdots & 0
+    \end{pmatrix}, \ldots, \begin{pmatrix}0 & 0 & \hdots & 0\\
+    0 & 0 & \hdots & 0\\
+    \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & \hdots & 1
+    \end{pmatrix}\right\}.
+\end{equation}
+Let matrices $A = \rho_{2,s}$, $B = f$, and $C = \rho_{1,s}^{-1}$ with elements $a_{ij}$, $b_{ij}$, and $c_{ij}$. Computing matrix multiplication,
+\begin{equation}
+    (ABC)_{ij} = \sum_{k,l} a_{ik}b_{kl}c_{lj}.
+\end{equation}
+The characterstic is
+\begin{equation}
+    \sum_{i,j}(A\beta_{ij}C)_{ij} = \sum_{i,j}\sum_{k,l}a_{ik}\delta_{ki}\delta_{lj}c_{lj} = \sum_{i,j}a_{ii}c_{jj} = \left(\sum_{i}a_{ii}\right)\left(\sum_{j}c_{jj}\right).
+\end{equation}
+Since $\left(\sum_{i}a_{ii}\right) = \chi_2$ and $\left(\sum_{j}c_{jj}\right) = \chi_1^*$, the characterstic is $\chi_1^*\cdot \chi_2$.
+
+Let's construct a isomorphism between $\rho$ and $\rho'_1\otimes \rho_2$. Let $\overline{\varphi}:V_1'\times V_2\rightarrow W$ a map such that for $(v_1',v_2)\in V_1'\times V_2$, for $v\in V_1$
+\begin{equation}
+    \left(\overline{\varphi}(v_1',v_2)\right)v = (v_1'(v))v_2.
+\end{equation}
+It is $\mathbb{C}$-bilinear map, so by the universal property, there exists a vector space homomorphism $\varphi:V_1'\otimes V_2\rightarrow W$ which factors through $\overline{\varphi}$. $\varphi$ is surjective: for a basis $\{e_i\}\subset V_1$, if I want to map $e_i\mapsto v_i\in V_2$, then I just take a dual basis element $\{e_i'\}\subset V'_1$ making $e_i'(e_j) = \delta_{ij}$ and take
+\begin{equation}
+    \sum_{i=1}^m e_i'\otimes v_i.
+\end{equation}
+By dimension analysis, it means that $\varphi$ is vector space isomorphism. 
+
+Now, I need to show the commutativity $\varphi\circ \left(\rho_{1,s}'\otimes \rho_{2,s}\right) =\rho_s\circ \varphi$ for any $s\in G$. By linearlity, it is enough to show it for simple tensor, but for $v_1'\otimes v_2\in V_1'\otimes V_2$, for $v\in V_1$,
+\begin{equation}
+    \begin{split}
+        \left(\varphi\circ \left(\rho_{1,s}'\otimes \rho_{2,s}\right)(v_1'\otimes v_2)\right)(v) &= \left(\varphi\circ \left(\rho_{1,s}'(v_1')\otimes \rho_{2,s}(v_2)\right)\right)(v)\\
+        &=\left(\rho_{1,s}'(v_1')\right)(v)\rho_{2,s}(v_2)\\
+        \left(\rho_s\circ \varphi(v_1'\otimes v_2)\right)(v) &=\left(\rho_{2,s}\circ \varphi(v_1'\otimes v_2)\circ \rho_{1,s}^{-1}\right)(v)\\
+        &=\rho_{2,s}\circ \left(v_1'(\rho_{1,s}^{-1}(v))v_2\right)\\
+        &=v_1'(\rho_{1,s}^{-1}(v))\rho_{2,s}(v_2)\\
+        &=\left(\rho'_{1,s}(v_1')\right)(v)\rho_{2,s}(v_2).
+    \end{split}
+\end{equation}
+It ends the proof.
+
+Remark: If $V_2=\mathbb{C}$, then $W=V_1'$ and $\rho_s$ corresponds to the dual representation of $\rho$.\\
+
+\noindent \textbf{7}(\textbf{S} 2.5)
+This problem is continuation of problem 2. For each irreducible representation component of $\rho$, if it is not isomorphic to the trivial(=unit) representation, the scalar product with trivial representation is $0$, and $1$ if it is isomorphic to the representation. Therefore, we get the identity.\\
+
+\noindent \textbf{8-10}(\textbf{S} 2.6)
+\begin{enumerate}
+    \item Before solving it, I'll first show the proposition.
+    \begin{proposition}
+    Let a finite group $G$ acts transitively on a finite set $X = \{x_1, \ldots, x_k\}$. Set $M$ be free $\mathbb{Z}$-module on $X$, then we can treat $M$ as a $\mathbb{Z}G$-module using the group action. For $v = \sum_{g\in G}g\cdot x_i\in M$ for some fixed $1\leq i\leq k$, each coefficient of $x_j$, $1\leq j\leq k$, in $v$ is same.
+    \end{proposition}
+    \begin{proof}
+    Let $G_{x_i}$ be the stabilizer of $x_i$ in $G$, then $\abs{G:G_{x_i}} = \abs{X}$ since $G$ acts transitively on $X$ and we get the coefficient of each $x_j$ in $j$ by $\abs{G_{x_i}}$. (cf. proposition 2 in \textbf{D\&F} p. 114.)
+    \end{proof}
+    Choose an orbit $O\subset X$ and $x\in O$. Taking permutation representation $V$, consider $v = \sum_{g\in G}g\cdot x$. Then $v$ is contained in the subspace spanned by the orbit elements containing $x$. Also, the $1$-dim subspace generated by $v$ is $G$-stable since 
+    \begin{equation}
+        g\cdot v = g\sum_{g'\in G}g'\cdot v=\sum_{g'\in G}gg'\cdot v \sum_{g'\in g^{-1}G}g'\cdot v= v.
+    \end{equation}
+    Therefore, it has unit representation. This argument can be applied to each distinct orbits, so $(\chi|1)\geq c$.
+    
+    Let $W$ be the subspace of $V$ composing all the $1$-dim subspaces discovered above. Note that $W$ is $G$-stable, so there exists complement subspace $W^0$ which is also $G$-stable. To show $(\chi|1) = c$, I need to show that there is no irreducible subspace with unit representation in $W^0$. Assume it is not and spanned by $w^0\in W^0$. Since $w^0\neq 0$, there exists $x_i$ having non-zero coefficient. Let $O=\{x^1_i, \ldots, x^k_i\}$ be the orbit containing $x_i$, then by the above proposition, each coefficient of $x^j_i$ in $\sum_{g\in G}g\cdot w^0$ should be same, but as $g\cdot w^0 = w^0$ for all $g$, $\sum_{g\in G}g\cdot w^0 = \abs{G}w^0$. It is contradiction since we chose $w^0$ complement to $W$. Therefore, $(\chi|1) = c$.
+    
+    If $G$ is transitive, then $c=1$, then the rest propositions follow from the above argument. For example, we can construct $\theta:G\rightarrow GL(W^0)$ such that for the projection $P:W\rightarrow W^0$ and inclusion $i:W^0\rightarrow W$, $\theta_s = P\circ \rho_s\circ i$.
+    
+    \item Fix $s\in G$. Let $\{\xi_1, \ldots, \xi_n\}$ be the eigenvectors of $\rho_s$ with corresponding eigenvalues $\lambda_i$ in the basis $X = \{x_1, \ldots, x_n\}$. (Note that $\rho_s$ is diagonalizable in $\mathbb{C}$.) For $X\times X$, take basis $\{(x_1, x_1), \ldots, (x_1, x_n), (x_2, x_1), \ldots, (x_n, x_n)\}$ and write
+    \begin{equation}
+        \left(\sum_{i=1}^n a_i x_i, \sum_{j=1}^n b_j x_j\right) \coloneqq \sum_{i=1}^n\sum_{j=1}^na_ib_j\left(x_i, x_j\right).
+    \end{equation}
+    Then,
+    \begin{equation}
+        s\cdot (\xi_i, \xi_j) = \lambda_i\lambda_j(\xi_i, \xi_j),
+    \end{equation}
+    which means that $\{(\xi_i, \xi_j)\}_{i,j=1}^n$ forms a complete set of eigenvectors of the permutation representation of $s$. Therefore, the trace is
+    \begin{equation}
+        \sum_{i=1}^n\sum_{j=1}^n \lambda_i\lambda_j = \chi^2(s).
+    \end{equation}
+    for all $s$, and we get the characteristic function $\chi^2$.
+    
+    \item (i)$\Leftrightarrow$(ii) As the hint says, it is obvious.
+    
+    (ii)$\Leftrightarrow$(iii) The character of the permutation representation on $X\times X$ is $\chi^2$ from (b) and $(\chi^2|1) = 2$ if and only if there is two orbits in $X\times X$.
+    
+    (iii)$\Leftrightarrow$(iv) I'll follow the hint. By the definition of $\psi$, $1+\psi = \chi$ and by the bi-linearlity of $(\cdot| \cdot)$, we get $(\psi|1) = 0$ as $G$ is transitive on $X$. Therefore,
+    \begin{equation}
+        (\chi^2|1) =(1+2\psi+\psi^2|1) = 1+(\psi^2|1).
+    \end{equation}
+    Therefore, (iii) is equivalent to say $(\psi^2|1) = 1$. As a character of permutation representation, $\chi$ is real-valued, so $\psi$ is. It means that
+    \begin{equation}
+        (\psi^2|1) = \frac{1}{g}\sum_{s\in G}\psi(s)^2 = \frac{1}{g}\sum_{s\in G}\psi(s)\overline{\psi(s)} = (\psi|\psi).
+    \end{equation}
+    By theorem 5, we get the equivalence of (iii) and (iv).
+\end{enumerate}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================
