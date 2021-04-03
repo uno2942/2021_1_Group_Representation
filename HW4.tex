@@ -1,0 +1,322 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{HW\#4}
+\end{center}
+박성빈, 수학과, 20202120
+
+Notation: For each problem, I'll follow the notations in the problem if there is no additional mention.
+
+\noindent \textbf{1}(\textbf{D\&F} 18.3.11)
+Let $\phi$ be the irreducible representation of $G$ on $V$ generating $\chi$. Let $z$ is in the center of $G$, then we get
+\begin{equation}
+    \phi(z)\phi(g) = \phi(g)\phi(z)
+\end{equation}
+for all $g\in G$, which means that $\phi(z)$ is an $\mathbb{C}G$ module automorphism on $V$. By schur's lemma, it shows that $\phi(z)$ is a homothety, i.e., for $\lambda\in \mathbb{C}$, $\phi(z) = \lambda\cdot\mathrm{id}$, so $\chi(z) = \lambda\chi(1)$. Since $\abs{z}<\infty$, $\lambda^{\abs{z}}=1$ and $\lambda$ is some root of unity in $\mathbb{C}$.\\
+
+\noindent \textbf{2}(\textbf{D\&F} 18.3.15)
+This is basis-dependent argument(private communication with TA): For a cyclic group $G=<\sigma:\sigma^3 = 1>$, consider a group representation $\phi$ on $F^2$ given by
+\begin{equation}
+    \rho_\sigma = \begin{pmatrix}
+    1 & 0\\
+    0 & \exp\left(\frac{2\pi i}{3}\right)
+    \end{pmatrix}.
+\end{equation}
+I'll denote $u = \exp\left(\frac{2\pi i}{3}\right)$. For $A = \begin{pmatrix}a & b\\ c & d\end{pmatrix}\in GL_2F$, the similar transformation is given by
+\begin{equation}
+    A^{-1}\rho_\sigma A = \frac{1}{ad-bc}\begin{pmatrix}
+    ad-ubc & bd(1-u)\\
+    ac(-1+u) & uad-bc
+    \end{pmatrix}.
+\end{equation}
+For arbitrary nonzero $f\in F$, if I set $a=1+f$, $b=c=d=1$, then
+\begin{equation}
+    \frac{ad-ubc}{ad-bc} = \frac{f-u + 1}{f} = \frac{-u+1}{f} + 1.
+\end{equation}
+If $\mathbb{Q}(\varphi)$ implies collecting all entries of $\varphi$ upto similar transformation, it means that $F$ is finite extension of $\mathbb{Q}[u]$, which is contradiction. Therefore, I'll fix a basis for $GL_n(F)$.
+
+Define
+\begin{equation}
+    A = \cup_{s\in G}\cup_{a^s_{ij}\textrm{ is an entry of }\varphi(s)}\{a^s_{ij}\},
+\end{equation}
+then it is finite since $\abs{G}<\infty$ and $\varphi(s)\in GL_n(F)$. Furthermore, $a^s_{ij}\in F$, so each $[\mathbb{Q}(a^s_{ij}):\mathbb{Q}]<\infty$. Therefore, $[\mathbb{Q}(A):\mathbb{Q}]<\infty$, which shows that $\mathbb{Q}(\varphi)$ is finite extension of $\mathbb{Q}$.\\
+
+\noindent \textbf{3}(\textbf{D\&F} 18.3.16)
+Fix $s\in G$. Since $\sigma$ is a automorphism on $F$, for $a_i,b_i\in F$,
+\begin{equation}
+    \sigma\left(\sum_i a_ib_i\right) = \sum_i \sigma(a_i)\sigma(b_i).
+\end{equation}
+Therefore, $\sigma(AB)=\sigma(A)\sigma(B)$ for $A,B\in GL_n(F)$, which shows that $\varphi^\sigma$ is a group homomorphism from $G$ to $GL_n(F)$, so $\varphi^\sigma$ is a representation if $\varphi$ is a representation. Furthermore, $\tr(\sigma(A)) = \sigma(\tr(A))$ by the same reason, so we get the character of $\varphi^\sigma = \sigma\circ \psi$.
+
+\noindent \textbf{4}(\textbf{D\&F} 18.3.17)
+Since $(\varphi^\sigma)^{\sigma^{-1}} = \varphi$, it is enough to show that $\varphi$ is irreducible implies $\varphi^\sigma$ is irreducible.
+
+Assume $\varphi^\sigma$ is not irreducible, so there exists a proper subspace $W$ of $V$ such that $\varphi^\sigma|_W$ is an automorphism on $W$. It means that there exists a complement $W^0$ of $W$ which also satisfies $\varphi^\sigma|_{W^0}\in Aut(W^0)$. Therefore, the matrix form of $\varphi$ can be decomposed into smaller block matrices, which have determinant non-zero. Taking $\sigma^{-1}$ to each entries of the decomposed matrix, we get the same block decomposed matrices with non-zero determinant since $\sigma$ is field isomorphism. It shows that $\varphi$ is not irreducible, which is contradiction. It ends the proof.\\
+
+\noindent \textbf{5}(\textbf{D\&F} 19.3.1)
+For basis $1\otimes e_1, 1\otimes e_2, 1\otimes e_3, (1~2)\otimes e_1, (1~2)\otimes e_2, (1~2)\otimes e_3\}$, the matrix representation is given by the following: for
+\begin{equation}
+    \begin{split}
+        P_1 &= \begin{pmatrix}
+        0 & 0 & 1\\
+        1 & 0 & 0\\
+        0 & 1 & 0
+        \end{pmatrix}\\
+        P_2 &= \begin{pmatrix}
+        0 & 1 & 0\\
+        0 & 0 & 1\\
+        1 & 0 & 0
+        \end{pmatrix},
+    \end{split}
+\end{equation}
+we get
+\begin{equation}
+    \begin{split}
+        1&\mapsto \begin{pmatrix}
+            I_3 & 0\\
+            0 & I_3
+        \end{pmatrix},\\
+        (1~2)&\mapsto\begin{pmatrix}
+            0 & I_3\\
+            I_3 & 0
+        \end{pmatrix},\\
+        (1~3)&\mapsto\begin{pmatrix}
+            0 & \varphi((1~2~3))\\
+            \varphi((1~3~2)) & 0
+        \end{pmatrix} = \begin{pmatrix}
+            0 & P_1\\
+            P_2 & 0
+        \end{pmatrix},\\
+        (2~3)&\mapsto\begin{pmatrix}
+            0 & \varphi((1~3~2))\\
+            \varphi((1~2~3)) & 0
+        \end{pmatrix} = \begin{pmatrix}
+            0 & P_2\\
+            P_1 & 0
+        \end{pmatrix},\\
+        (1~2~3)&\mapsto\begin{pmatrix}
+            \varphi((1~2~3)) & 0\\
+            0 & \varphi((1~3~2))
+        \end{pmatrix} = \begin{pmatrix}
+            P_1 & 0\\
+            0 & P_2
+        \end{pmatrix},\textrm{ and}\\
+        (1~3~2)&\mapsto\begin{pmatrix}
+            \varphi((1~3~2)) & 0\\
+            0 & \varphi((1~2~3))
+        \end{pmatrix} = \begin{pmatrix}
+            P_2 & 0\\
+            0 & P_1
+        \end{pmatrix}.\\
+    \end{split}
+\end{equation}
+
+\noindent \textbf{6}(\textbf{D\&F} 19.3.2(a))
+Since induced representation is unique upto isomorphism, it is enough to calculate the character with some fixed representatives of $G/H$. Since $<(1~2)>$ has order $2$, it has two irreducible representations: trivial and non-trivial one. The non-trivial irreducible character $\psi$ is $\psi(1)=1$ and $\psi((1~2)) = -1$. For representatives $\{1, (1~3),(2~3)\}$, the induced character $\Psi$ is
+\begin{equation}
+    \begin{split}
+        \Psi(1) &= 3\psi(1) = 3\\
+        \Psi((1~2)) &= \Psi((1~3)) = \Psi((2~3)) = \psi((1~2)) = -1\\
+        \Psi((1~2~3)) &= \Psi((1~3~2)) =0.
+    \end{split}
+\end{equation}
+Using the character table of $S_3$ in section 19.1, we get $\Psi = \chi_2+\chi_3$.\\
+
+\noindent \textbf{7}(\textbf{D\&F} 19.3.4)
+Let $R = \{1, g_1, \ldots, g_m\}$ be the representation set of $G/H$ and $\Phi$ be the induced representation of $\varphi$ which is a representation on $V$. Fix $g_i\in R$. For $v\in V$ and $n\in N\leq H$, there exists $n'\in N$ such that $ng_i = g_in'$ since $N$ is a normal subgroup of $G$. Therefore,
+\begin{equation}
+    n\cdot(g_i\otimes v) = ng_i\otimes v = g_in'\otimes v = g_i\otimes (n'\cdot v) =g_i\otimes v.
+\end{equation}
+It shows that $N$ is contained in the kernel of induced presentation.\\
+
+\noindent \textbf{8}(\textbf{S} 3.3.4)
+From example 1, we know that the regular representation $\rho$ on $G$ is induced by the regular representation $\theta$ on $H$. Let's decompose $\rho=\oplus_{i=1}^n \rho_i$ and $\theta = \oplus_{i=1}^m \theta_i$ into irreducible representations. By Corollary 5.1 in chapter 2, every irreducible representations on $G$ and $H$ is contained in $\rho$ and $\theta$.
+
+Let $\rho'_i$ be the induced representation of $\theta_i$, then by example 3, we know that $\oplus_{i=1}^m \rho'_i$ is induced by $\oplus_{i=1}^m \theta_i$. By the uniqueness of induced representation, $\oplus_{i=1}^m \rho'_i$ and $\rho$ are isomorphic, so each irreducible components of $\rho$ is contained in some $\rho'_i$, which shows the statement in the problem.
+
+Since $A\leq G$ is abelian, each $\theta_i$ has degree 1. It means that the induced representation $\rho'_i$ of $\theta_i$ has degree $g/a$ for all $i$, so each $\rho_i$ should have degree not greater than $g/a$.\\
+
+\noindent \textbf{9}(\textbf{S} 3.3.5)
+Before start, I'll show that $\rho$ is a well-defined representation. For $s_1,s_2\in G$, $(\rho_{s_1}(\rho_{s^{-1}_1})f)(u) = f(us_1s_1^{-1}) = f(u)$ and by the same reason, $(\rho_{s^{-1}_1}(\rho_{s_1})f)(u) = f(u)$, so $\rho_s\in GL(V)$ for all $s\in G$. Also,
+\begin{equation}
+    (\rho_{s_1s^{-1}_2}f)(u) = f(us_1s^{-1}_2) = (\rho_{s_1}(\rho_{s^{-1}_2}f))(u) = (\rho_{s_1}(\rho^{-1}_{s_2}f))(u).
+\end{equation}
+Therefore, it is a well-defined group action, i.e. group homomorphism from $G$ to $GL(V)$.
+
+To show $w\mapsto f_w$ is an isomorphism, I'll first show that $f_w\in V$. For $t\in H$ and $u\in G$, if $tu\in H$, which means that $u\in H$,
+\begin{equation}
+    f_w(tu) = \theta_{tu}w = \theta_t\theta_uw = \theta_tf_w(u).
+\end{equation}
+If $tu\not\in H$, $f_w(u) = 0$ since $u\not\in H$, so it also satisfies $f_w(tu) = \theta_tf_w(u)$. Therefore, $f_w\in V$.
+
+To show the isomorphism from $W$ to $W_0$, it is enough to show that $\varphi:w\mapsto f_w$ is injection from $W$. If $w_1\neq w_2$, then $f_{w_1}(1)=w_1\neq w_2 = f_{w_2}(1)$, so $f_{w_1}\neq f_{w_2}$.
+
+Now, I'll show that $\rho$ is induced by $\theta$. Let's first fix a representatives $R=\{1=\sigma_1, \ldots, \sigma_n\}\in G$ of $G/H$. I'll first show that $\{\rho_{\sigma_i}f_{w_j}\}$ forms a basis of $V$. For linearly independence, assume there exists $a_{ij}\in\mathbb{C}$ satisfying
+\begin{equation}
+    \sum_{i,j}a_{ij}\rho_{\sigma_i} f_{w_j} = 0.
+\end{equation}
+It means that for $u\in G$,
+\begin{equation}
+    \sum_{i,j}a_{ij}\rho_{\sigma_i} f_{w_j}(u) = \sum_{i,j}a_{ij} f_{w_j}(u\sigma_i) = \sum_j\sum_{u\sigma_i\in H}a_{ij} \theta_{u\sigma_i}w_j = 0.
+\end{equation}
+Note that $u$ acts on $G/H$ by permutation, so there exists only one $i_0$ such that $u\sigma_{i_0}\in H$, which means that
+\begin{equation}
+    \sum_ja_{i_0j} \theta_{u\sigma_{i_0}}w_j = 0.
+\end{equation}
+Since $\theta_{u\sigma_{i_0}}$ is automorphism on $W$ and $w_j$ is a basis on $W$, $a_{i_0j} = 0$ for all $j$. Since this is true for arbitrary $u\in G$ and $G$ acts on $G/H$ transitively, we get $a_{ij}=0$ for all $i,j$. Therefore, $\{\rho_{\sigma_i}f_{w_j}\}$ is linearly independent.
+
+Now, I'll show that the $\{\rho_{\sigma_i}f_{w_j}\}$ spans $V$. Fix arbitrary $f\in V$. Even though I chose left coset of $G/H$, it also works as a right coset of $H\backslash G$. Therefore, it is enough to show that I can generate $f(\sigma_i)$ using the basis to generate the $f$: for any $u\in G$, there exists $\sigma\in R$ and $t\in H$ such that $tu=\sigma$, so $f(u) = f(t^{-1}tu) = \theta_{t^{-1}}f(\sigma)$. Let's write $f(\sigma_i) = \sum_{i,j}a_{ij}w_j$. If I set
+\begin{equation}
+    \phi = \sum_{i,j}a_{ij}\rho_{\sigma^{-1}_i}f_{w_j},
+\end{equation}
+for any $\sigma_k\in R$,
+\begin{equation}
+    \phi(\sigma_k) = \sum_{i,j}a_{ij}\rho_{\sigma^{-1}_i}f_{w_j}(\sigma_k) = \sum_{i,j}a_{ij}f_{w_j}(\sigma_k\sigma^{-1}_i) = \sum_j a_{kj}w_j = f(\sigma_k).
+\end{equation}
+Therefore, $\phi=f$. 
+
+By writing $W_{\sigma_i} = \mathrm{span}\{\rho_{\sigma_i}f_{w_1}, \ldots, \rho_{\sigma_i}f_{w_m}\}$, we get $V = \oplus_{\sigma\in R}W_\sigma$, which means that $\rho$ is induced by $\theta$.\\
+
+\noindent \textbf{10}(\textbf{S} 3.3.6)
+Since $G=H\times K$, $hk=kh$ for all $h\in H$ and $k\in K$. It shows that $H \trianglelefteq G$ and $G/H\simeq K$. Therefore, We can take the representatives of $G/H$ by the elements of $K$, and for any $k\in K$ and $h\in H$, we get $h(kH) = kH$. I'll write the representatives $R = \{k_1, \ldots, k_n\}$ with $n=\abs{K}$ if enumerating is necessary.
+
+Let $W$ and $L$ be vector spaces such that $\theta:H\rightarrow GL(W)$ and $r_K:K\rightarrow GL(L)$, i.e. $L$ has basis $\{e_k\}_{k\in K}$. Since $\rho:G\rightarrow GL(V)$ is induced by $\theta$, we can write
+\begin{equation}
+    V= \oplus_{k\in K}W_k.
+\end{equation}
+Let's construct a vector space isomorphism $\varphi:W\otimes L\rightarrow V$ by
+\begin{equation}
+    \varphi(w\otimes l) = \varphi(\sum_{k\in K}a_k(w\otimes e_k)) = \sum_{k\in K}a_k\rho_k w.
+\end{equation}
+Indeed, we know that $W\otimes L$ is a vector space having basis as a simple tensor of basis elements in $W$ and $L$, this is well-defined map, and this is surjective since for any $\sum_{k\in K}w_k\in V$ such that $w_k\in W_k$,
+\begin{equation}
+    \varphi:\sum_{k\in K}\rho_{k^{-1}}w_k\otimes e_k\mapsto \sum_{k\in K}w_k.
+\end{equation}
+By dimension analysis, $\varphi$ is a vector space isomorphism. Finally, this is isomorpshim of representation between $\theta\otimes r_K$ and $\rho$: with the same notation above and $s = hk_i\in G$ for some $k_i\in K$ and $h\in H$,
+\begin{equation}
+    \begin{split}
+        \rho_s(\varphi(w\otimes l)) &=\sum_{k\in K}a_k\rho_s\rho_kw = \sum_{k\in K} a_k\rho_{k_ik}\rho_hw\\
+        \varphi\left(\left(\theta\otimes r_K\right)_s(w\otimes l)\right) &= \varphi\left(\theta_h(w)\otimes (r_K)_{k_i}\left(\sum_{k\in K}a_ke_k\right)\right) = \varphi\left(\theta_h(w)\otimes \left(\sum_{k\in K}a_ke_{k_ik}\right)\right) = \sum_{k\in K}a_k\rho_{k_ik}\rho_hw.
+    \end{split}
+\end{equation}
+(To write it more precise, I need to introduce the inclusion map $i:W\rightarrow V$ and use $i(\theta_h(w)) = \rho_h(i(w))$.) Therefore, $\theta\otimes r_K$ and $\rho$ are isomorphic.
+%________________________________________________________________________
+\end{document}
+
+%================================================================================
