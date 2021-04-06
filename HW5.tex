@@ -1,0 +1,219 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{HW\#5}
+\end{center}
+박성빈, 수학과, 20202120
+
+I'll first write the definition of terminologies related to semisimplicty and simplicity.(Ref. \textit{Algebra}, Lang.)
+
+For a division ring $R$ with $1$, (as we only consider $R=K[G]$, where $K$ is a field in this homework.)
+\begin{definition}
+$R$-module $E$ is simple if it is non-zero and has no submodule other than $0$ or $E$.
+\end{definition}
+Note that this is same as irreducibile module.
+\begin{definition}
+$R$-module $E$ is semisimple if for any submodule $F$ of $E$, there exists a submodule $F'$ such that $E=F\oplus F'$. For a ring $R$ with $1\neq 0$, it is semisimple if it is semisimple as a left module over itself.
+\end{definition}
+\noindent \textbf{1}(\textbf{S} 6.1)
+I'll first prove (i)$\rightarrow$(ii). Let $F = \{\sum_{s\in G}a_s s\in K[G]:\sum_{s\in G}a_s = 0\}$. It is $k[G]$ submodule of $K[G]$ since for any $s'\in G$,
+\begin{equation}
+    s'\cdot \left(\sum_{s\in G}a_s s\right) = \sum_{s\in G}a_s s's = \sum_{s\in G}a_{(s')^{-1}s} s \in F.
+\end{equation}
+By the definition of semisimple module (or ring), there should exists a submodule $F'$ such that $K[G]=F\oplus F'$. Since $F,F'$ are $K$-vector space, it can be viewed as a decomposition of the vector space. For $K$-linear $\phi:K[G]\rightarrow K$ by $\phi(\sum_{s\in G}a_s s) = \sum_{s\in G}a_s$, it is surjective and $F$ is the kernel, so $\dim F = \abs{G}-1$. It means $\dim F' = 1$. Now, assume it is spanned by $u = \sum_{s\in G}a_s s\in F'$, then $\sum_{s'\in G}s'u = \sum_{s\in G}\sum_{s'\in G}a_{s'} s\in F'\cap F$ as 
+\begin{equation}
+    \sum_{s\in G}\sum_{s'\in G}a_{s'} = g\sum_{s'\in G}a_{s'} = 0.
+\end{equation}
+
+It means $\sum_{s\in G}\sum_{s'\in G}a_{s'} s = 0$ and $\sum_{s\in G}a_{s} = 0$, implying that $u\in F'\cap F$, so zero. This is impossible. Therefore, $F$ is not a direct summand of $K[G]$ and $K[G]$ is not semisimple.
+
+Conversely, assume $\mathrm{char}~K\nmid g$, then $\frac{1}{g}$ is non-zero in $K$, so $p^0 = g^{-1}\sum_{s\in G}sps^{-1}$ for $K$-linear projection from $K[G]$ to $F$ is well-defined and the same argument in theorem 1 in 1.3 is well-applied. It shows that $K[G]$ is a semisimple.\\
+
+\noindent \textbf{2}(\textbf{S} 6.2)
+By the definition of $\langle \cdot,\cdot\rangle$, it is bilinear. Also, by the construction of $\tilde{\rho}_i$ and linearlity of $\mathrm{Tr}_{W_i}$, the formula for $\langle u,v\rangle$ is also bilinear. Therefore, I can reduce to the case $u,v\in G$. For $a,b\in G$,
+\begin{equation}
+    \langle a, b\rangle = g\sum_{s\in G}\delta_{s^{-1}a}\delta_{sb} = g\delta_{ab}.
+\end{equation}
+Also, by the corollary 5.2 in the chapter 2, 
+\begin{equation}
+    \langle a, b\rangle = \sum_{i=1}^h n_i\mathrm{Tr}_{W_i}(\rho_i(ab)) = \sum_{i=1}^h n_i\chi_i(ab) = g\delta_{ab}.
+\end{equation}
+Therefore, we get
+\begin{equation}
+    \langle u,v\rangle = \sum_{i=1}^h n_i\mathrm{Tr}_{W_i}(\tilde{\rho}_i(uv))
+\end{equation}
+
+\noindent \textbf{3}-\textbf{6}(\textbf{S} 6.3)
+Note: Since $\mathbb{C}[G]$ is $\mathbb{C}$-algebra isomorphic to product of matrix algebras over $\mathbb{C}$, it is not multiplicative group as some elements does not have inverse. Therefore $\mathbb{C}[G]$ is not itself a multiplicative group.
+
+\begin{enumerate}
+    \item[(a)] Since $U$ contains $G$, $s^{-1}u\in U$ for $s\in G$. As $U$ is finite, $(s^{-1}u)^{\abs{U}} = 1$, which implies that $(\tilde{\rho}_i(s^{-1}u))^{\abs{U}} = \tilde{\rho}_i((s^{-1}u)^{\abs{U}}) = I$ and the minimal polynomial of $\tilde{\rho}_i(s^{-1}u)$ should divide $x^{\abs{U}}-1 = 0$. Since $\mathbb{C}$ is algebraically closed field of characteristic $0$ and $x^{\abs{U}}-1$ is separable, $\tilde{\rho}_i(s^{-1}u)$ is diagonalizable and eigenvalues are roots of unity.
+
+    Since $u'u = 1$, $\tilde{\rho}_i(u's)\tilde{\rho}_i(s^{-1}u) = I$. As an inverse matrix of a diagonalizable matrix, each eigenvalue of $\tilde{\rho}_i(u's)$ is inverse of an eigenvalue of $\tilde{\rho}_i(s^{-1}u)$, and we have shown that each eigenvalues have absolute value $1$ above. Therefore,
+    \begin{equation}
+        \mathrm{Tr}_{W_i}(\rho_i(s^{-1})u_i)^* = \mathrm{Tr}_{W_i}(\tilde{\rho}_i(s^{-1}u))^* = \mathrm{Tr}_{W_i}(\tilde{\rho}_i(u's)) = \mathrm{Tr}_{W_i}(u_i'\rho_i(s))
+    \end{equation}
+    As $\mathrm{Tr}(AB) = \mathrm{Tr}(BA)$ for matrices $A$ and $B$, we get
+    \begin{equation}
+        \mathrm{Tr}_{W_i}(\rho_i(s^{-1})u_i)^* = \mathrm{Tr}_{W_i}(\rho_i(s)u_i')
+    \end{equation}
+    Using Fourier inversion formula, we get $u(s)^* = u'(s^{-1})$.
+    \item[(b)] Note that
+    \begin{equation}
+        uu' = \sum_{s\in G}\left(\sum_{s'\in G}u(ss')u'((s')^{-1})\right)s.
+    \end{equation}
+    Since $uu' = 1$, $\sum_{s'\in G}u(s')u'((s')^{-1}) = \sum_{s'\in G}u(s')u(s')^*  = \sum_{s\in G}\abs{u(s)}^2= 1$.
+    \item[(c)] By (b), we get $u(s)$ are all zero except one which is equal to $\pm 1$. As it contains $G$ and $U$ is contained in $G\cup (-G)$.
+    \item[(d)] Let $u\in Z[G]$ has finite order about multiplication, then $U = \langle u, G\rangle$ is a finite subgroup of multiplicative group of $Z[G]$ as the generators are commutative and have finite order. By (c), $U$ is contained in $G\cup (-G)$, so $u\in G\cup (-G)$. It proves the proposition.
+\end{enumerate}
+
+\noindent \textbf{7}(\textbf{S} 6.4)
+Note that $\chi_i$ is a class function on $G$ for each $i$, so for any conjugacy class $c\subset G$, $\chi_i(s^{-1}_1)=\chi_i(s^{-1}_2)$ for $s_1,s_2\in c$. Therefore, $p_i$ is in the center of $\mathbb{C}[G]$. Also,
+\begin{equation}
+    \omega_i(p_j) = g^{-1}\sum_{s\in G}\chi_j(s^{-1})\chi_i(s) = \delta_{ij}
+\end{equation}
+from the theorem 3 in chapter 2. Since $(\omega_i)_{1\leq i\leq h}$ defines an algebra isomorphism from center of $\mathbb{C}[G]$ to $\mathbb{C}^h$, which is $\mathbb{C}$-vector space isomorphism, and each $(p_i)_{1\leq i\leq h}$ maps onto the basis of $\mathbb{C}^h$, $p_i$ forms a basis of center of $\mathbb{C}[G]$.
+
+The rest properties are the consequence of calculations. Since 
+\begin{equation}
+    \omega_i(p_jp_k) = \omega_i(p_j)\omega_i(p_k)=\delta_{ij}\delta_{ik},
+\end{equation}
+and $(\omega_i)_{1\leq i\leq h}$ is an isomorphism, $p_i^2 = p_i$ and $p_ip_j = 0$. Also, $\omega_i(1) = 1$ for all $i$, and
+\begin{equation}
+    (\omega_i)_{1\leq i\leq h}:\sum_{j=1}^h p_j\mapsto (1,1,\ldots, 1),
+\end{equation}
+so $\sum_{j=1}^h p_j = 1$.
+
+Now, I'll prove the theroem 8 of 2.6. For a representation $\rho:G\rightarrow GL(V)$, $\rho(p_i)^2 = \rho(p_i)$, so $\rho(p_i)$ is a projection matrix. Also, $\Im \rho(p_i)\cap \Im \rho(p_j) = 0$ for $i\neq j$ for $p_ip_j = 0$. Finally, as $\sum_{i=1}^h p_i = 1$, $\oplus_{i=1}^h \Im \rho(p_i) = V$. Now, I need to show $\Im\rho(p_i) = V_i$, which is constructed by collecting irreducible submodules isomorphic to $W_i$.
+
+For $j\neq i$, assume that there exists a irreducible submodule $v\in L\subset V$ which is isomorphic to $W_j$ and $\rho(p_i)(v)\neq 0$. Since $p_i$ is in center of $\mathbb{C}[G]$ and $L$ is irreducible, we can restrict the domain of $\rho(p_i)$ by $L$ and get $\mathrm{End}_{\mathbb{C}[G]}(L)$. By Schur's lemma, $\rho(p_i)$ is a homothety and $\mathrm{Tr}(\rho(p_i)) = \frac{n_i}{g}\sum_{s\in G}\chi_i(s^{-1})\chi_j(s) = 0$. Therefore, it is contradiction, and it implies $\sum_{j\neq i} V_j\subset \ker \rho(p_i)$. It shows that $\ker \rho(p_i) = V_i$, which ends the proof.\\
+
+\noindent \textbf{8}(\textbf{S} 6.5)
+Let $\phi$ be the algebra homomorphism from center of $\mathbb{C}[G]$ to $\mathbb{C}$. Since $\sum_{i=1}^h p_i = 1\in \mathbb{C}[G]$ is maps to $1$ in $\mathbb{C}$, there should exists $p_{i_0}$ such that $p_{i_0}$ is maps to non-zero $a$. Assume it is not $1$, then $\frac{1}{a}p_{i_0}$ maps to $1$, so $\sum_{i=1}^h p_i - \frac{1}{a}p_{i_0}$ maps to $0$. However,
+\begin{equation}
+    \phi:\left(\sum_{i=1}^h p_i - \frac{1}{a}p_{i_0}\right)p_{i_0} = \left(1-\frac{1}{a}\right)p_{i_0}^2 = \left(1-\frac{1}{a}\right)p_{i_0}\mapsto a-1\neq 0,
+\end{equation}
+which is contradiction. Therefore, $a=1$. Since $\phi(p_{i_0}p_j) = \phi(p_{i_0})\phi(p_j)=0$ for $j\neq i_0$, $\phi(p_j) = 0$ except $i_0$, and it should be same as $\omega_{i_0}$. It shows that each homomorphism of center of $\mathbb{C}[G]$ is equal to one of the $\omega_i$.\\
+
+\noindent \textbf{9}(\textbf{S} 6.6)
+Let $\{c_i\}_{i=1}^h$ be the conjugacy classes of $G$. The center of $\mathbb{C}[G]$ is $\oplus_{i=1}^h \mathbb{C}e_i$ where $e_i = \sum_{s\in c_i}s$. Therefore, $\oplus_{i=1}^h \mathbb{Z}e_i$ is contained in the center of $\mathbb{Z}[G]$. Conversely, if $u$ is in the center of $\mathbb{Z}[G]$, then $us = su$ for all $s\in G$ and $\mathbb{C}$ is in the center of $\mathbb{C}[G]$, so $uu' = u'u$ for all $u'\in \mathbb{C}[G]$. Therefore, $u\in \left(\oplus_{i=1}^h \mathbb{C}e_i\right)\cap \mathbb{Z}[G] = \oplus_{i=1}^h \mathbb{Z}e_i$.
+%________________________________________________________________________
+\end{document}
+
+%================================================================================
