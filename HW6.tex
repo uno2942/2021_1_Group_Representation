@@ -1,0 +1,306 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{HW6}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{1}(\textbf{S} 7.2)
+Using the definition of induced class function, we get
+\begin{equation}
+    \Ind_H^G(1_H)(s) = h^{-1}\sum_{\substack{t\in G\\ t^{-1}st\in H}}1_H(t^{-1}st).
+\end{equation}
+It is the number of $t\in G$ divided by $h$ such that $t^{-1}st\in H$, i.e. for given representatives $\{\sigma_i\}$ of $G/H$, the number of representatives satisfying $\sigma_i^{-1}s\sigma_i\in H$. Since $s\cdot (\sigma_i H) = \sigma_i H$ if and only if $\sigma_i^{-1}s\sigma_i\in H$, we get
+\begin{equation}
+    \Ind_H^G(1_H) = \chi.
+\end{equation}
+
+Now, we know $\Ind_H^G(1_H) = \chi$ and $\Res_H 1_G = 1_H$. Using the Frobenius reciprocity formula,
+\begin{equation}
+    1 = \langle 1_H, \Res_H 1_G\rangle = \langle \chi, 1_G\rangle.
+\end{equation}
+It means that the representation generating the character $\chi$ has one unit irreducible representation. Decomposing the representation into irreducible ones, we get $\chi = 1\oplus \theta$ for some (not necessarily irreducible) representation $\theta$ and the character of $\theta$ is $\chi-1$. (In fact, it may be 0: if $H=G$, then $\chi = 1_G$, so $\theta$ is $0$ representation. If $[G:H]\geq 2$, then it has dimension bigger than $1$, so $\theta$ is not $0$ representaion.)
+
+From the exercise 2.6, $\chi-1$ is irreducible if and only if $G$ acts on $G/H$ doubly transitively, or equivalently it satisfies $\langle \chi, \chi\rangle = 2$; note that $\chi(s)$ is real-valued for all $s$ as it is just counting representatives $\sigma_i$ making $\sigma_i^{-1}s\sigma_i\in H$. Definitely, $H$ is not a normal subgroup of $G$ if it is doubly transitive on $G/H$.\\
+
+\noindent \textbf{2}-\textbf{8}(\textbf{S} 7.3)
+\begin{enumerate}
+    \item[(a)] Since $H\cap tHt^{-1} = 1$ for all $t\not\in H$, for a represetation $\{r_i\}\subset G$ of $G/H$ with $r_1 = 1$, $H\cap r_iHr_i^{-1} = 1$ for $i\geq 2$. Also, for $i\neq j$ with $i,j\geq 2$, $H\cap r_1^{-1}r_2H(r_1^{-1}r_2)^{-1} = 1$, so $r_1Hr_1^{-1}\cap r_2Hr_2^{-1} = 1$. Finally, for any $t = r_ih\in G$, $tHt^{-1} = r_ihHh^{-1}r_i^{-1} = r_iHr_i^{-1}$. It shows that
+    \begin{equation}
+        N = G\setminus\left(\cup_{t\in G}tHt^{-1}\right) = G\setminus\left(\cup_{r\in R}rHr^{-1}\right),
+    \end{equation}
+    and
+    \begin{equation}
+        \abs{N} = \abs{G}-\abs{R}(\abs{H}-1)-1 = g-\frac{g}{h}(h-1)-1 = \frac{g}{h}-1.
+    \end{equation}
+    \item[(b)] Note that the conjugacy class of $1$ is always $1$. Let's define $\tilde{f}$ by
+    \begin{equation}
+        \tilde{f}(g) = \begin{cases}
+        f(h) & \textrm{if there exists $t\in G$ and $h\in H$ such that } tht^{-1} = g\\
+        f(1) & \textrm{if $g\in N$}.
+        \end{cases}
+    \end{equation}
+    I'll show that this is well-defined class function. If $s\not\in N$, there exists $t\in G$ and $h\in H$ such that $tht^{-1} = s$. Assume there exists another $t_1\in G$ and $h_1\in H$ making $t_1h_1t_1^{-1} = g$, then $h_1 = t_1^{-1}th(t_1^{-1}t)^{-1}$, so $f(h_1) = f(h)$. Therefore, it is well-defined function. Now, assume $h_1$ and $h_2$ are in a same conjugacy class in $G$, i.e. there exists $t\in G$ such that $th_1t^{-1} = h_2$. If $h_2\not\in N$, $h_1\not\in N$ and we get $\tilde{f}(h_1)=\tilde{f}(h_2)$ by the definition. If $h_2\in N$, then $h_1\in N$ and it also have same $\tilde{f}$ value. Therefore, it is a class function.
+    
+    I'll show the uniqueness. However, by the definition of $N$, there exists $t\in G$ such that $t^{-1}st\in H$ if and only if $s\in N^c$. Therefore, $\tilde{f}$ which extends $f$ and $\tilde{f}\equiv f(1)$ on $N$ is unique.
+    \item[(c)] I'll divide the case into three cases: $s=1$, $s\in N\setminus\{1\}$, and $s\in N^c\setminus\{1\}$.
+    \begin{enumerate}
+        \item[1.] If $s=1$, $\tilde{f}(1) = \frac{g}{h}f(1) - f(1)\left(\frac{g}{h}-1\right) = f(1)$.
+        \item[2.] If $s\in N\setminus\{1\}$, $\tilde{f}(s) = 0 - f(1)(0-1) = f(1)$, cf. the definition of induced character.
+        \item[3.] If $s\in N^c\setminus\{1\}$, then there exists $t\in G$ and $h\in H$ such that $tht^{-1} = s$. Since $s\neq 1$ and $H$ is a Frobenius subgroup of $G$, the only possible $t'$ making $(t')^{-1}st'\in H$ is $t'\in tH$. Therefore,
+        \begin{equation}
+            \Ind_H^G f(s) = \frac{1}{\abs{H}}\sum_{\substack{t'\in G\\(t')^{-1}st'\in H}}f((t')^{-1}st') = f(t^{-1}st) = f(h),
+        \end{equation}
+        and
+        \begin{equation}
+            \tilde{f}(s) = f(h) - f(1)(1_H(h)-1_G(s)) = f(h).
+        \end{equation}
+    \end{enumerate}
+    \item[(d)] In the proof of (c), note that for any $s\in H$, $\tilde{f}(s) = \Ind_H^Gf(s)$. Therefore, $\Res_H\Ind_H^Gf(s) = f(s)$ for any class function $f$. There is no confusion about the subscript $G$ and $H$ of inner product, so I'll omit it. Also, note that $f(1)\in\mathbb{R}$.
+    \begin{equation}
+    \begin{split}
+        \langle \tilde{f}, \tilde{f}\rangle &= \langle \Ind_H^G f - f(1)(\Ind_H^G(1_H)-1), \Ind_H^G f - f(1)(\Ind_H^G(1_H)-1_G)\rangle \\
+        &=\langle \Ind_H^G f, \Ind_H^G f \rangle - 2f(1)\langle \Ind_H^G f, \Ind_H^G(1_H)-1\rangle + \left(f(1)\right)^2\langle \Ind_H^G(1_H)-1_G, \Ind_H^G(1_H)-1_G\rangle\\
+        &=\langle \Ind_H^G f, \Ind_H^G f \rangle - 2f(1)\left(\langle \Ind_H^G f, \Ind_H^G(1_H)\rangle - \langle \Ind_H^G f, 1_G\rangle\right)\\
+        &\phantom{=}+\left(f(1)\right)^2\left(\langle \Ind_H^G(1_H), \Ind_H^G(1_H)\rangle-2\langle \Ind_H^G(1_H), 1_G\rangle +\langle 1_G, 1_G\rangle\right)\\
+        &=\langle f, \Res_H\Ind_H^G f \rangle - 2f(1)\left(\langle f, \Res_H\Ind_H^G(1_H)\rangle-\langle f, 1_H\rangle\right)\\
+        &\phantom{=}+\left(f(1)\right)^2\left(\langle 1_H, \Res_H\Ind_H^G(1_H)\rangle -2\langle 1_H, \Res_H(1_G)\rangle + \langle 1_G, 1_G\rangle\right)\\
+        &=\langle f, \Res_H\Ind_H^G f \rangle - 2f(1)\left(\langle f, 1_H\rangle-\langle f, 1_H\rangle\right)+\left(f(1)\right)^2\left(\langle 1_H, 1_H\rangle -2\langle 1_H, 1_H\rangle + \langle 1_G, 1_G\rangle\right)\\
+        &=\langle f, f\rangle.
+    \end{split}
+    \end{equation}
+    In the third to fourth line, I used the Frobenius reciprocity formula.
+    \item[(e)] Since $\tilde{f}(1)=f(1)$ and $f(1)\in\mathbb{Z}_{\geq 0}$, $\tilde{f}\in \mathbb{Z}_{\geq 0}$. Also, $\langle \tilde{f}, \tilde{f}\rangle = \langle f, f\rangle = 1$. Note that we don't know whether $\tilde{f}$ is a character now on. 
+    
+    For any irreducible representation $\varphi$ of $G$,
+    \begin{equation}
+    \begin{split}
+        \langle \varphi, \tilde{f}\rangle &= \langle \varphi, \Ind_H^G f\rangle  - f(1)\langle \varphi, \Ind_H^G 1_H - 1_G\rangle \\
+        &=\langle \Res_H\varphi,  f\rangle  - f(1)\left(\langle \Res_H\varphi, 1_H\rangle - \langle \varphi, 1_G\rangle\right).
+    \end{split}
+    \end{equation}
+    Since $f$ and $1_H$ are irreducible characters of $H$, $\Res_H \varphi$ is a character, and $1_G$ is an irreducible character of $G$, all the terms in the above equation are in $\mathbb{Z}_{\geq 0}$. Therefore, $\tilde{f}$ is a linear combination with integer coefficients of irreducible character of $G$. Note that we don't know whether $\tilde{f}$ is a character in this step since the coefficient may be negative. Let's write $\tilde{f} = \sum_{i=1}^m n_i \varphi_i$ where $n_i\in\mathbb{Z}$ and $\varphi_i$ are irreducible characters of $G$, then
+    \begin{equation}
+        \langle \tilde{f}, \tilde{f}\rangle = \sum_{i=1}^m n_i^2
+    \end{equation}
+    and it is $1$ if and only if $n_i=0$ except one $i$, which should be $\pm 1$. Also, if the coefficient were $1$, $\tilde{f}(1)<0$, which is not true. Therefore, $\tilde{f}$ is an irreducible character of $G$.
+    
+    Since $\tilde{f}(1) = f(1) = \tilde{f}(n)$ for all $n\in N$ and $\tilde{f}(1)$ represents the degree of the representation corresponding to the character, using exercise 6.7, we get $\rho(s) = 1$ for all $s\in N$.
+    
+    \item[(f)] Let $\rho:H\rightarrow GL(V)$ be an irreducible representation of $H$. By the previous analysis, the character $\chi$ of $\rho$ extends to an irreducible character $\chi'$ of $G$; let the corresponding irreducible representation $\rho'$. Since $\Res_H \rho'$ have the same character as $\rho$ as checked above, it is isomorphic to $\rho$, which explains the term "extension".
+    
+    Any linear representation $\rho$ of $H$ is decomposed into irreducible ones and the character becomes the sum of the irreducible characters. Since $\Ind_H^G$ and $\Res_H$ are linear maps for class functions, the above arguments applies to each irreducible character consisting the character function. Finally, the sum of extended irreducible character is a character of some linear representation $\rho'$ of $G$, which can be considered as a extension of $\rho$ since $\Res_H \rho'$ is isomorphic to  $\rho$ by the same reason above.
+    
+    $\rho' = \oplus_{i=1}^m \rho'_i$ where $\rho'_i$ is the extension of irreducible representation $\rho_i$ of $H$ and $\rho'_i(n) = 1$ for all $n\in N$ and $i$, so $\rho'(n) = 1$. Therefore, $(\rho')^{-1}(1)$ contains $N\cup {1}$. If $N\cup {1}$ forms a subgroup in $G$, it is a normal subgroup of $G$ as a subgroup of the kernel. Also, $(N\cup \{1\})\cap H = 1$, so if $n_1h_1 = n_2h_2$ in $(N\cup \{1\})H$, $n_2^{-1}n_1 = h_2h_1^{-1}\in (N\cup \{1\})\cap H$, so $n_1=n_2$ and $h_1=h_2$, which implies $\abs{(N\cup \{1\})H} = \abs{N\cup \{1\}}\abs{H} = g$ and $(N\cup \{1\})H = G$ as a set. As a result, $G$ is the semidirect product of $H$ and $N\cup \{1\}$.
+    
+    To end the proof, I need to show that $N\cup \{1\}$ is a subgroup of $G$. Consider a regular representation $r_H$ of $H$. The character $\chi$ of $r_H$ is $0$ except at $1$, $\abs{H}$. Therefore,
+    \begin{equation}
+        \tilde{\chi}(s) = \begin{cases}
+        n & s\in N\cup \{1\}\\
+        0 & s\in (N\cup \{1\})^c.
+        \end{cases}
+    \end{equation}
+    which means that the kernel of extension of $r_H$ is exactly $N\cup \{1\}$. It shows that $N\cup \{1\}$ is a normal subgroup of $G$.
+    \item[(g)] I'll write $H^* = H\setminus\{1\}$ and $A^* = A\setminus \{1\}$. If $H$ is a Frobenius subgroup of $G$, then the latter statement is easily followed by the definition since $A^*\cap H^* = \emptyset$, for each $s\in H^*$ and $t\in A^*$, $t\not\in H$ and $tst^{-1}\neq s$. Hence, I'll show the converse. Assume there exists $h\in H^*$ and $t\not\in H$ such that $tht^{-1}\in H$. Writing $G = A\rtimes H$, $t = (a',1)(1,h')$ for some $a'\in A^*$ and $h'\in H$. Therefore,A
+    \begin{equation}
+        tht^{-1} = (a', 1)(1,h'h(h')^{-1})((a')^{-1}, 1)\in H
+    \end{equation}
+    Since $h\in H^*$, $h'h(h')^{-1}\in H^*$. It means that $a'((h'h(h')^{-1})\cdot (a')^{-1}) = 1$ in $A$. By replacing $t = ((a')^{-1},1)$, $s = (1,h'h(h')^{-1})$,
+    \begin{equation}
+        sts^{-1} = (1,h'h(h')^{-1})((a')^{-1},1)(1,h'h^{-1}(h')^{-1}) = ((h'h(h')^{-1})\cdot (a')^{-1}, 1) = ((a')^{-1}, 1) = t
+    \end{equation}
+    which contradicts the assumption. Therefore, $H$ is a Frobenius subgroup of $G$.
+\end{enumerate}
+
+\noindent \textbf{9}(\textbf{S} 7.9)
+    Let's first configure what is $H_s$. For $s = \begin{pmatrix}\alpha & \beta\\ \gamma & \delta
+    \end{pmatrix}$ and $t = \begin{pmatrix}
+    a & b\\ 0 & d
+    \end{pmatrix}$, $sts^{-1}$ is
+\begin{equation}
+    \begin{pmatrix}
+    \alpha & \beta\\
+    \gamma & \delta
+    \end{pmatrix}\begin{pmatrix}
+    a & b \\ 0 & d
+    \end{pmatrix}\begin{pmatrix}
+    \delta & -\beta\\
+    -\gamma & \alpha
+    \end{pmatrix} = \begin{pmatrix}
+    a\alpha\delta - b\alpha\gamma - d\gamma\beta & -a\alpha\beta + b\alpha^2+d\alpha\beta\\
+    a\gamma\delta - b\gamma^2 - d\gamma\delta & -a\beta\gamma + b\alpha\gamma + d\alpha\delta
+    \end{pmatrix}
+\end{equation}
+To make it be contained in $H$, we need to impose $a\gamma\delta - b\gamma^2 - d\gamma\delta = 0$. Assume $s\not\in H$, then $\gamma\neq 0$, so $\delta(a-d)-b\gamma = 0$. Therefore,
+\begin{equation}
+    \begin{pmatrix}
+    a\alpha\delta - b\alpha\gamma - d\gamma\beta & -a\alpha\beta + b\alpha^2+d\alpha\beta\\
+    a\gamma\delta - b\gamma^2 - d\gamma\delta & -a\beta\gamma + b\alpha\gamma + d\alpha\delta
+    \end{pmatrix} = \begin{pmatrix}
+    d & -a\alpha\beta + b\alpha^2+d\alpha\beta\\
+    0 & a
+    \end{pmatrix}
+\end{equation}
+using $\alpha\delta-\gamma\beta = 1$. Also,
+\begin{equation}
+    \gamma(-a\alpha\beta + b\alpha^2+d\alpha\beta) = \alpha(-a\beta\gamma + \delta(a-d)\alpha + d\gamma\beta) = \alpha(a-d),
+\end{equation}
+so
+\begin{equation}
+    \begin{pmatrix}
+    d & -a\alpha\beta + b\alpha^2+d\alpha\beta\\
+    0 & a
+    \end{pmatrix} = \begin{pmatrix}
+    d & \alpha\gamma^{-1}(a-d)\\
+    0 & a
+    \end{pmatrix}
+\end{equation}
+Therefore, 
+\begin{equation}
+    H_s = \left\{\begin{pmatrix}
+    d & \alpha\gamma^{-1}(a-d) \\ 0 & a
+    \end{pmatrix}:ad=1\right\}.
+\end{equation}
+Therefore, for $s\not\in H$,
+\begin{equation}
+\begin{split}
+    \langle \rho^s, \Res_{H_s}(\rho) \rangle &= \frac{1}{\abs{H_s}}\sum_{t\in H_s}\rho^s(t^{-1})\left(\Res_{H_s}\rho\right)(t) \\
+    &=\frac{1}{k}\sum_{d\in k\setminus\{0\}}\chi_\omega^s\left(\begin{pmatrix}
+    a & -\alpha\gamma^{-1}(a-d)\\ 0 & d
+    \end{pmatrix}\right)\chi_\omega\left(\begin{pmatrix}
+    d & \alpha\gamma^{-1}(a-d) \\ 0 & a
+    \end{pmatrix}\right)\\
+    &=\frac{1}{k}\sum_{d\in k\setminus\{0\}}\chi_\omega\left(\begin{pmatrix}
+    d & -b\\ 0 & a
+    \end{pmatrix}\right)\chi_\omega\left(\begin{pmatrix}
+    d & \alpha\gamma^{-1}(a-d) \\ 0 & a
+    \end{pmatrix}\right) = \frac{1}{\abs{k}}\sum_{d\in k\setminus\{0\}}\omega^2(d)
+\end{split} 
+\end{equation}
+Assume $\omega^2\neq 1$. Since $k$ is finite field, $k^*$ is a cyclic group about an element $x\in k^*$.(cf. \textbf{D\&F} proposition 9.18.) Therefore, $\omega^2(x)\neq 1$ is a root of unity such that the order of $\omega^2(x)$ divides $\abs{k}-1$. It shows that
+\begin{equation}
+    \sum_{d\in k\setminus\{0\}}\omega^2(d) = \sum_{i=1}^{\abs{k}-1}\left(\omega^2(x)\right)^i = 0.
+\end{equation}
+Now, the induced representation satisfies all the conditions in the Mackey's criterion, so it is irreducible. (Since $\chi_\omega$ is the character of degree 1, the condition (a) is automatically satisfied.)
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

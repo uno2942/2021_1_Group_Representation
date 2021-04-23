@@ -1,0 +1,352 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{MID}
+\end{center}
+박성빈, 수학과, 20202120\\
+
+\noindent \textbf{1}
+Let $\xi = e^{\frac{2\pi i}{g}}$ and $c$ be the generator of the cyclic group $G$, i.e. $\abs{c} = g$. Define 
+\begin{equation}
+    \rho^k:G\rightarrow \mathbb{C}^\times\coloneqq \{c\in \mathbb{C}:\abs{c}=1\}\subset GL_1\mathbb{C}
+\end{equation}
+by $\rho^k(c^h) = e^{\frac{2\pi ihk}{g}}$ for $k,h\in \{0, 1, \ldots, g-1\}$. For each $k$, it is a group homomorphism from $G$ to $\mathbb{C}^\times$ since 
+\begin{equation}
+    \rho^k(c^{h_1}c^{h_2}) = e^{\frac{2\pi ih_1k}{g}}e^{\frac{2\pi ih_2k}{g}} = e^{\frac{2\pi i(h_1+h_2)k}{g}} = \rho^k(c^{h_1+h_2\mod g}),
+\end{equation}
+therefore it is a representation for each $k$. Since it is degree 1, $\rho^k$ are itself a characterstic function for each $k$, and irreducible. Finally, each characterstic are pairwisely non-isomorphic: for $k_1,k_2\in \{0, \ldots, g-1\}$,
+\begin{equation}
+\begin{split}
+    \langle \rho^{k_1}, \rho^{k_2}\rangle &= \frac{1}{g}\sum_{h=0}^{g-1}\exp\left(\frac{-2\pi ihk_1}{g}\right)\exp\left(\frac{2\pi ihk_2}{g}\right)\\
+    &=\frac{1}{g}\sum_{h=0}^{g-1}\exp\left(\frac{2\pi i(k_2-k_1)h}{g}\right)\\
+    &=g^{-1}\frac{\exp\left(2\pi i(k_2-k_1)\right)-1}{\exp\left(2\pi i(k_2-k_1)/g\right) - 1} = 0
+\end{split}
+\end{equation}
+if $k_1\neq k_2$. The $\rho^k$ are all the irreducible representations of $G$ since the number of $\rho^k$ is same as the degree of $g$, i.e. from the corollary 2 of proposition 5, $\sum_{i=0}^{g-1}1 = g$.\\
+
+\noindent \textbf{2}
+Let $F = \{f:G\rightarrow \mathbb{C}\}$. This is a $\mathbb{C}$ vector space as it satisfies all the vector space axioms. Set $f_s\in F$
+\begin{equation}
+    f_s(t) = \begin{cases}
+    1 & s=t\\
+    0 & s\neq t.
+    \end{cases}
+\end{equation}
+Now, let's give a $G$ action to $F$ as following. For $f\in F$ and $s,t\in G$,
+\begin{equation}
+    (s\cdot f)(t) = f(s^{-1}t),
+\end{equation}
+then it is a well-defined group action on $F$ since for $s_1,s_2\in G$,
+\begin{equation}
+    (s_1s_2\cdot f)(t) = f((s_1s_2)^{-1}t) =f(s_2^{-1}s_1^{-1}t)= (s_1\cdot (s_2\cdot f))(t).
+\end{equation}
+Also, using the basis $f_t$ for $t\in G$, $s$ acts on $f_t$ transitively. It shows that $\rho_s$ in the basis $F_t$ is in $GL(F)$. Finally, consider a group ring $\mathbb{C}[G]$ by extending the action linearly on $\mathbb{C}$: for $u=\sum_{s\in G}u_s s$ for $c_s\in\mathbb{C}$,
+\begin{equation}
+    u\cdot f = \sum_{s\in G}c_s (s\cdot f),
+\end{equation}
+then it makes $F$ have $\mathbb{C}[G]$ module structure, which generates the $G$-representation on $F$.
+
+I'll show that this is equivalent to regular representation in representation sense. Let's construct a vector space homomorphism $\varphi:F\rightarrow \mathbb{C}[G]$. Set $\varphi(f_s) = s$. Since $F$ forms a basis of the vector space, extending the domain $\mathbb{C}$ linearly defines the well-defined vector space homomorphism $\varphi$. Also, for any $u = \sum_{s\in G}u_s s\in \mathbb{C}[G]$, $\varphi:u_sf_s\mapsto u$, so it is surjection. Since both spaces have same dimension, it is an vector space isomorphism.
+
+I'll show that it is an representation isomorphism: it is enough to show that for any $t\in G$, $\varphi(t\cdot f_s) = t\cdot \varphi(f_s)$ as we'll see at last, but
+\begin{equation}
+    \varphi(t\cdot f_s) = \varphi(f_{ts}) = t\cdot s = t\cdot \varphi(f_s)
+\end{equation}
+Finally, for $u=\sum_{t\in G}u_t t$ and $f = \sum_{s\in G}c_s f_s$,
+\begin{equation}
+    \varphi(u\cdot f) = \sum_{t,s\in G}u_tc_s\varphi(t\cdot f_s) = \sum_{t,s\in G}u_tc_s\varphi(f_{ts}) = \left(\sum_{t\in G}u_tt\right)\cdot \left(\sum_{s\in G}\varphi(c_s f_s)\right) = u\cdot \varphi(f)
+\end{equation}
+It shows that the two representations are isomorphic.\\
+
+\noindent \textbf{3}
+One is using conjugacy classes: let $\{c_i\}_{i=1}^h$ be the set of conjugacy classes of $G$. By the definition of the class function, for any class function $f$, it has same values on the same conjugacy classes. Choose a representatives for each conjugacy classes and write the set $R=\{r_1,\ldots, r_h\}$, and let's denote $e_i:G\rightarrow \mathbb{C}$ a function such that $e_i(s) = 1$ if $s\in c_i$ and $0$ else. Now, we can write
+\begin{equation}
+    f(s) = \sum_{i=1}^h f(r_i)e_i.
+\end{equation}
+Now, the $e_i$ is the basis of the class function.
+
+Second is using irreducible characteristic functions. In the class, we already checked that the irreducible characteristic functions on $G$ forms a orthonormal basis in the space of class functions under the inner product $(\phi_1, \phi_2) = g^{-1}\sum_{s\in G}\phi_1(s)\phi_2(s)^*$ for $\phi_1,\phi_2$ class functions.\\
+
+\noindent \textbf{4}
+Let's extend the space $X$ and $X\times X$ to $\mathbb{C}[X]$ and $\mathbb{C}[X\times X]$ to apply linear algebra; the group action is well-defined in the extended space. Fix $s\in G$ and consider $\rho_s$. Since $\abs{s}<\infty$, $(\rho_s)^{\abs{s}} = I$, and the minimal polynomial of $\rho_s$ should divide $x^{\abs{s}}-1$. Since our scalar is $\mathbb{C}$, $x^{\abs{s}}-1$ is a separable polynomial and completely split into degree one monic polynomials in $\mathbb{C}[x]$. Using standard theory of linear algebra, $\rho_s$ is diagonalizable with eigenvalues root of unity. Since our vector space is $\mathbb{C}[X] = \{\sum_{x\in X}c_x x:c_x\in \mathbb{C}\}$, let $\{\xi_i\}_{i=1}^{\abs{X}}$ be eigenvectors of $\rho_s$ with corresponding eigenvalues $\lambda_i$ accepting multiplicity, i.e. $\lambda_i$ are not necessarily distinct. Note that $\{\xi_i\}_{i=1}^{\abs{X}}$ spans $\mathbb{C}[X]$ and
+\begin{equation}
+    \chi(s) = \sum_{i=1}^{\abs{X}} \lambda_i.
+\end{equation}
+For further analysis, I'll write $\xi_i = \sum_{x\in X} c_{ix}x$. Note that $s\xi_i = \sum_{x\in X} c_{ix}sx = \lambda_i\sum_{x\in X} c_{ix}x$
+
+Now, consider $\sum_{x,x'\in X}c_{ix}c_{jx'}(x,x')\in \mathbb{C}[X\times X]$ for $1\leq i,j\leq n$. For readability, I'll write the element $(\xi_i, \xi_j)$. Now, we get
+\begin{equation}
+\begin{split}
+    s\cdot (\xi_i, \xi_j) &= \sum_{x, x'\in X}c_{ix}c_{jx'}(sx,sx')=\sum_{x'\in X}c_{jx'}\sum_{x\in X}c_{ix}(sx,sx')\\
+    &=\sum_{x'\in X}c_{jx'}\sum_{x\in X}\lambda_ic_{ix}(x,sx')=\lambda_i\sum_{x\in X}c_{ix}\sum_{x'\in X}c_{jx'}(x,sx')\\
+    &=\lambda_i\sum_{x\in X}c_{ix}\sum_{x'\in X}\lambda_j c_{jx'}(x,x')=\lambda_i\lambda_j\sum_{x, x'\in X} c_{ix}c_{jx'}(x,x')\\
+    &=\lambda_i\lambda_j(\xi_i, \xi_j).
+\end{split}
+\end{equation}
+It shows that $(\xi_i, \xi_j)$ are the eigenvectors of $\rho_s$ acting on $\mathbb{C}[X\times X]$. Furthermore, $(\xi_i, \xi_j)$ spans $\mathbb{C}[X\times X]$: for any $(a,b)\in \mathbb{C}[X\times X]$, there exists $c_i$ and $d_j$ such that $\sum_{i}c_i \xi_i = a$ and $\sum_j d_j \xi_j = b$, and
+\begin{equation}
+    \sum_{i,j}c_id_j(\xi_i,\xi_j) = \sum_j d_j\sum_{i}c_i(\xi_i,\xi_j) = \sum_j d_j(a,\xi_j) = (a,b).
+\end{equation}
+For linearly independence, the linearly independency of $\xi_i$ and the same technique can be applied to show it. It shows that $(\xi_i,\xi_j)$ is the complete eigenvector set of the representation of $s$ on $X\times X$.
+
+Computing the trace, we get
+\begin{equation}
+    \sum_{i,j}\lambda_i\lambda_j = \sum_{j}\lambda_j\sum_{i}\lambda_i = \chi^2(s).
+\end{equation}
+It ends the proof.\\
+
+\noindent \textbf{5}
+Let $\chi$ be a character of $G$ such that it is zero except $s=1$. Let $1_G(s) = 1$ for all $s$, then it is an irreducible character of unit representation. Therefore,
+\begin{equation}
+    \langle \chi, 1_G\rangle = g^{-1}\sum_{s\in S}\chi(s^{-1})1_G(s) = g^{-1}\chi(1)\in\mathbb{Z}_{\geq 0}.
+\end{equation}
+(By decomposing $\chi$ into the sum of irreducible characters of $G$, the above equation is just counting the same characters as $1_G$.) Therefore $r_G(1) = g\mid \chi(1)$, and as $r_G(s)=0$ except $s=1$, $\chi$ is an integer multiple of $r_G$.\\
+
+\noindent \textbf{6}
+Let $(\rho, V)$ be a irreducible representation of an abelian group $G$. Fix $s\in G$, then for any $t\in G$, $st = ts$, so
+\begin{equation}
+    \rho_s\rho_t = \rho_{st} = \rho_{ts} = \rho_t\rho_s.
+\end{equation}
+This is true for all $t\in G$, and $\rho_s$ can be viewed as a linear map from $V$ to $V$. Therefore, by Schur's lemma, $\rho_s$ is a homothety. This is true for all $s\in G$ implying all the $\rho^s$ are homothety. Let's write $\rho^s = \lambda_s I$. 
+
+Choose a non-zero element $v\in V$, then $\rho^s(v) = \lambda_s v$ for all $s$. It shows that $\spn\{v\}$ forms a $\mathbb{C}[G]$ stable subspace of $V$. Since $V$ is irreducible, it means that $V=\spn\{v\}$ and $\dim_\mathbb{C} V = 1$. Therefore, the degree of $\rho$ is 1.\\
+
+\noindent \textbf{7}
+I'll use two fact: 1. Let $H$ be a subgroup of $G$. The regular representation $r_G$ of $G$ is induced by the regular representation $r_H$ of $H$. 2. For representation $\theta_1,\theta_2$ of $H$, $\Ind_H^G \left(\theta_1\oplus \theta_2\right) = \Ind_H^G \theta_1\oplus \Ind_H^G \theta_2$.
+
+Let's write $\{(\theta_i, W_i)\}_{i=1}^m$ be all the irreducible representations of $H$ and $\{(\rho_j, V_j)\}_{j=1}^l$ be all the irreducible representations of $G$, then we know that
+\begin{equation}
+    r_H\simeq \oplus_{i=1}^m \oplus_{j=1}^{n_i}\theta_i
+\end{equation}
+where $n_i$ is the degree of $\theta_i$. Also, using fact 2, we get
+\begin{equation}
+    \oplus_{i=1}^l \oplus_{j=1}^{\deg\rho_i}\rho_i\simeq r_G\simeq \Ind_H^G r_H \simeq \oplus_{i=1}^m \oplus_{j=1}^{n_i}\Ind_H^G \theta_i.
+\end{equation}
+Now, decompose $\Ind_H^G \theta_i$ into irreducible representations in $G$. Since both side are isomorphic in representation sense, each irreducible representations in LHS should be corresponds to some irreducible components of some $\Ind_H^G \theta_i$. It proves the statement of the problem.
+
+I'll show the fact I used: first, the regular representation $(r_H, \mathbb{C}[H])$ of $H$ induces the regular representation $(r_G, \mathbb{C}[G])$ of $G$. To show this, it is enough to show that $\mathbb{C}[G]\otimes_{\mathbb{C}[H]}\mathbb{C}[H]$ is $\mathbb{C}[G]$ module isomorphic to $\mathbb{C}[G]$. Let $\varphi:\mathbb{C}[G]\times\mathbb{C}[H]\rightarrow \mathbb{C}[G]$ by defining $(s,t)\mapsto st$ for $s\in G$ and $t\in H$, and extending to satisfy $\mathbb{C}$-linearlity. Since $H\leq G$, it is well-defined $\mathbb{C}[H]$-balanced map, so by the universal property, it can be extended to a group homomorphism $\Phi:\mathbb{C}[G]\otimes_{\mathbb{C}[H]}\mathbb{C}[H]\rightarrow \mathbb{C}[G]$. Furthermore, $\mathbb{C}[G]$ has $(\mathbb{C}[G],\mathbb{C}[H])$ bimodule structure, so $\mathbb{C}[G]\otimes_{\mathbb{C}[H]}\mathbb{C}[H]$ has well-defined left $\mathbb{C}[G]$ action given by $s_1(s_2\otimes t) = s_1s_2\otimes t$ for $s_1,s_2\in \mathbb{C}[G]$ and $t \in \mathbb{C}[H]$. Finally, $\Phi(s\otimes 1) = s$, so it is surjective and if $\Phi(\sum_i s_i\otimes t_i) = \Phi(\sum_i s_it_i\otimes 1) = \sum_i s_i t_i = 0$, then $\sum_i s_it_i\otimes 1 = 0$, so it is injective. Also, it conserves the $\mathbb{C}[G]$ action. Therefore, it is $\mathbb{C}[G]$ module isomorphism, implying it is a group representation isomorphism of $G$.
+
+Second one is just the elementary property of tensor product:
+\begin{equation}
+    \mathbb{C}[G]\otimes_{\mathbb{C}[H]}(W_1\oplus W_2) \simeq \left(\mathbb{C}[G]\otimes_{\mathbb{C}[H]}W_1\right)\oplus \left(\mathbb{C}[G]\otimes_{\mathbb{C}[H]}W_2\right)
+\end{equation}
+as left $\mathbb{C}[G]$ module since $\mathbb{C}[G]$ is $(\mathbb{C}[G],\mathbb{C}[H])$ bimodule and $W_i$ are left $\mathbb{C}[H]$ module.
+\\
+
+\noindent \textbf{8}
+Since the eigenvalues of $\rho(s)$ have absolute value $1$,
+\begin{equation}
+    \abs{\chi(s)} = \abs{\sum_{i=1}^n \lambda_i}\leq \sum_{i=1}^n\abs{\lambda_i} = n.
+\end{equation}
+($\lambda_i$ are the eigenvalues of $\rho(s)$.) The equality holds if any only if $\lambda_i = \sigma_i \lambda$ for some $\lambda\in \mathbb{C}$ with $\abs{\lambda} = 1$ and $\sigma_i = \pm 1$ with $\sigma_i\sigma_j>0$ for all $i,j$; considering $\mathbb{C}$ by $\mathbb{R}^2$, $\lambda = \sum_i \lambda_i$ and $\lambda\cdot \lambda = \sum_i \abs{\lambda_i}^2 + \sum_{i<j}\lambda_i\cdot \lambda_j$. To make $\lambda\cdot \lambda = n^2$, we need to impose $\lambda_i\cdot \lambda_j = 1$, which implies all the $\lambda_i$ points same direction since all $\lambda_i$ have absolute value $1$. It shows that $\rho(s)$ is homothety if and only if $\abs{\chi(s)}= n$ as the multiple of identity matrix have the same form under any similar transformation. If $\chi(s) = n$, then $\lambda_i=1$ for all $i$ and $\rho(s)$ is a homothety, which means that $\rho(s) = 1$.\\
+
+\noindent \textbf{9}
+\begin{enumerate}
+    \item[(a)] Let $V'$ be a $\mathbb{C}[G]$-module and $f:W\rightarrow V$ be a $\mathbb{C}[H]$ module homomorphism. Let $i:W\rightarrow \Ind_H^G W$ by inclusion, i.e. if I use a representatives $R = \{\sigma_1, \ldots, \sigma_n\}$ of $G/H$ and $\Ind_H^G W = \oplus_{i=1}^n \sigma_iW_i$ as in the textbook, $i(w) = (w,0,0,\ldots, 0)$ for $w\in W$. Note that $i$ is $\mathbb{C}[H]$ homomorphism. The universal property of $\Ind_H^G W$ means that there exists a well-defined unique $\mathbb{C}[G]$-homomorphism satisfying the commutative diagram.
+    \begin{figure}[h]
+        \centering
+         \begin{tikzcd}
+         W \arrow{r}{i} \arrow[swap]{dr}{f} & \Ind_H^G W \arrow[dashed,->]{d}{F} \\
+         & V
+  \end{tikzcd}
+    \end{figure}
+    \item[(b)] The Frobenius reciprocity for two representations $(\rho_1, W)$ of $H$ and $(\rho_2, V)$ of $G$ can be given as following:
+    \begin{equation}
+        \Hom_H\left(W, \Res_H V\right) \simeq \Hom_G\left(\Ind_H^G W, V\right).
+    \end{equation}
+    (I'll specify the sort of isomorphism.) (If we consider $W$ as a $\mathbb{C}[H]$ module and $V$ as a $\mathbb{C}[G]$ module, the information of the represenation on each vector space is already contained in the space.)
+    The proof is simple if we use the universal property. Any $\mathbb{C}[H]$ module homomorphism from $W$ to $\Res_H V$ considering $V$ as a $\mathbb{C}[H]$ module is uniquely extends to $\mathbb{C}[G]$ module homomorphism $F:\Ind_H^G W\rightarrow V$. Conversely, any $\mathbb{C}[G]$ module homomorphism $F:\Ind_H^G W\rightarrow V$ can makes $f:W\rightarrow V$ by setting $f = F\circ i$. Finally, the uniqueness of the universal property guarantees that the extension of $F\circ i$ is again $F$. It shows that if I define $\Psi:\Hom_H\left(W, \Res_H V\right)\rightarrow \Hom_G\left(\Ind_H^G W, V\right)$ by $\Psi(f) = F$, then it is a bijective function. Furthermore, for any $f_1,f_2\in \Hom_H\left(W, \Res_H V\right)$ and $c\in \mathbb{C}$, $\Psi(cf_1+f_2) = c\Psi(f_1)+\Psi(f_2)$, which shows that $\Psi$ can be considered as $\mathbb{C}$ vector space isomorphism.
+\end{enumerate}
+
+\noindent \textbf{10}
+    Let's first configure what is $H_s$. For $s = \begin{pmatrix}\alpha & \beta\\ \gamma & \delta
+    \end{pmatrix}$ and $t = \begin{pmatrix}
+    a & b\\ 0 & d
+    \end{pmatrix}$ in $SL_2(k)$, $sts^{-1}$ is
+\begin{equation}
+    \begin{pmatrix}
+    \alpha & \beta\\
+    \gamma & \delta
+    \end{pmatrix}\begin{pmatrix}
+    a & b \\ 0 & d
+    \end{pmatrix}\begin{pmatrix}
+    \delta & -\beta\\
+    -\gamma & \alpha
+    \end{pmatrix} = \begin{pmatrix}
+    a\alpha\delta - b\alpha\gamma - d\gamma\beta & -a\alpha\beta + b\alpha^2+d\alpha\beta\\
+    a\gamma\delta - b\gamma^2 - d\gamma\delta & -a\beta\gamma + b\alpha\gamma + d\alpha\delta
+    \end{pmatrix}
+\end{equation}
+To make it in $H$, we need to impose $a\gamma\delta - b\gamma^2 - d\gamma\delta = 0$. Assume $s\not\in H$, then $\gamma\neq 0$, so $\delta(a-d)-b\gamma = 0$. Therefore,
+\begin{equation}
+    \begin{pmatrix}
+    a\alpha\delta - b\alpha\gamma - d\gamma\beta & -a\alpha\beta + b\alpha^2+d\alpha\beta\\
+    a\gamma\delta - b\gamma^2 - d\gamma\delta & -a\beta\gamma + b\alpha\gamma + d\alpha\delta
+    \end{pmatrix} = \begin{pmatrix}
+    d & -a\alpha\beta + b\alpha^2+d\alpha\beta\\
+    0 & a
+    \end{pmatrix}
+\end{equation}
+using $\alpha\delta-\gamma\beta = 1$. Also,
+\begin{equation}
+    \gamma(-a\alpha\beta + b\alpha^2+d\alpha\beta) = \alpha(-a\beta\gamma + \delta(a-d)\alpha + d\gamma\beta) = \alpha(a-d),
+\end{equation}
+so
+\begin{equation}
+    \begin{pmatrix}
+    d & -a\alpha\beta + b\alpha^2+d\alpha\beta\\
+    0 & a
+    \end{pmatrix} = \begin{pmatrix}
+    d & \alpha\gamma^{-1}(a-d)\\
+    0 & a
+    \end{pmatrix}
+\end{equation}
+Therefore, 
+\begin{equation}
+    H_s = \left\{\begin{pmatrix}
+    d & \alpha\gamma^{-1}(a-d) \\ 0 & a
+    \end{pmatrix}:ad=1\right\}.
+\end{equation}
+Therefore, for $s\not\in H$,
+\begin{equation}
+\begin{split}
+    \langle \rho^s, \Res_{H_s}(\rho) \rangle &= \frac{1}{\abs{H_s}}\sum_{t\in H_s}\rho^s(t^{-1})\left(\Res_{H_s}\rho\right)(t) \\
+    &=\frac{1}{\abs{H_s}}\sum_{d\in k\setminus\{0\}}\chi_\omega^s\left(\begin{pmatrix}
+    a & -\alpha\gamma^{-1}(a-d)\\ 0 & d
+    \end{pmatrix}\right)\chi_\omega\left(\begin{pmatrix}
+    d & \alpha\gamma^{-1}(a-d) \\ 0 & a
+    \end{pmatrix}\right)\\
+    &=\frac{1}{\abs{H_s}}\sum_{d\in k\setminus\{0\}}\chi_\omega\left(\begin{pmatrix}
+    d & -b\\ 0 & a
+    \end{pmatrix}\right)\chi_\omega\left(\begin{pmatrix}
+    d & \alpha\gamma^{-1}(a-d) \\ 0 & a
+    \end{pmatrix}\right) = \frac{1}{\abs{H_s}}\sum_{d\in k\setminus\{0\}}\omega^2(d)
+\end{split} 
+\end{equation}
+Assume $\omega^2\neq 1$. Since $k$ is finite field, $k^*$ is a cyclic group about an element $x\in k$. Therefore, $\omega^2(x)\neq 1$ is a root of unity such that the order of $\omega^2(x)$ divides $\abs{k}-1$. It shows that
+\begin{equation}
+    \sum_{d\in k\setminus\{0\}}\omega^2(d) = \sum_{i=1}^{\abs{k}-1}\left(\omega^2(x)\right)^i = 0.
+\end{equation}
+Now, the induced representation satisfies all the conditions in proposition 23, so it is irreducible. (Since $\chi_\omega$ is the character of degree 1, the condition (a) is automatically satisfied.)
+%________________________________________________________________________
+\end{document}
+
+%================================================================================
