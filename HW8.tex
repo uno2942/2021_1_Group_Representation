@@ -1,0 +1,309 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+\pagecolor{black}
+\color{white}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{HW8}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{1}(\textbf{S} 9.1) Let's write
+\begin{equation}
+    \varphi = \sum_{\chi_i:\textrm{irr. char}}c_i\chi_i
+\end{equation}
+for $c_i\in\mathbb{C}$; this is possible since the set of irreducible representation of $G$ forms a basis of the class function space. The first condition is translated as follows:
+\begin{equation}
+    \sum_{s\in G}\varphi(s) = 0.
+\end{equation}
+
+In the problem 6.7, we showed that $\abs{\chi(s)}\leq \chi(1)$ for irreducible character $\chi$. For each irreducible representation $\chi$,
+\begin{equation}
+\begin{split}
+    \Re\left(\langle \varphi, \chi\rangle\right) &= \sum_{s\in G}\varphi(s^{-1})\Re\left(\chi(s)\right)=\chi(1)\varphi(1)+\sum_{s\neq 1}\varphi(s^{-1})\chi(s)\\
+    &\geq \chi(1)\varphi(1)+\chi(1)\sum_{s\neq 1}\varphi(s^{-1})=\chi(1)\sum_{s\in G}\varphi(s^{-1}) = 0
+\end{split}
+\end{equation}
+as $\varphi(s)\leq 0$ for $s\neq 1$.
+
+If $\varphi\in R(G)$, the above conditions say that $\varphi\in R^+(G)$, which is a character by the previous homework.\\
+
+\noindent \textbf{2}(\textbf{S} 9.2)
+If $\chi$ is an irreducible representation, it satisfies the conditions in the problem, so I'll prove the reverse direction. 
+
+Let's write $\chi$ by
+\begin{equation}
+    \sum_{\chi_i:\textrm{irr. char}} n_i\chi_i,
+\end{equation}
+where $n_i\in\mathbb{Z}$ for each $i$. Note that
+\begin{equation}
+    \langle \chi, \chi\rangle = \sum_{i} n_i^2.
+\end{equation}
+Therefore, $\langle\chi, \chi\rangle = 1$ means that only one $i$ satisfies $n_i=\pm 1$ and $0$ otherwise. Let the $i$ be $i_0$. Since $\chi_{i_0}(1)\geq 1$, $\chi(1)\geq 0$ means that $n_{i_0}= 1$. Therefore, $\chi$ is an irreducible representation.\\
+
+\noindent \textbf{3}(\textbf{S} 9.5)
+For the subgroup $H=1$, there are only one irreducible character $1_H$. The induced character is $r_G$ since $\Ind_H^G 1_H(1)=12$ and $0$ elsewhere. It is $3\psi + \chi_0+\chi_1+\chi_2 =(\psi + \chi_0+\chi_1+\chi_2)+2\psi$.
+
+For the subgroup generated by $H=\langle (1~2)(3~4)\rangle $, there are two irreducible characters: the trivial one $1_H$ and non-trivial one $\varphi$ mapping $(1~2)(3~4)$ to $-1$. The centralizer of $(1~2)(3~4)$ in $\mathfrak{A}_4$ is $\{1, (1~2)(3~4),(1~3)(2~4),(1~4)(2~3)\}$. Also, $\{(3~2~1), (1~2~4), (4~3~1), (2~3~4)\}$ maps it to $(1~3)(2~4)$. Therefore, the induced character of each one is
+\begin{equation}
+\begin{split}
+    \Ind_H^G 1_H(s) &=\frac{1}{2}\sum_{\substack{t\in \mathfrak{A}_4\\t^{-1}st\in H}} 1_H(t^{-1}st)\begin{cases}
+    6 & s=1\\
+    2 & s=(1~2)(3~4), (1~3)(2~4), (1~4)(2~3)\\
+    0 & o.w.
+    \end{cases}\\
+    \Ind_H^G \varphi(s) &=\frac{1}{2}\sum_{\substack{t\in \mathfrak{A}_4\\t^{-1}st\in H}} 1_H(t^{-1}st)\begin{cases}
+    6 & s=1\\
+    -2 & s=(1~2)(3~4), (1~3)(2~4), (1~4)(2~3)\\
+    0 & o.w.
+    \end{cases}
+\end{split}
+\end{equation}
+The first one is $\chi_0+\chi_1+\chi_2+\psi$ and latter one is $2\psi$. For the subgroups generated by $(1~3)(2~4)$ and $(1~4)(2~3)$, the same computation yields the same characteristic function. (Or it can be deduced from the fact that the groups is the conjugation of $H$ by $t=(1~2~3)$ or $t^2$.) For precise computation, see exercise 9.6 (b).
+
+Let $H = \langle (1~2~3)\rangle$. There are three irreducible characters: $1_H$, $\varphi(t) = w= \exp\left(\frac{2\pi i}{3}\right)$, $\varphi'(t)=\exp\left(\frac{4\pi i}{3}\right)$. The centralizer of $(1~2~3)$ is only $\{1, (1~2~3), (1~3~2)\}$ in $\mathfrak{A}_4$. The induced characters are
+\begin{equation}
+\begin{split}
+    \Ind_H^G 1_H(s) &=\frac{1}{3}\sum_{\substack{t\in \mathfrak{A}_4\\t^{-1}st\in H}} 1_H(t^{-1}st)\begin{cases}
+    4 & s=1\\
+    0 & s=(1~2)(3~4), (1~3)(2~4), (1~4)(2~3)\\
+    1 & o.w.
+    \end{cases}\\
+    \Ind_H^G \varphi(s) &=\frac{1}{3}\sum_{\substack{t\in \mathfrak{A}_4\\t^{-1}st\in H}} 1_H(t^{-1}st)\begin{cases}
+    4 & s=1\\
+    0 & s=(1~2)(3~4), (1~3)(2~4), (1~4)(2~3)\\
+    w & s=(1~2~3),(1~2~4),(1~4~3),(4~2~3)\\
+    w^2 & o.w.
+    \end{cases}\\
+    \Ind_H^G \varphi'(s) &=\frac{1}{3}\sum_{\substack{t\in \mathfrak{A}_4\\t^{-1}st\in H}} 1_H(t^{-1}st)\begin{cases}
+    4 & s=1\\
+    0 & s=(1~2)(3~4), (1~3)(2~4), (1~4)(2~3)\\
+    w^2 & s=(1~2~3),(1~2~4),(1~4~3),(4~2~3)\\
+    w & o.w.
+    \end{cases}
+\end{split}
+\end{equation}
+The first one is $\chi_0+\psi$, the second one is $\chi_1+\psi$, and the third one is $\chi_2+\psi$. Any element in $\mathfrak{A}_4\setminus\{1, (1~2)(3~4), (1~3)(2~4), (1~4)(2~3)\}$ can be made by conjugation of $(1~2~3)$ or $(1~3~2)$, so any cyclic subgroup generated by one element in the set have above induced character. It shows that image of $\oplus_{H\in X}R^+(H)$ under $\Ind$ is generated by the five characters.
+
+Note that above characters all have even number at $s=1$. Conversely, assume $\chi$ is a character of $\mathfrak{A}_4$ having $\chi(1)\equiv 0\mod 2$. Since $\psi,\chi_i$ all have odd degree, $\chi$ is generated by 
+\begin{equation}
+    2\psi, 2\chi_1,2\chi_2,2\chi_3,\psi+\chi_0,\psi+\chi_1, \psi+\chi_2,\chi_0+\chi_1,\chi_0+\chi_2,\chi_1+\chi_2.
+\end{equation}
+Since all the characters are generated by the five characters, we know that $\chi$ is generated by the five character and is in the image.
+
+According to the above computation, we know that any non-zero characters induced from $R^+(H)$ where $H$ is a cyclic subgroup have non-zero $\psi$ part, so $\chi_0$, $\chi_1$, and $\chi_2$ can not be generated by linear combination with positive rational coefficients of characters induced from cyclic subgroups.\\
+
+\noindent \textbf{4}-\textbf{6}(\textbf{S} 9.6)
+\begin{enumerate}
+    \item[(a)] For irreducible $\mathbb{C}[H']$ module $V$, by the universal property of the induced representation, there exists a unique $\mathbb{C}[G]$ module homomorphism $\Psi$ such that the diagram commutes; $i$, $i'$, $i''$, and $i^{(3)}$ are the inclusion map.
+    \[
+    \begin{tikzcd}
+    V \arrow{dr}{i^{(3)}}\arrow{r}{i} \arrow[swap]{d}{i'} & \mathbb{C}[G]\otimes_{\mathbb{C}[H']}V \arrow[dashed]{d}{\Psi} \\
+    \Res_{H'} \mathbb{C}[G]\otimes_{\mathbb{C}[H]}\left(\mathbb{C}[H]\otimes_{\mathbb{C}[H']}V\right)  \arrow{r}{i''} & 
+    \mathbb{C}[G]\otimes_{\mathbb{C}[H]}\left(\mathbb{C}[H]\otimes_{\mathbb{C}[H']}V\right)
+    \end{tikzcd}
+    \]
+    $\Psi$ is surjective map since for any $g\otimes (h\otimes v)\in \mathbb{C}[G]\otimes_{\mathbb{C}[H]}\left(\mathbb{C}[H]\otimes_{\mathbb{C}[H']}V\right)$, $\Psi(gh\otimes v) = gh\cdot \Psi(1\otimes v) = gh\cdot (1\otimes (1\otimes v)) = g\otimes (h\otimes v)$. By the dimensional analysis, the $\Psi$ is an bijective map, so it is $\mathbb{C}[G]$ module isomorphism. It shows that 
+    \begin{equation}
+        \Ind_H^G \Ind_{H'}^H \chi' = \Ind_{H}^G \chi,
+    \end{equation}
+    and $\Ind_{H'}^H \chi' - \chi\in N$.
+    \item[(b)] For $s,s'\in G$,
+    \begin{equation}
+    \begin{split}
+        \Ind_{\prescript{s}{\phantom{1}}{H}}^G\prescript{s}{\phantom{1}}{\chi}(s') &= \frac{1}{\abs{\prescript{s}{\phantom{s}}{H}}}\sum_{\substack{t\in G\\ t^{-1}s't\in \prescript{s}{\phantom{1}}{H}}}\prescript{s}{\phantom{1}}{\chi}(t^{-1}s't) =\frac{1}{\abs{H}}\sum_{\substack{t\in G\\ t^{-1}s't\in sHs^{-1}}}\chi(s^{-1}t^{-1}s'ts)\\
+        &=\frac{1}{\abs{H}}\sum_{\substack{t\in G\\ (ts)^{-1}s'(ts)\in H}}\chi((ts)^{-1}s'(ts))=\frac{1}{\abs{H}}\sum_{\substack{t\in G\\ t^{-1}s't\in H}}\chi(t^{-1}s't)\\
+        &=\Ind_H^G \chi(s'),
+    \end{split}
+    \end{equation}
+    we get $\chi-\prescript{s}{\phantom{1}}{\chi}\in N$.
+    \item[(c)] Let $S$ is the collection of functions of type (a) and (b) and consider the submodule of $\oplus_{H\in X}\mathbb{Q}\otimes R(H)$ spanned by $S$. Let's rewrite the submodule by $S$. What I want to do is to show that $S = N$. To use theory of class function, let's extend the scalar to $\mathbb{C}$; if $\mathbb{C}\otimes S = \mathbb{C}\otimes N$ in $\oplus_{H\in X}\mathbb{C}\otimes R(H)$, then for a basis $\{s_\alpha\}$ of $S$, $1\otimes s_\alpha$ forms a basis of $\mathbb{C}\otimes S$ and so $\mathbb{C}\otimes N$. It shows that $s_\alpha$ is a basis of $N$, and $S=N$ in $\oplus_{H\in X}\mathbb{Q}\otimes R(H)$. By (a) and (b), we know that $S\subset N$.
+    
+    I'll show what the hint says: let $A$ be the collection of $(f_H)\in \oplus_{H\in X}\mathbb{C}\otimes R(H)$ such that if $H'\subset H$, then $f_{H'} = \Res_{H'} f_H$ and $f_{\prescript{s}{\phantom{s}}{H}}(sts^{-1}) = f_{H}(t)$ for any $s\in G$. It is well-defined subspace in $\oplus_{H\in X}\mathbb{C}\otimes R(H)$. Also, it is not empty set since $0$ is in the set. 
+    
+    To use Hilbert space's property, I'll first check that $\mathbb{C}\otimes R(H)$ is a Hilbert space, but we know that $(f ,g) = \sum_{s\in H}f(s)\overline{g(s)}$ is a inner product with $(f,f)\geq 0$ and $(f,f)=0$ if and only if $f=0$ using the fact that the irreducible characters $(\chi_i)$ forms a basis of the class function and $(\chi_i,\chi_j) = \delta_{ij}$. Since product of Hilbert space is again Hilbert space with the sum of inner product,-which will be clear writing the proof- I can take orthogonal decomposition of $\oplus_{H\in X}\mathbb{C}\otimes R(H)$ about $A$ by $A^\perp$; note that the orthogonal spaces are unique. By the same reason, we can consider $N^\perp$.
+    
+    From now on, I'll use another bilinear form $\langle\cdot, \cdot\rangle$. The only difference from $(\cdot,\cdot)$ is that the second one take complex conjugate of the coefficient of characters in right side in the sum. To avoid it, I'll take the basis of each $\mathbb{Q}\otimes R(H)$ by the irreducible characters of $H$ and only use them in the equation since any operation such as $\Ind_H^G$, $\Res_H$, and the operations $\prescript{s}{\phantom{s}}{H}$ are $\mathbb{C}$-linear and maps a $\mathbb{Z}$ linear combination of characters to a $\mathbb{Z}$ linear combination of characters. In other words, we can safely treat only basis element in the computation identifying $\langle\cdot, \cdot\rangle$ and $(\cdot,\cdot)$.
+    
+    Now, assume $S\not\supset N$, then there exists non-zero $n=(n_H)\in N$ such that $n\perp S$. It means that for any $\Ind_{H'}^H\chi_{H'} = \chi_H$ where $H'\subset H$ and $\chi_{H'}$ and $\chi_H$ are class functions, for $\chi\in \oplus_{H\in X}\mathbb{C}\otimes R(H)$ with $0$ except $H'$ and $H$ having $-\chi_{H'}$ and $\chi_H$,
+    \begin{equation}\label{Eq:HW8:1}
+    \begin{split}
+        \langle n, \chi\rangle = \langle n_H, \chi_H \rangle - \langle n_{H'}, \chi_{H'}\rangle = \langle \Res_{H'} n_H - n_{H'}, \chi_{H'}\rangle = 0.
+    \end{split}
+    \end{equation}
+    Also, for any $s\in G$ and $\chi=0$ except $\chi_H$ at $H$, and $-\chi_{\prescript{s}{\phantom{s}}{H}}$ at $\prescript{s}{\phantom{s}}{H}$,
+    \begin{equation}\label{Eq:HW8:2}
+    \begin{split}
+        \langle n, \chi\rangle &= \langle n_H, \chi_{H}\rangle - \langle n_{\prescript{s}{\phantom{s}}{H}},  \chi_{\prescript{s}{\phantom{s}}{H}}\rangle \\
+        &=\langle n_H, \chi_{H}\rangle - \frac{1}{\abs{H}}\sum_{t\in H}n_{\prescript{s}{\phantom{s}}{H}}(sts^{-1})\chi_{\prescript{s}{\phantom{s}}{H}}(st^{-1}s^{-1})\\
+        &=\langle n_H, \chi_{H}\rangle - \frac{1}{\abs{H}}\sum_{t\in H}n_{\prescript{s}{\phantom{s}}{H}}(sts^{-1})\chi_{H}(t^{-1}).
+    \end{split}
+    \end{equation}
+    If we define $g(t) = n_{\prescript{s}{\phantom{s}}{H}}(sts^{-1})$ for $t\in H$, which is again class function in $H$, we get
+    \begin{equation}\label{Eq:HW8:3}
+        \langle n, \chi\rangle = \langle n_H-g, \chi_H\rangle = 0
+    \end{equation}
+    If I choose irreducible representations at each RHS, then it means $\Res_{H'} n_H - n_{H'} = 0$ and $n_H - g = 0$. Checking the definition of $A$, the second one implies that $n_{\prescript{s}{\phantom{s}}{H}}(sts^{-1}) = n_H(t)$, which implies $n\in A$. Finally, if I show that $N^\perp = A$, then it means $n\in N\cap N^\perp = 0$, which ends the proof. Therefore, it is enough to show that $A=N^\perp$.
+    
+    Let $A' = \{(\Res_H\varphi)\in \oplus_{H\in X}C(H):\varphi\in C(G)\}$. I'll first show that $A'=A$. $A'\subset A$ is easy to see since $\Res_{H'}\varphi = \Res_{H'}\Res_{H}\varphi$ for $H'\subset H$, and $\Res_{\prescript{s}{\phantom{s}}{H}}\varphi = \Res_{H}\varphi$ by the definition of class function. Conversely, assume $(f_H)\in A$. Construct $\varphi\in C(G)$ as following: for any $t\in G$, there exists $t\in H\in X$ since $\cup_{H\in X}H = G$. Set $\varphi(t) = f_H(t)$. This is well-defined: assume there exists another $H'\in X$ with $t\in H'$, then $t\in H'\cap H$. Since $\Res_{H'\cap H}f_{H}(t) = f_{H'\cap H}(t) = \Res_{H'\cap H}f_{H'}(t)$, $f_H(t)=f_{H'}(t)$. (I interpreted that "passage to subgroups" means that $H,H'\in X$ implies $H\cap H'\in X$.)
+    
+    Since $A$ is a subspace, so we can decompose $\oplus_{H\in X}C(H) = A\oplus A^\perp$. For fixed $\varphi\in C(G)$ and $n\in N$, we get
+    \begin{equation}
+        \sum_{H\in X}\langle n_H, \Res_H \varphi \rangle =\sum_{H\in X}\langle \Ind_H^G n_H, \varphi \rangle = 0.
+    \end{equation}
+    It shows that $A\leq N^\perp$.
+    
+    Conversely, fix $(f_H)\in N^\perp$, then $(f_H)\in S^\perp$, and the above calculations \eqref{Eq:HW8:1}, \eqref{Eq:HW8:2}, and \eqref{Eq:HW8:3} show that $(f_H)\in A$. Therefore, $A= N^\perp$. It ends the proof.
+\end{enumerate}
+
+\noindent \textbf{7}(\textbf{S} 9.7)
+Let $S = \{(H,\chi):H\in X,\chi\in \mathbb{Q}\otimes R(H)\}$. Consier the free $\mathbb{Q}$-module $F(S)$, and $i$ be the inclusion map from $S$ to $F(S)$. A function $\varphi:S\rightarrow \oplus_{H\in X} \mathbb{Q}\otimes R(H)$ be a map of set defined as follows: $\varphi((H, \chi)) = \chi_H$. By the universal property of free module, there exists a well-defined $\mathbb{Q}$-module homomorphism $\Phi$ satisfying
+\[
+  \begin{tikzcd}
+    S \arrow{r}{i} \arrow[swap]{dr}{\varphi} & F(S) \arrow{d}{\Phi} \\
+     & \oplus_{H\in X} \mathbb{Q}\otimes R(H)
+  \end{tikzcd}
+\]
+Let's check what is the kernel of $\Phi$. It is clear that the relation (i) should be contained in the $\ker \Phi$. Taking quotient using relation (i), as $F(S)$ is $\mathbb{Q}$ vector space, the quotient is again $\mathbb{Q}$ vector space. Furthermore, it has dimension at most $\sum_{H\in X}\mathbb{Q}\otimes R(H)$: for fixed $H\in X$ and irreducible characters $\chi_i$, $(H,\chi_i)$ spans $\{(H,\chi):\chi\in\mathbb{Q}\otimes R(H)\}$ using the linear relation. However, we know that $\Phi$ is surjective map, which means that the dimension is same and $\Phi$ induces the $\mathbb{Q}$ module isomorphism between two module. Using ex. 9.6, finally, we get the relation (i), (ii), and (iii) for $F(S)$ makes it isomorphic to $\mathbb{Q}\otimes R(G)$ since the relation (ii) and (iii) for $\otimes_{H\in X}\mathbb{Q}\otimes R(H)$ makes it isomorphic to $\mathbb{Q}\otimes R(G)$.\\
+
+\noindent \textbf{8}(\textbf{S} 9.8)
+I'll check the conditions in exercise 9.1. $\lambda_A$ is real-valued function on $A$, and it is in $R(A)$ by proposition 28. Also, $\langle \varphi(a)r_A - \theta_A, 1_A\rangle = \frac{1}{a}(\varphi(a)a - \varphi(a)a) = 0$, so it is orthogonal to $1_A$. Finally, $r_A(s)=0$ for $s\neq 1$, so $\lambda_A(s)\leq 0$ for $s\neq 1$. Therefore, $\lambda_A$ is a character of $A$ which is orthogonal to unit character $1_A$. Using proposition 27,
+\begin{equation}
+    \sum_{A\subset G}\Ind_A^G(\lambda_A) = \sum_{A\subset G}\Ind_A^G(\varphi(a)r_A - \theta_A) = \sum_{A\subset G}\varphi(a)\Ind_A^G(r_A) - g
+\end{equation}
+Since $1$ is itself a conjugacy class, $\Ind_A^G(r_A)(1) = \frac{1}{a}ga = g$ and $0$ if $s\neq 1$. Finally, $\sum_{A\subset G}\varphi(a) = g$ since any element in $G$ uniquely corresponds to a generator of a cyclic group in $G$. Therefore, we get
+\begin{equation}
+    \sum_{A\subset G}\Ind_A^G(\lambda_A) = g(r_G-1).
+\end{equation}
+ 
+\noindent \textbf{9}(\textbf{S} 10.1)
+For any $h = x^k p\in C\cdot P$, where $k\in\mathbb{Z}$, $hxh^{-1} = x^kpxp^{-1}x^{-k} = x$ since $xp=px$ in $H$ having inner direct product structure. Therefore, $H\subset Z(x)$ and $P$ should be contained in a Sylow $p$-subgroup of $Z(x)$ by the Sylow theorem. Choosing Sylow $p$-subgroup of $Z(x)$ containing $H$, we prove the statement.\\
+
+\noindent \textbf{10}(\textbf{S} 10.2)
+If $\abs{x} = p^k$ for $k\in\mathbb{Z}_{\geq 0}$, $(1-x)^{p^k} = 1-x^{p^k} = 0$, so $(1-x)$ is nilpontent; cf. Frobenius endomorphism. Conversely, assume $1-x$ is nilpotent, then there exists large enough $k\geq 1$ such that $(1-x)^{p^k} = 0$. It means that $x^{p^k} = 1$, and $\abs{x}\mid p^k$, which implies $x$ is $p$-element.
+If $x$ is $p'$-element, then $x^N = 1$ for $(N, p)=1$. The minimum polynomial should divide $q(x) = x^N-1$, which is separable as $(q'(x), q(x)) = (Nx^{N-1}, x^N-1) = (Nx^{N-1}, -1) = 1$. It shows that the minimal polynomial is separable and $x$ is diagonalizable in a finite extension of $k$. Conversely, assume $x$ is diagonalizable in some finite extension of $k$ having order $p^k$. By little Fermat's theorem, any non-zero element in the field have order dividing $p^k-1$, which is coprime to $p$. Therefore, writing
+\begin{equation}
+    x = V\Lambda V^{-1},
+\end{equation}
+where $V\in GL_n(k)$ and $\Lambda$ is a diagonal matrix having eigenvalues in the diagonal part, we get the order of $\Lambda$ coprime to $p$. Therefore, $x$ have order coprime to $p$, and it is an $p'$-element.
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

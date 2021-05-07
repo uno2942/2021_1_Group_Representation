@@ -1,0 +1,341 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{HW7}
+\end{center}
+박성빈, 수학과, 20202120
+
+I'll first show a (trivial) proposition.
+\begin{proposition}
+Let $(\rho_1, V_1), (\rho_2, V_2)$ are representations on a group $G$. If $\rho_2$ has degree $1$, $\rho_1\otimes \rho_2\simeq \rho_2\rho_1$, which act on $V_1$ by $\rho_2(s)\left(\rho_1(s)\right)(v)$ identifying $\rho_2(s)\in\mathbb{C}^\times$.
+\end{proposition}
+\begin{proof}
+Since $\dim V_2 = 1$, $V_2\simeq \mathbb{C}$. Identifying $V_2$ with $\mathbb{C}$, for each $s\in G$, $\rho_2(s)$ acts on $\mathbb{C}$ by scalar multiplication, so in $\mathbb{C}^\times$. Let $\varphi:V_1\otimes_{\mathbb{C}}V_2\rightarrow V_1$ by $(v_1,c_2)\mapsto c_2v_1$. This is definitely vector space isomorphism. Furthermore, it is representation isomorphism since
+\begin{equation}
+\begin{split}
+    \varphi\left(\left(\rho_1\otimes \rho_2(s)\right)((v_1, c_2))\right) &= \varphi\left(\left(\rho_1(s)\right)(v_1), \left(\rho_2(s)\right)(c_2)\right) \\
+    &= \left(\rho_2(s)\right)(c_2)\left(\rho_1(s)\right)(v_1)\\
+    &=\left(\rho_2(s)\right)(1)\left(\rho_1(s)\right)(c_2v_1)\\
+    &=\left(\rho_2\rho_1(s)\right)\circ \varphi(v_1, c_2).
+\end{split}
+\end{equation}
+for any $s\in G$, $v_1\in V_1$, and $c_2\in \mathbb{C}$.
+\end{proof}
+\begin{remark}
+If $\rho_2$ is trivial, then $\rho_1\otimes \rho_2\simeq \rho_1$.
+\end{remark}
+\begin{remark}
+Since $\rho_1\otimes \rho_2 \simeq \rho_2\otimes \rho_1$, we get $\rho_1\otimes \rho_2\simeq \rho_2$ if $\rho_1$ is trivial.
+\end{remark}
+
+\noindent \textbf{1}(\textbf{S} 8.2)
+\begin{enumerate}
+    \item[$D_n$] The textbook denotes the dihedral group with order $2n$ by $D_n=\{r^ks^\sigma;\sigma\in\{0,1\},0\leq k\leq n-1\}$. For the generator $s,r\in D_n$, let's write $A=\{r^k:0\leq k<n\}$, $H = \{1, s\}$. Note that both subgroups are abelian and normal to $D_n$. Since $A\cap H = \{1\}$ and $\abs{A}\abs{H} = 2n = \abs{D_n}$, we get $D_n = AH$ as $AH$ forms a subgroup in $D_n$ and it has same cardinal as $D_n$. Finally, it has inner semi-direct product structure: for any $a_1,a_2\in A$ and $h_1,h_2\in H$,
+    \begin{equation}
+    \begin{split}
+        a_1h_1a_2h_2 = (a_1h_1a_2h_1^{-1})(h_1h_2).
+    \end{split}
+    \end{equation}
+    
+    Note that for $0\leq m\leq n-1$, $\chi_m(r^k) = \exp\left(\frac{2\pi i mk}{n}\right)$ are well-defined irreducible group representations from $A$ to $\mathbb{C}^\times$. Each $\chi_i$ are distinct since
+    \begin{equation}
+        (\chi_i,\chi_j) = \frac{1}{n}\sum_{k=0}^{n-1}\exp\left(\frac{2\pi (i-j) mk}{n}\right) = \delta_{ij}.
+    \end{equation}
+    Also, note that $\chi_i$ forms a group $X$ under multiplication since $\chi_i\chi_j = \chi_{i+j\mod n}$. The conjugation action of $s$ to $r^k$ is $s^{-1}r^ks = r^{-k}$, so $s\chi_i = \chi_{n-i}$.
+    
+    If $n$ is even, $\chi_{0\leq i\leq n/2}$ is a system of representatives for the orbits of $H$ in $X$ with $\chi_0\equiv 1$ and $s \chi_{n/2} = \chi_{n/2}$. For $1\leq i<n/2$, $1\in H$ only fixes $\chi_i$. Let' set $H_i = 1$, then any irreducible representatinos of $H_i$ is trivial and we just need to consider $\Ind_A^G \chi_i\simeq \mathbb{C}[G]\otimes_{\mathbb{C}[A]}\mathbb{C}$. Under basis $1\otimes 1$ and $s\otimes 1$,
+    \begin{equation}
+    \begin{split}
+        \Ind_A^G\chi_m(s) &= \begin{pmatrix}
+        0 & 1\\
+        1 & 0
+        \end{pmatrix}\\
+        \Ind_A^G\chi_m(r) &= \begin{pmatrix}
+        \exp\left(\frac{2\pi im}{n}\right) & 0\\
+        1 & \exp\left(-\frac{2\pi im}{n}\right)
+        \end{pmatrix}
+    \end{split}
+    \end{equation}
+    for $1\leq m<n/2$.
+    
+    For $m=1$, $\chi_0$ is trivial, so any element in $H$ fixes $\chi_0$. Therefore, extend $\chi_0$ to $G= AH$ by setting $\chi_0(r^ks^\sigma) = \chi_0(r^k)$. For the trivial representation $\rho$ of $H$, let $\tilde{\rho}(r^ks^\sigma) = \rho(s^\sigma)$, which becomes a representation on $G = AH$. Now, $\chi_0\otimes \tilde{\rho}$ is a trivial representation on $G$. For another representation $\rho'$ on $H$ which sends $s$ to $-1$, we can repeat the above argument and get a representation $\chi_0\otimes \tilde{\rho'}\simeq \tilde{\rho'}$ on $G$ since $\chi_0$ is trivial.
+    
+    For $m=n/2$, repeat the above argument and get
+    \begin{equation}
+    \begin{split}
+        \left(\chi_{n/2}\otimes \tilde{\rho}\right)(r^ks^\sigma) &= (-1)^k\\
+        \left(\chi_{n/2}\otimes \tilde{\rho'}\right)(r^ks^\sigma) &= (-1)^k(-1)^\sigma.
+    \end{split}
+    \end{equation}
+    
+    Finally, apply proposition 25 to say that we found all the irreducible representations of $G$.
+    
+    For odd $n$, we can repeat the above argument except considering $n/2$ case: $\Ind_A^G \chi_m$ for $1\leq m\leq \frac{n-1}{2}$, $\chi_0\otimes \tilde{\rho}$, and $\chi_0\otimes \tilde{\rho'}$.
+    
+    \item[$\mathfrak{A}_4$] Let's consider $\mathfrak{A}_4$ as the group of even permutation of a set $\{1,2,3,4\}$. Set $t = (1~2~3)$. For $A = \{(1~2)(3~4),(1~3)(2~4),(1~4)(2~3)\}$ and $H = \{1,t,t^2\}$, I'll show that $\mathfrak{A}_4 \simeq A\rtimes H$ which is again given by inner semidirect product structure. Note that $A$ is a normal subgroup of $\mathfrak{A}_4$ since conjugation action just permutes the numbers in the orbits, for example, for $\sigma\in \mathfrak{A}_4$,
+    \begin{equation}
+        \sigma (1~2)(3~4)\sigma^{-1} = (\sigma(1)~\sigma(2))(\sigma(3)~\sigma(4)).
+    \end{equation}
+    It shows that $AH$ forms a subgroup of $\mathfrak{A}_4$. Since $A\cap H = \{1\}$ and $\abs{A}\abs{H} = 12 = \abs{\mathfrak{A}_4}$, $\mathfrak{A}_4 = AH$. Finally, it satisfies the inner semidirect product structure following the argument in $D_n$.
+    
+    Let's construct group representation of $A$ by following:
+    \begin{center}
+    \begin{tabular}{c|cccc}
+      & 1 & $(1~2)(3~4)$ & $(1~3)(2~4)$ & $(1~4)(2~3)$ \\ \hline
+    $\chi_1$ & 1 & 1  & 1  & 1  \\
+    $\chi_2$ & 1 & 1  & -1 & -1 \\
+    $\chi_3$ & 1 & -1 & 1  & -1 \\
+    $\chi_4$ & 1 & -1 & -1 & 1  \\ \hline
+    \end{tabular}
+    \end{center}
+    Note that $(\chi_i,\chi_j) = \delta_{ij}$, so each are irreducible and distinct to each other. It forms a group $X$ about multiplication: $\chi_1$ is identity, $\chi_2\chi_3 =\chi_3\chi_2= \chi_4$, $\chi_3\chi_4 = \chi_4\chi_3 = \chi_2$, $\chi_4\chi_2 =\chi_2\chi_4= \chi_3$, and $\chi_{2\leq i\leq 4}^2 = \chi_1$. For conjugation about $t$ by $t^{-1}st$ for $s\in A$,
+    \begin{equation}
+    \begin{split}
+    1&\mapsto 1\\
+    (1~2)(3~4)&\mapsto (1~3)(2~4)\\
+    (1~3)(2~4)&\mapsto (1~4)(2~3)\\
+    (1~4)(2~3)&\mapsto (1~2)(3~4).
+    \end{split}
+    \end{equation}
+    It shows that $t\chi_4 = \chi_3$, $t\chi_3 = \chi_2$, and $t\chi_2 = \chi_4$ where the action is given by $(t\chi)(s) = \chi(t^{-1}st)$. It shows that $\chi_1,\chi_2$ are a system of representatives for the orbits of $H$ in $X$. For $\chi_1$, all $h\in H$ satisfies $h\chi_1 = \chi_1$ and for $\chi_2$, only $1$ makes $1\chi_2 = \chi_2$.
+    
+    For $\chi_1$, consider irreducible representations $\rho_m:H\rightarrow \mathbb{C}^\times$ such that $\rho_m(t) = \exp\left(\frac{2\pi i m}{3}\right)$ for $0\leq m\leq 2$; since $H$ is cyclic group, $\rho_m$ are all the irreducible representations of $H$. For $G=AH$, extend $\chi_i$ to $G$ by $\chi_i(ah) = 1$, and let $\tilde{\rho}_m(ah) = \rho_m(h)$. Since $\chi_1\otimes \tilde{\rho}_m$ is already a representation on $G$ having degree $1$, the induced representation is again $\chi_1\otimes \tilde{\rho}_m$. Also, it is isomorphic to $\tilde{\rho}_m$ since $\chi_1$ is trivial.
+    
+    For $\chi_2$, the fixing group $H_2 = 1$, so the irreducible representation is only trivial representation for $H_2$. Now, we take $\Ind_A^G \chi_2\simeq \mathbb{C}[G]\otimes_{\mathbb{C}[A]}\mathbb{C}$, which have matrix form under basis $1\otimes 1$, $t\otimes 1$, and $t^2\otimes 1$:
+    \begin{equation}
+    \begin{split}
+        \Ind_A^G \chi_2(1) &= 1\\
+        \Ind_A^G \chi_2(t) &= \begin{pmatrix}
+        0 & 0 & 1\\
+        1 & 0 & 0\\
+        0 & 1 & 0
+        \end{pmatrix}\\
+        \Ind_A^G \chi_2((1~2)(3~4)) &= \begin{pmatrix}
+        1 & 0 & 0\\
+        0 & -1 & 0\\
+        0 & 0 & -1
+        \end{pmatrix}\\
+        \Ind_A^G \chi_2((1~3)(2~4)) &= \begin{pmatrix}
+        -1 & 0 & 0\\
+        0 & -1 & 0\\
+        0 & 0 & 1
+        \end{pmatrix}\\
+        \Ind_A^G \chi_2((1~4)(2~3)) &= \begin{pmatrix}
+        -1 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & -1
+        \end{pmatrix}.
+    \end{split}
+    \end{equation}
+    The above representations are all irreducible, distinct, and shows all the irreducible representations of $\mathfrak{A}_4$ by proposition 25.
+    \item[$\mathfrak{S}_4$] Again set $A$ as in $\mathfrak{A}_4$ and set $H=\{s\in \mathfrak{S}_4:s\cdot 4 = 4\}$. By the same reason in $\mathfrak{A}_4$, we get $G=AH$ with inner semi-direct product structure since $\abs{H} = 6$. Unfortunately, $H$ is not an cyclic group now, but we know that $H$ is group isomorphic to $D_3$, so we can use the first case. $\chi_1,\chi_2$ are a system of representatives for the orbits of $H$ in $X$, and only $(1~2)$ fixes $\chi_2$ in $H$. 
+    
+    Since $\chi_1$ is trivial, any element in $H$ fixes $\chi_1$. For any irreducible representation $\rho$ on $H$, we can extend it by $\tilde{\rho}$ to $G=AH$ as in $\mathfrak{A}_4$; note that $\chi_1\otimes \tilde{\rho}\simeq \tilde{\rho}$. For the degree 2 irreducible representation $\rho$ of $H$, we get
+    \begin{equation}
+    \begin{split}
+        \tilde{\rho}(a) &= 1\\
+        \tilde{\rho}((1~2~3)) &= \begin{pmatrix}
+        \exp\left(\frac{2\pi i}{3}\right) & 0\\
+        0 & \exp\left(-\frac{2\pi i}{3}\right)
+        \end{pmatrix}\\
+        \tilde{\rho}((1~2)) &= \begin{pmatrix}
+        0 & 1\\
+        1 & 0
+        \end{pmatrix}
+    \end{split} 
+    \end{equation}
+    for $a\in A$. For non-trivial degree $1$ representation $\rho'$ of $H$,    \begin{equation}
+    \begin{split}
+        \tilde{\rho'}(a) &= 1\\
+        \tilde{\rho'}((1~2~3)) &= 1\\
+        \tilde{\rho'}((1~2)) &= -1
+    \end{split} 
+    \end{equation}
+    for $a\in A$. The left one is trivial representation on $G$.
+    
+    As $\chi_2$ is only fixed by $(1~2)$ in $H$, $H_2 = \{1, (1~2)\}$ and we can extend $\chi_2$ to $AH_2$. For trivial representation $\rho$ on $H_2$, extend it to $AH_2$, which is again trivial, so the tensor of two representations is isomorphic ot $\chi_2$. Finally, considering $\Ind_{AH_2}^G \chi_2\simeq \mathbb{C}[G]\otimes_{\mathbb{C}[AH_2]}\mathbb{C}$ with basis $1\otimes 1$, $(1~3)\otimes 1$, and $(1~4)\otimes 1$,
+    \begin{equation}
+    \begin{split}
+        \Ind_{AH_2}^G \chi_2 (1) &= 1\\
+        \Ind_{AH_2}^G \chi_2 ((1~2~3)) &= \begin{pmatrix}
+        0 & 0 & -1\\
+        1 & 0 & 0\\
+        0 & -1 & 0
+        \end{pmatrix}\\
+        \Ind_{AH_2}^G \chi_2 ((1~2)) &= \begin{pmatrix}
+        1 & 0 & 0\\
+        0 & 0 & -1\\
+        0 & -1 & 0
+        \end{pmatrix}\\
+        \Ind_{AH_2}^G \chi_2 ((1~2)(3~4)) &= \begin{pmatrix}
+        1 & 0 & 0\\
+        0 & -1 & 0\\
+        0 & 0 & -1
+        \end{pmatrix}\\
+        \Ind_{AH_2}^G \chi_2 ((1~3)(2~4)) &= \begin{pmatrix}
+        -1 & 0 & 0\\
+        0 & -1 & 0\\
+        0 & 0 & 1
+        \end{pmatrix}\\
+        \Ind_{AH_2}^G \chi_2 ((1~4)(2~3)) &= \begin{pmatrix}
+        -1 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & -1
+        \end{pmatrix}.
+    \end{split}
+    \end{equation}
+    For the non-trivial irreducible representation $\rho'$ of $H_2$, repeating above procedure, we get
+    \begin{equation}
+    \begin{split}
+        \Ind_{AH_2}^G \left(\chi_2\otimes \tilde{\rho'}\right) (1) &= 1\\
+        \Ind_{AH_2}^G \left(\chi_2\otimes \tilde{\rho'}\right) ((1~2~3)) &= \begin{pmatrix}
+        0 & 0 & 1\\
+        -1 & 0 & 0\\
+        0 & -1 & 0
+        \end{pmatrix}\\
+        \Ind_{AH_2}^G \left(\chi_2\otimes \tilde{\rho'}\right) ((1~2)) &= \begin{pmatrix}
+        -1 & 0 & 0\\
+        0 & 0 & 1\\
+        0 & 1 & 0
+        \end{pmatrix}\\
+        \Ind_{AH_2}^G \left(\chi_2\otimes \tilde{\rho'}\right) ((1~2)(3~4)) &= \begin{pmatrix}
+        1 & 0 & 0\\
+        0 & -1 & 0\\
+        0 & 0 & -1
+        \end{pmatrix}\\
+        \Ind_{AH_2}^G \left(\chi_2\otimes \tilde{\rho'}\right) ((1~3)(2~4)) &= \begin{pmatrix}
+        -1 & 0 & 0\\
+        0 & -1 & 0\\
+        0 & 0 & 1
+        \end{pmatrix}\\
+        \Ind_{AH_2}^G \left(\chi_2\otimes \tilde{\rho'}\right) ((1~4)(2~3))&= \begin{pmatrix}
+        -1 & 0 & 0\\
+        0 & 1 & 0\\
+        0 & 0 & -1
+        \end{pmatrix}.
+    \end{split}
+    \end{equation}
+    Applying proposition 25, we get all the irreducbile distinct representations of $\mathfrak{S}_4$.
+\end{enumerate}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================
