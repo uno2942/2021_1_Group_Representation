@@ -1,0 +1,295 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+    \usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+    \usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+    \DeclareGraphicsExtensions{.pdf,.png,.jpg}
+    \usepackage{fancyhdr}
+    \usepackage[shortlabels]{enumitem}
+    \usepackage[pdfmenubar=true, pdfborder  ={0 0 0 [3 3]}]{hyperref}
+    \usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+    %Page layout
+    \addtolength{\hoffset}{-50pt}
+    \addtolength{\headheight}{+10pt}
+    \addtolength{\textwidth}{+75pt}
+    \addtolength{\voffset}{-50pt}
+    \addtolength{\textheight}{+75pt}
+    \newcommand{\Space}{1em}
+    \newcommand{\Vspace}{\vspace{\Space}}
+    \newcommand{\ran}{\textrm{ran }}
+    \setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+    \newtheoremstyle{Mytheorem}%
+    {1em}{1em}%
+    {\slshape}{}%
+    {\bfseries}{.}%
+    { }{}
+
+    \newtheoremstyle{Mydefinition}%
+    {1em}{1em}%
+    {}{}%
+    {\bfseries}{.}%
+    { }{}
+
+    \theoremstyle{Mydefinition}
+    \newtheorem{statement}{Statement}
+    \newtheorem{definition}[statement]{Definition}
+    \newtheorem{definitions}[statement]{Definitions}
+    \newtheorem{remark}[statement]{Remark}
+    \newtheorem{remarks}[statement]{Remarks}
+    \newtheorem{example}[statement]{Example}
+    \newtheorem{examples}[statement]{Examples}
+    \newtheorem{question}[statement]{Question}
+    \newtheorem{questions}[statement]{Questions}
+    \newtheorem{problem}[statement]{Problem}
+    \newtheorem{exercise}{Exercise}[section]
+    \newtheorem*{comment*}{Comment}
+    %\newtheorem{exercise}{Exercise}[subsection]
+
+    \theoremstyle{Mytheorem}
+    \newtheorem{theorem}[statement]{Theorem}
+    \newtheorem{corollary}[statement]{Corollary}
+    \newtheorem{corollaries}[statement]{Corollaries}
+    \newtheorem{proposition}[statement]{Proposition}
+    \newtheorem{lemma}[statement]{Lemma}
+    \newtheorem{claim}{Claim}
+    \newtheorem{claimproof}{Proof of claim}[claim]
+    \newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+    \fancypagestyle{myfency}{%Plain
+    \fancyhf{}
+    \fancyhead[L]{}
+    \fancyhead[C]{}
+    \fancyhead[R]{}
+    \fancyfoot[L]{}
+    \fancyfoot[C]{}
+    \fancyfoot[R]{\thepage}
+    \renewcommand{\headrulewidth}{0.4pt}
+    \renewcommand{\footrulewidth}{0pt}}
+
+    \fancypagestyle{myfirstpage}{%Firstpage
+    \fancyhf{}
+    \fancyhead[L]{}
+    \fancyhead[C]{}
+    \fancyhead[R]{}
+    \fancyfoot[L]{}
+    \fancyfoot[C]{}
+    \fancyfoot[R]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}}
+
+    \pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+\pagecolor{black}
+\color{white}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+    \Large{HW9}
+\end{center}
+박성빈, 수학과, 20202120
+
+Notation: In this paper, I used superscript for character $\chi^i$ just for indexing, not multiplication.
+
+\noindent \textbf{1}-\textbf{2}(\textbf{S} 10.5)
+\begin{enumerate}
+    \item[(a)] From the assumption, there exists $r_{i,j}\in\mathbb{R}_+$ and degree $1$ representations $(A_j, \chi_{i,j})$ where $A_j\leq G$ such that
+    \begin{equation}
+        \chi = \sum_j \sum_i r_{i,j} \Ind_{A_j}^G \chi_{i,j}.
+    \end{equation}
+    (I used $i$ to express distinct irreducible characters in same $A_j$.) As $\chi$ is an irreducible character, we get
+    \begin{equation}
+        1_G=\langle \chi, \chi\rangle = \sum_j\sum_i r_{i,j} \langle \Ind_{A_j}^G \chi_{i,j}, \chi\rangle,
+    \end{equation}
+    and for the other irreducible representations $\chi'$,
+    \begin{equation}
+        0=\langle \chi, \chi'\rangle = \sum_j\sum_i r_{i,j} \langle \Ind_{A_j}^G \chi_{i,j}, \chi'\rangle.
+    \end{equation}
+    Since $r_{i,j}>0$ by deleting the terms with $r_{i,j}=0$ and $\langle \Ind_{A_j}^G \chi_{i,j}, \chi'\rangle\in\mathbb{Z}_{\geq 0}$ as both are characters, we get $\langle \Ind_{A_j}^G \chi_{i,j}, \chi'\rangle=0$ for all irreducible representations of $G$ except $\chi$. Choose one $i,j$ and denote it $i_0,j_0$. Since the irreducible representations forms an orthonomal basis of class function, and $\Ind_{A_{j_0}}^G \chi_{i_0,j_0}\in R^+(G)$, we get $\Ind^G_{A_{j_0}} \chi_{i_0,j_0} = n\chi$ for some $n\in\mathbb{N}$. As a result, we conclude that $n\chi$ is a monomial.
+    \item[(b)] Before start, note that $\mathfrak{A}_5$ has elements
+    \begin{enumerate}
+        \item identity element;
+        \item 15 elements of type like $(1~2)(3~4)$;
+        \item 20 elements of type like $(1~2~3)$;
+        \item 24 elements of type like $(1~2~3~4~5)$.
+    \end{enumerate}
+    
+    Let $G=\mathfrak{A}_5$. The permutation representation of $\mathfrak{A}_5$ on $\{e_i\}_{i=1}^5$ $G$ action defined by by $\sigma\cdot e_i = e_{\sigma(i)}$ have character $\eta$. Note that the permutation representation have degree 1 subrepresentation for the basis $\sum_{i=1}^5 e_i$ since any element in $\mathfrak{A}_5$ fix it, so trivial representation. Therefore, $\eta-1_G$ is again an character of $\mathfrak{A}_5$, and
+    \begin{equation}
+        \langle \eta-1_G, \eta-1_G\rangle = \frac{1}{60}\left(4*4 + 0 * 15 + 1 * 20 + 1 * 24\right) = 1.
+    \end{equation}
+    It shows that $\eta-1_G$ is irreducible having degree 4. Set $\chi = \eta-1_G$.
+    
+    Now, assume there exists $m\geq 1$ such that $m\chi=\Ind_H^G \chi_H$ for some subgroup $H$ such that the degree of $\chi_H$ is 1. Since it has degree $4m$, $[G:H]=4m$, and $\abs{H}=15/m$; so the possible $m$ is $1,3,5,15$. Also,
+    \begin{equation}
+        \langle \Res_H \chi, \chi_H\rangle = \langle \chi, \Ind_H^G\chi_H\rangle = m.
+    \end{equation}
+    As the degree of $\Res_H \chi$ is $4$ and $\chi_H$ is irreducible, $m\leq 4$, so the possible $m$ is $1$ or $3$. If $m$ were $3$, then $\abs{H}=5$ and it should be a cyclic group having element like $(1~2~3~4~5)$ as the other element (except identity) have order coprime to $5$. However, this is impossible: by the definition,
+    \begin{equation}
+        \Ind_H^G\chi_H((1~2~3)) = \frac{1}{5}\sum_{\substack{t\in G\\t(1~2~3)t^{-1}\in H}}\chi_H(t(1~2~3)t^{-1}),
+    \end{equation}
+    but the conjugacy class of $(1~2~3)$ does not have intersection with $H$, so it is zero. However, $(\eta-1_G)(1~2~3) = 2-1 = 1$.
+    
+    The remainder is to show that $\mathfrak{A}_5$ does not have order 15 group. (To do this, I refered "https://math.stackexchange.com/questions/135654/why-a-5-has-no-subgroup-of-order-15") By the application of Sylow's theorem, cf. \textit{Abstract Algebra}, Dummit and Foote, Chapter 4.5 p. 143, we know that order 15 group is cyclic group, but we know that $\mathfrak{A}_5$ does not have order 15 element. Since $m\chi$ can not be a monomial, it shows that $\chi$ cannot be a linear combination
+    with positive real coefficients of monomial characters.
+\end{enumerate}
+
+\noindent \textbf{3}-\textbf{6}(\textbf{S} 10.6)
+\begin{enumerate}
+    \item[(a)] In the previous homework, I showed that for any $E\leq H\leq G$, and $\chi\in R(E)$, we get $\Ind_E^G \chi = \Ind_H^G\Ind_E^H \chi$. Therefore, for $\Ind_E^H(\alpha-1_E)$ having same notation as problem with $E\leq H$, we get
+    \begin{equation}
+        \Ind_H^G\Ind_E^H(\alpha-1_E) = \Ind_E^G(\alpha-1_E).
+    \end{equation}
+    Also, note that $E$ is again an elementary subgroup of $G$ since writing $E \simeq \langle x\rangle \times P$ with $p$-group $P\leq Z_H(x)$, which is center in $H$, $P\leq Z_G(x)$ and again $p$-group in $G$.
+    \item[(b)] Let $\rho = \Ind_H^G(1_H)$. Set $\{\sigma_i\}$ be the representatives of $G/H$ with $\sigma_1 = 1$. Since $H$ is normal in $G$ and $1_H(h) = 1$ for all $h\in H$, considering $\mathbb{C}[G]$ action on $\mathbb{C}[G]\otimes_{\mathbb{C}[H]}\mathbb{C}$, for $g =\sigma_i h$,
+    \begin{equation}
+        g\cdot(\sigma \otimes c) = \sigma_j h \sigma \otimes c = \sigma_j \sigma \otimes (h'\cdot c) = \sigma_j\sigma \otimes c,
+    \end{equation}
+    where $h\sigma = \sigma h'$. It shows that $\rho(h)=\mathrm{id}$ for $h\in H$, and the group homomorphism $\rho:G\rightarrow \Ind_H^G(\mathbb{C})$ induces a homomorphism $\tilde{\rho}:G/H\rightarrow \Ind_H^G(\mathbb{C})$ which factor through the canonical projection $\pi:G\rightarrow G/H$. Computing the character of $\tilde{\rho}$, we get $\tilde{\rho}(1) = (G:H)$ and zero elsewhere. It means that $\tilde{\rho}$ is isomorphic to the regular representation of $G/H$. Since $G/H$ is abelian, we know that the character $\tilde{\chi}$ of $\tilde{\rho}$ is the sum of degree 1 characters of $G/H$; let's denote the degree 1 characters $\tilde{\chi}_i$, then we can write
+    \begin{equation}
+        \tilde{\rho} = \sum_{i=1}^{(G:H)}\tilde{\chi}_i
+    \end{equation}
+    Finally, set functions $\chi_i$ by $\chi_i = \tilde{\chi}_i\circ \pi$. These are character functions: for $g_1,g_2\in G$,
+    \begin{equation}
+        \chi_i(g_1g_2) = \tilde{\chi}_i\left(\pi(g_1g_2)\right) = \tilde{\chi}_i\left(\pi(g_1)\pi(g_2)\right) = \tilde{\chi}_i(\pi(g_1))\tilde{\chi}_i(\pi(g_2)) = \chi_i(g_1)\chi_i(g_2),
+    \end{equation}
+    and we can identify characters and representations since $\chi_i$ have codomain $\mathbb{C}^\times$. Note that $\chi_i$ all have degree $1$, and $\chi_1 = 1_G$. Finally, we get 
+    \begin{equation}
+        \Ind_H^G 1_H = \sum_{i=1}^{(G:H)}\chi_i,
+    \end{equation}
+    Now, let's constructively show that $\Ind_H^G 1_H\in R'(G)$. First, using Brauer's theorem, we choose irreducible characters $\eta^i_E$ and $n_E^i$ for elementary subgroups $E$ satisfying
+    \begin{equation}\label{HW9:Eq:1}
+        1_G = \sum_{E}\sum_i n_E^i\Ind_E^G \eta^i_E.
+    \end{equation}
+    Note that I used sup-script $i$ to distinguish distinct irreducible characters in the same $E$. 
+    To go to next step, I need a lemma.
+    \begin{lemma}
+    Any subgroup of $p$-elementary group is $p$-elementary group. More precisely, for $G\simeq C\times P$ where $C=\langle x\rangle$ is a cyclic subgroup having order prime to $p$ and $P$ a $p$-group of $Z(x)$, any subgroup of $G$ is written as $H\simeq A\times B$ where $A\leq C$ and $B\leq P$.
+    \end{lemma}
+    \begin{proof}
+    Let $G=\langle x\rangle\cdot P$ where $x\in G$ having order prime to $p$ and $P$ being a $p$-group in $Z(x)$. For a subgroup $H\leq G$, choose $y=(\alpha, \beta)\in H$ identifying $\langle x\rangle\cdot P\simeq \langle x\rangle\times P$. Since $(\abs{\alpha},\abs{\beta})=1$, there exists $n_1$, $n_2$ in $\mathbb{Z}$ such that $n_1\abs{\alpha}+n_2\abs{\beta} = 1$. It shows that
+    \begin{equation}
+    \begin{split}
+        y^{n_1\abs{\alpha}} &= (1, \beta^{1-n_2\abs{\beta}}) = (1,\beta)\\
+        y^{n_2\abs{\beta}} &= (\alpha^{1-n_1\abs{\alpha}}, 1) = (\alpha,1),
+    \end{split}
+    \end{equation}
+    so $(\alpha,1),(1,\beta)\in H$. Denote each $\alpha$, $\beta$ of $y$ by $\alpha_y, \beta_y$. Set $A$ (resp. $B$) be the subgroup of $\langle x\rangle$ (resp. $P$) generated by $\alpha_y$. (resp. $\beta_y$) Note that $A$ is cyclic group since any subgroup of cyclic group is again cyclic group, and $B$ is a $p$-subgroup of $Z(a)$ by the similar reason. I claim that $H\simeq A \times B$ with the same identification as $G$, then $H$ is $p$-elementary subgroup of $G$.
+    
+    By the construction of $A, B$, it is enough to show that $H\supset A\times B$, but any generator of $A\times 1$ and $1\times B$ is in $H$, so $H\supset A\times B$.
+    \end{proof}
+    Since $E$ are super-solvable groups, $\eta^i_E$ are induced by a representation of degree 1 of a subgroup of $E$, which is again elementary subgroup by the lemma. Abusing notation by setting $\eta^i_E$ degree $1$ character, we again write \eqref{HW9:Eq:1}. From the basic property of induced representation, we know that
+    \begin{equation}
+        \Ind_E^G (\eta^i_E\Res_E(\chi_j-1_G)) = (\Ind_E^G \eta^i_E)(\chi_j-1_G),
+    \end{equation}
+    so
+    \begin{equation}
+    \begin{split}
+        \sum_{j=2}^{(G:H)}\sum_E\sum_i n_E^i\Ind_E^G(\eta^i_E\Res_E(\chi_j-1_G)) &=\sum_{j=2}^{(G:H)}\sum_E\sum_i n_E^i\Ind_E^G(\eta^i_E)(\chi_j-1_G) \\
+        &=\sum_{j=2}^{(G:H)} ((\chi_j-1_G)1_G)\\
+        &=\sum_{j=2}^{(G:H)} (\chi_j-1_G).
+    \end{split}
+    \end{equation}
+    Therefore,
+    \begin{equation}
+    \begin{split}
+        \Ind_H^G 1_H &= (G:H)1_G + \sum_{j=2}^{(G:H)}(\chi_j-1_G)\\
+        &=(G:H)1_G + \sum_{j=2}^{(G:H)}\sum_E\sum_i n_E^i\Ind_E^G(\eta^i_E\Res_E(\chi_j-1_G))\\
+        &=(G:H)1_G + \sum_{j=2}^{(G:H)}\sum_E\sum_i n_E^i\left(\Ind_E^G(\eta^i_E\Res_E\chi_j)-\Ind_E^G(\eta^i_E)\right)\\
+        &=(G:H)1_G + \sum_{j=2}^{(G:H)}\sum_E\sum_i n_E^i\left(\Ind_E^G(\eta^i_E\Res_E\chi_j- 1_E)-\Ind_E^G(\eta^i_E-1_E)\right).
+    \end{split}
+    \end{equation}
+    Since multiplication of two degree 1 characters is again a degree 1 character, we get the result.
+    \item[(c)] Let's write $G\simeq C\times P$ where $C=\langle x\rangle$ is a cyclic subgroup having order prime to $p$ and $P$ a $p$-group of $Z(x)$. I'll first show a general lemma.
+    \begin{lemma}
+        If $G$ is nilpotent and $H<G$, then $H<N_G(H)$.
+    \end{lemma}
+    \begin{proof}
+    Let's use the definition of nilpotent group given in the textbook. Given a sequence
+    \begin{equation}
+        \{1\}=G_0\subsetneq G_1\subsetneq\cdots G_{n-1}\subsetneq G_n = G
+    \end{equation}
+    of subgroups of $G$ satisfying $G_{i-1}\trianglelefteq G_i$ and $G_i/G_{i-1}\subset Z(G/G_{i-1})$, take quotient of $G_1$ in the sequence and get
+    \begin{equation}
+        \{1\} = G_1/G_1\subsetneq G_2/G_1\subsetneq\cdots G_{n-1}/G_1\subsetneq G_n/G_1 = G/G_1.
+    \end{equation}
+    I need to show that this is well-defined. First, $G_1$ is normal to $G_{i\geq 2}$ since $G_1/G_0 = G_1\leq Z(G)$. Also, by the fourth isomorphism theorem, the normal property does not change. Finally, for $\varphi:G/G_1\rightarrow G/G_{i-1}$ mapping $g G_1\mapsto g G_{i-1}$, we get $\ker \varphi = G_{i-1}/G_1$ by the third isomorphism theorem for $i>2$, and we know that $\varphi(G_i/G_1) = G_i/G_{i-1}$ with the same kernel by the same reason. Let $\bar{\varphi}$ be the induced isomorphism by taking quotient of $G_{i-1}/G_1$. It shows that $G_i/G_{i-1}\leq Z(G/G_{i-1})$ implies $(G_i/G_1)/(G_{i-1}/G_1)\leq Z((G/G_1)/(G_{i-1}/G_1))$: for any $\bar{a}\in (G_i/G_1)/(G_{i-1}/G_1)$ and $\bar{b}\in (G/G_1)/(G_{i-1}/G_1)$ with $\bar{\varphi}(\bar{a})=a$ and $\bar{\varphi}(\bar{b})=b$,
+    \begin{equation}
+        \bar{\varphi}(\bar{a}\bar{b}) = \bar{\varphi}(\bar{a})\bar{\varphi}(\bar{b}) = ab = ba = \bar{\varphi}(\bar{b}\bar{a}),
+    \end{equation}
+    so $\bar{a}\bar{b}=\bar{b}\bar{a}$ for all $\bar{b}$. It shows that $G/G_1$ is nilpotent.
+    
+    Now, let's take induction on $\abs{G}$ for the main result. If $G=1$, it is trivial, so assume the statement is true for $\abs{G}<n$ for some $n$. For $\abs{G}=n$, take an proper subgroup $H$ of $G$. Note that $Z(G)$ is non-trivial; unless, it is not nilpotent. If $G_1\not\leq H$, then $N_G(H)\supset \langle H, G_1\rangle$, which ends the proof, so we can assume $G_1\leq H$. Consider $\bar{G} = G/G_1$, which is again nilpotent having smaller order, so $\bar{H}<N_{\bar{G}}(\bar{H})$. Again, by taking lattice isomorphism theorem, we know that the preimage of $N_{\bar{G}}(\bar{H})$ is $N_G(H)$: more precisely, for the canonical projection $\pi:G\rightarrow G/G_1=\bar{G}$ and $g\in \pi^{-1}\left(N_{\bar{G}}(\bar{H})\right)$ with $h\in H$,
+    \begin{equation}
+        \pi(ghg^{-1}) = \bar{g}\bar{h}\bar{g}^{-1}\in \bar{H},
+    \end{equation}
+    so $ghg^{-1}\in \pi^{-1}(\bar{H}) = H$. Conversely, if $g\in N_G(H)$, then by the same reason, $\pi(ghg^{-1})\in \bar{H}$, so $g\in \pi^{-1}\left(N_{\bar{G}}(\bar{H})\right)$. It shows that $H<N_G(H)$ and ends the proof.
+    \end{proof}
+    If $H$ is maximal subgroup of $G$, then $N_G(H)=G$ by the lemma, so $H$ is normal in $G$. Also, using the lemma 1, let's write $H\simeq A\times B$ where $A\leq C$ and $B\leq P$. If $B\neq P$, then $A<C$ and $[C:A]$ should be prime applying the classification of finitely generated abelian group with the lattice theorem to $C/A$ since $G/H\simeq C/A\times B/P$. If $C=A$, then $[P:B]$ should be prime since $P/B$ is again a $p$ group and any $p$ group $P$ have subgroup having order dividing $\abs{P}$. If $C<A$ and $B<P$, then $C\times P$ is the bigger subgroup of $G$, so it is contradiction. As a result, $[G:H]$ is prime.
+    
+    Using theorem 16 since $G$ is super-solvable group, we can write each irreducible representation $\chi$ of $G$ by
+    \begin{equation}
+        \chi = \sum_{E}\sum_i n_E^i\Ind_E^G \eta^i_E,
+    \end{equation}
+    where $E$ are subgroups of $G$, $n_E^i\in\mathbb{Z}$, and $\eta^i_E$ are characters of degree 1 of $E$. Since any proper subgroup of $G$ is contained in some maximal subgroup and by (a), we get
+    \begin{equation}
+    \begin{split}
+        \chi &= \sum_i n_G^i \eta^i_G +  \sum_{E<G}\sum_i n_E^i\Ind_E^G \eta^i_E \\
+        &=\sum_i n_G^i \eta^i_G + \sum_{E<G}\sum_i n_E^i\Ind_{H_E}^G\left(\Ind_{E}^{H_E} \eta^i_E\right),
+    \end{split}
+    \end{equation}
+    where $H_E$ is the maximal subgroup containing $E$. It shows that $R(G)$ is generated by the characters of degree 1 of $G$ together with the $\Ind_H^G(R(H))$, where $H$ runs over $Y$.
+    
+    Now, I'll prove a proposition
+    \begin{proposition}
+        If $G$ is an elementary group, then $R(G)=R'(G)$.
+    \end{proposition}
+    \begin{proof}
+    Let's use induction on $\abs{G}$. If $\abs{G}=1$, then it is trivial, so let's assume that the statement is true for $\abs{G}<n$ for some $n\in\mathbb{N}_{\geq 2}$. It is enough to show that $R(G)\subset R'(G)$. Since $[G:H]$ is prime order, it is abelian, cf. \textit{Abstract Algebra}, Dummit and Foote, Section 4.3 theorem 8, so we can apply (b). By induction, we know that $R(H)=R'(H)$ since $H$ are all proper elementary subgroup of $G$, so $\Ind_H^G(R(H))\subset R'(G)$. Since $G$ is an elementary subgroup, by setting $E=G$ in the generating element $\Ind_E^G(\alpha-1_E)$ of $R'_0(G)$ with $1_G$, we know that any degree 1 character of $G$ is contained in $R'(G)$. Therefore, it shows that $R(G)\subset R'(G)$ and we get $R(G)=R'(G)$.
+    \end{proof}
+    \item[(d)] In (b), I already justified the argument to write
+    \begin{equation}
+        \varphi = \sum_{E\in X} \Ind_E^G(\varphi_E)
+    \end{equation}
+    where $\varphi_E = f_E\cdot \Res_E(\varphi)$ following the notation in the problem. If $\varphi(1)=0$, then $\varphi_E(1)=0$ for all $E$ since $\Res_E(\varphi)(1) = \varphi(1)=0$. Since we already showed that $\varphi_E\in R(E) = R'(E)$, it means that $\varphi_E\in R'_0(E)$ as $\varphi_E(1)=0$. By (a), it shows that $\varphi\in R_0'(G)$. Finally, for general $\varphi\in R(G)$, consider $\varphi-\varphi(1)1_G$, then it is again in $R_0'(G)$ and $\varphi\in R'(G)$. Therefore, $R(G)\subset R'(G)$. Conversely, $R'(G)\subset R(G)$ since it is generated by the element of $R(G)$. It shows that $R'(G)=R(G)$.
+\end{enumerate}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================
