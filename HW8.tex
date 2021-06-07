@@ -298,11 +298,11 @@ For any $h = x^k p\in C\cdot P$, where $k\in\mathbb{Z}$, $hxh^{-1} = x^kpxp^{-1}
 
 \noindent \textbf{10}(\textbf{S} 10.2)
 If $\abs{x} = p^k$ for $k\in\mathbb{Z}_{\geq 0}$, $(1-x)^{p^k} = 1-x^{p^k} = 0$, so $(1-x)$ is nilpontent; cf. Frobenius endomorphism. Conversely, assume $1-x$ is nilpotent, then there exists large enough $k\geq 1$ such that $(1-x)^{p^k} = 0$. It means that $x^{p^k} = 1$, and $\abs{x}\mid p^k$, which implies $x$ is $p$-element.
-If $x$ is $p'$-element, then $x^N = 1$ for $(N, p)=1$. The minimum polynomial should divide $q(x) = x^N-1$, which is separable as $(q'(x), q(x)) = (Nx^{N-1}, x^N-1) = (Nx^{N-1}, -1) = 1$. It shows that the minimal polynomial is separable and $x$ is diagonalizable in a finite extension of $k$. Conversely, assume $x$ is diagonalizable in some finite extension of $k$ having order $p^k$. By little Fermat's theorem, any non-zero element in the field have order dividing $p^k-1$, which is coprime to $p$. Therefore, writing
+If $x$ is $p'$-element, then $x^N = 1$ for $(N, p)=1$. The minimum polynomial should divide $q(x) = x^N-1$, which is separable as $(q'(x), q(x)) = (Nx^{N-1}, x^N-1) = (Nx^{N-1}, -1) = 1$. It shows that the minimal polynomial is separable and $x$ is diagonalizable in a finite extension of $k$. Conversely, assume $x$ is diagonalizable in some finite extension of $k$. Since the extended field $k'$ have characteristic $p$, it again have order $p^m$ for some $m\in\mathbb{N}$. By little Fermat's theorem, any non-zero element in the field have order dividing $p^m-1$, which is coprime to $p$. Therefore, writing
 \begin{equation}
     x = V\Lambda V^{-1},
 \end{equation}
-where $V\in GL_n(k)$ and $\Lambda$ is a diagonal matrix having eigenvalues in the diagonal part, we get the order of $\Lambda$ coprime to $p$. Therefore, $x$ have order coprime to $p$, and it is an $p'$-element.
+where $V\in GL_n(k')$ and $\Lambda\in GL_n(k')$ is a diagonal matrix having eigenvalues in the diagonal part, we get the order of $\Lambda$ coprime to $p$. Therefore, $x$ have order coprime to $p$, and it is an $p'$-element.
 %________________________________________________________________________
 \end{document}
 

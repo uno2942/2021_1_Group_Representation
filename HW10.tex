@@ -1,0 +1,493 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+\pagecolor{black}
+\color{white}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{HW10}
+\end{center}
+박성빈, 수학과, 20202120
+
+\noindent \textbf{1}-\textbf{2}(\textbf{S} 9.3)
+\begin{enumerate}
+    \item[(a)] In each proof, I'll concentrate on the symmetric power part since alternating power part has the same proof struecuture. To prove the results, it is enough to show that $\sigma_T(\chi)$ is well-defined for $\abs{T}<1/n$ where $n=\deg \chi$. Since 
+    \begin{equation}
+        \abs{\chi^k_\sigma(s)}\leq \prod_{i=1}^k (\abs{\lambda_1}+\ldots +\abs{\lambda_n}) = n^k
+    \end{equation}
+    for $s\in G$ where $\lambda_i$ are the eigenvalues of $\rho(s)$, for $T=a/n$ for $\abs{a}<1$
+\begin{equation}
+    \abs{\chi_\sigma^k T^k}\leq \abs{\chi_\sigma T}^k< \abs{a}^k,
+\end{equation}
+and the power series converges absolutely in the domain. Now, I can use the uniqueness and calculus properties of power series. By the similar argument, I can repeat the statement for $\lambda_T(\chi)$.
+
+For eigenvalues $\{\lambda_1, \ldots, \lambda_n\}$ of $\rho(s)$, we get
+\begin{equation}\label{HW10:Eq:6}
+    \chi_\sigma^k(s) = \sum_{1\leq n_1\leq n_2\leq \cdots\leq n_k\leq n}\lambda_{n_1}\cdots \lambda_{n_k}
+\end{equation}
+Also,
+\begin{equation}\label{HW10:Eq:1}
+    \frac{1}{\det(I-\rho(s)T)} = \prod_{i=1}^n\frac{1}{1-\lambda_iT} = \prod_{i=1}^n\left(\sum_{j=0}^\infty (\lambda_iT)^j\right).
+\end{equation}
+Now, let's show a lemma.
+\begin{lemma}
+    For $s\in G$, we get
+    \begin{equation}\label{HW10:Eq:2}
+        \sum_{k=0}^\infty \chi_\sigma^k(s) T^k = \frac{1}{\det(I-\rho(s)T)}
+    \end{equation}
+    for $\abs{T}<1/(\deg \chi)$.
+\end{lemma}
+\begin{proof}
+Note that \eqref{HW10:Eq:1} converges absolutely for $\abs{T}<1/n$, so I just need to check whether the coefficients of $T^k$ coincide. To show this, I'll state a proposition.
+\begin{proposition}
+For $\{c_i\}_{i=1}^N\subset \mathbb{C}^\times$ and an undeterminate $T$ in the domain $\abs{T}<1$, it satisfies
+\begin{equation}\label{HW10:Eq:4}
+    \prod_{i=1}^N\sum_{j=0}^\infty (c_iT)^j = \sum_{k=0}^\infty \sum_{1\leq n_1\leq n_2\leq \cdots\leq n_k\leq N}c_{n_1}\cdots c_{n_k}T^k.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Since $c_i\in\mathbb{C}^\times$ and $\abs{T}<1$, the series in LHS converges absolutely, so it is well-defined and change of the order of summation does not change the result. Therefore, we again need to check whether the coefficients of $T^k$ for both side coincide.
+
+Now, let's change the view point of RHS. The RHS can be rewritten by
+\begin{equation}\label{HW10:Eq:5}
+    \sum_{k=0}^\infty \sum_{1\leq n_1\leq n_2\leq \cdots\leq n_k\leq N}c_{n_1}\cdots c_{n_k}T^k = \sum_{k=0}^\infty T^k\sum_{\substack{\sum_{i=1}^N d_i=k\\ d_i\geq 0}}c_1^{d_1}\cdots c_N^{d_N}.
+\end{equation}
+To check this, it is enough to show that any element $(d_1, \ldots, d_N)$ such that $\sum_{i=1}^N d_i = k$ bijectively correspond to $c_1^{d_1}\cdots c_N^{d_N}$ and the set of $c_{n_1}\cdots c_{n_k}$ with
+\begin{equation}
+    \underbrace{c_1\cdots c_1}_{d_1}\cdots \underbrace{c_{N}\cdots c_N}_{d_N}.
+\end{equation}
+Finally, the coefficient of $T^k$ in the LHS \eqref{HW10:Eq:4} is same as the RHS in \eqref{HW10:Eq:5}, so it proves the result.
+\end{proof}
+Applying above proposition with \eqref{HW10:Eq:6} and \eqref{HW10:Eq:2}, we get
+\begin{equation}
+\begin{split}
+    \frac{1}{\det(I-\rho(s)T)} &= \prod_{i=1}^N\sum_{j=0}^\infty (\lambda_iT)^j\\
+    &=\sum_{k=0}^\infty \sum_{1\leq n_1\leq n_2\leq \cdots\leq n_k\leq N}\lambda_{n_1}\cdots \lambda_{n_k}T^k\\
+    &=\sum_{k=0}^\infty \chi_\sigma^k(s) T^k.
+\end{split}
+\end{equation}
+for $\abs{T}<1/n$.
+\end{proof}
+Let's reproduce the same argument for $\lambda_T(\chi)$. For $k>n$, we know that $\chi_\lambda^k = 0$ by the property of the symmetric power, so we can assume $k\leq n$. For eigenvalues of $\rho(s)$, we get
+\begin{equation}
+    \begin{split}
+        \lambda_T(\chi)(s) &= \sum_{k=0}^n \chi_\lambda^k(s) T^k = \sum_{1=n_1< n_2< \ldots < n_k=n}\lambda_{n_1}\lambda_{n_2}\cdots \lambda_{n_k} T^k\\
+        \det(1+\rho(s)T) &= \prod_{i=1}^n (1+\lambda_i T).
+    \end{split}
+\end{equation}
+We can easily check that the two have same coefficient for $T^k$ by noticing that it is equivalent to choosing $k$ distinct element from $\{\lambda_1, \ldots, \lambda_n\}$.
+
+To proceed next step, I need some fact from linear algebra. Fortunately, we are dealing with diagonalizable matrices, so we can easily check the fact from the linear algebra.
+
+Let's define
+\begin{equation}
+    \frac{1}{1-A} \coloneqq \sum_{k=0}^\infty A^k
+\end{equation}
+for a diagonalizable matrix $A$ with eigenvalues $\lambda_i$ with $\abs{\lambda_i}<1$. This is well-defined since writing $A= V\Lambda V^{-1}$ which is diagonalization,
+\begin{equation}
+    \sum_{k=0}^N A^k = V\left(\sum_{k=0}^N \Lambda^k\right)V^{-1}
+\end{equation}
+and the diagonal part have $\sum_{k=0}^N \lambda_i^k$, which converges absolutely as $N\rightarrow \infty$. By the similar mean, we define
+\begin{equation}
+    -\ln(1-A)\coloneqq \sum_{k=1}^\infty \frac{A^k}{k}.
+\end{equation}
+for the same restriction on $A$. Finally, we define
+\begin{equation}
+    \exp A \coloneqq \sum_{k=0}^\infty \frac{A^k}{k!}
+\end{equation}
+with arbitrary restriction on $A$: to check the convergence, see "Matrix exponential" article in the Wikipedia. Note that if $A$ are diagonalizable, then the three operations preserves the diagonalizability. For diagonalizable matrix $A$, we know that
+\begin{equation}\label{HW10:Eq:9}
+    \det\left(\exp(A)\right) = \exp\left(\tr A\right),
+\end{equation}
+so replacing $A$ by $-\ln(1-\rho(s)T)$ for $\abs{T}<1/n$, we get
+\begin{equation}\label{HW10:Eq:8}
+    =\det\left(\exp(-\ln (1-\rho(s)T))\right) = \exp\left(\tr (-\ln (1-\rho(s)T))\right)
+\end{equation}
+Let's calculate both sides. For LHS with diagnalization $\rho(s) = V\Lambda V^{-1}$,
+\begin{equation}
+\begin{split}
+    \det\left(\exp(-\ln (1-\rho(s)T))\right) &= \det\left(\exp(V\left(\sum_{k=0}^\infty \left(\frac{\Lambda T}{k}\right)^k\right)V^{-1})\right)\\
+    &=\det\left(V\exp(\sum_{k=0}^\infty \left(\frac{\Lambda T}{k}\right)^k)V^{-1}\right),
+\end{split}
+\end{equation}
+and the center term is
+\begin{equation}\label{HW10:Eq:7}
+\begin{split}
+    \exp(\sum_{k=0}^\infty \left(\frac{\Lambda T}{k}\right)^k) &= \begin{pmatrix}\exp\left(\sum_k\frac{\lambda_1 T}{k}\right)^k & 0& \hdots &\vdots\\
+    0 & \exp\left(\sum_k\frac{\lambda_2 T}{k}\right)^k & \hdots &\vdots\\
+    \vdots & \vdots & \ddots & \vdots\\
+    \hdots & \hdots & 0 & \exp\left(\sum_k\frac{\lambda_n T}{k}\right)^k
+    \end{pmatrix}\\
+    &=\begin{pmatrix}\exp\left(-\ln(1-\lambda_1 T)\right) & 0& \hdots &\vdots\\
+    0 & \exp\left(-\ln(1-\lambda_2 T)\right) & \hdots &\vdots\\
+    \vdots & \vdots & \ddots & \vdots\\
+    \hdots & \hdots & 0 & \exp\left(-\ln(1-\lambda_n T)\right)
+    \end{pmatrix}\\
+    &=\frac{1}{1-\Lambda T}.
+\end{split}
+\end{equation}
+It shows that
+\begin{equation}
+    \det\left(\exp(-\ln (1-\rho(s)T))\right) = \det\left(\frac{1}{1-\Lambda T}\right).
+\end{equation}
+Furthermore, using \eqref{HW10:Eq:7}, we get
+\begin{equation}
+    \det\left(\exp(-\ln (1-\rho(s)T))\right) = \frac{1}{\det(1-\Lambda T)} = \frac{1}{\det(1-\rho(s) T)}.
+\end{equation}
+
+For the RHS of \eqref{HW10:Eq:8}, we again get
+\begin{equation}
+\begin{split}
+    \exp\left(\tr (-\ln (1-\rho(s)T))\right) &= \exp(\tr\left(\sum_{k=1}^\infty \frac{(\Lambda T)^k}{k}\right))\\
+    &=\exp\left(\sum_{k=1}^\infty \tr\Lambda^k \frac{T^k}{k}\right) = \exp\left(\sum_{k=1}^\infty \tr\rho^k(s) \frac{T^k}{k}\right)\\
+    &=\exp\left(\sum_{k=1}^\infty \tr\rho(s^k) \frac{T^k}{k}\right)=\exp\left(\sum_{k=1}^\infty \Psi^k(\chi)(s) \frac{T^k}{k}\right).
+\end{split}
+\end{equation}
+
+For $\lambda_T(\chi)(s)$, we repeat the similar computation. Pluggin $A=\ln(1+\rho(s)T)$ for \eqref{HW10:Eq:9}, we get
+\begin{equation}
+    \det\left(\exp(\ln(1+\rho(s)T))\right) = \exp\left(\tr \ln(1+\rho(s)T)\right).
+\end{equation}
+The RHS is
+\begin{equation}
+    \exp\left(\tr \ln(1+\rho(s)T)\right) = \exp(\sum_{k=1}^\infty (-1)^{k-1}\Psi^k(\chi)T^k/k),
+\end{equation}
+and the LHS is
+\begin{equation}
+    \det\left(\exp(\ln(1+\rho(s)T))\right) = \det(1+\rho(s)T).
+\end{equation}
+
+Finally, for $\abs{T}<1/n$, $\sigma_T(\chi)(s)$ is smooth and has well-defined series form derivative, so we get
+\begin{equation}
+    (\ln \sigma_T(\chi)(s))' = \frac{(\sigma_T(\chi)(s))'}{\sigma_T(\chi)(s)},
+\end{equation}
+and we know that $\sigma_T(\chi)(s)\neq 0$ for all $\abs{T}<1$ since it has exponential form, and $\sum_{k=1}^\infty \Psi^k(\chi)T^k/k$ converges absolutely for $\abs{T}<1/n$ as $\abs{\Psi^k(\chi)(s)}\leq n$. Therefore, 
+\begin{equation}
+    \left(\sum_{k=1}^\infty \Psi^k(\chi)T^k/k\right)'\left(\sum_{k=0}^\infty \chi^k_\sigma T^k\right) = \sum_{n=0}^\infty T^n \sum_{k=1}^{n+1} \Psi^{k}(\chi)\chi_{\sigma}^{n+1-k} = \sum_{n=1}^\infty n\chi_\sigma^n T^{n-1}.
+\end{equation}
+It shows that
+\begin{equation}
+    n\chi_\sigma^n = \sum_{k=1}^{n} \Psi^{k}(\chi)\chi_{\sigma}^{n-k}.
+\end{equation}
+Repeating same calculation, we again get
+\begin{equation}
+    n\chi_\lambda^n = \sum_{k=1}^{n} (-1)^{k-1}\Psi^{k}(\chi)\chi_{\lambda}^{n-k}.
+\end{equation}
+\item[(b)]
+Since $\Psi^k$ is $\mathbb{Z}$ linear map, it is enough to show that $\Psi^k(\chi)\in R(G)$ for an irreducible character $\chi$ on $G$. I'll show the result for $k\geq 0$, and extend it to $\mathbb{Z}$. Let's use induction on $k$. For $k=1$, it is trivial, so assume it is true for $k<K$. For $k=K$, note that
+\begin{equation}
+    \Psi^K(\chi) = K\chi_\sigma^K - \sum_{k=1}^{K-1}\Psi^k(\chi)\chi_\sigma^{K-k}.
+\end{equation}
+We know that $R(G)$ is closed under addition and multiplication, and $\chi_\sigma^n\in R(G)$ for all $n\geq 1$. Therefore, we get $\Psi^K(\chi)\in R(G)$ as $\Psi^k(\chi)\in R(G)$ for $k<K$ by the induction hypothesis.
+
+For $k=0$, it is just $\Psi^0(\chi)(s) = \chi(s^0) = \chi(1)$, so it is $\chi(1)1_G$. For $k<0$, choose sufficiently large $m>0$ such that $k+mg>0$, then
+\begin{equation}
+    \Psi^{k+mg}(\chi)(s) = \chi(s^{k+mg}) = \chi(s^{k}) = \Psi^k(\chi)(s)
+\end{equation}
+for all $s\in G$. Therefore, $\Psi^k(\chi)=\Psi^{k+mg}(\chi)\in R(G)$. It ends the proof.
+
+(If the stability means $\Psi^k:R(G)\rightarrow R(G)$ is bijective for all $k$, it is false: $\Psi^g(\chi) = \chi(1)1_G$ for all irreducible representation $\chi$ on $G$.)
+\end{enumerate}
+\noindent \textbf{3}-\textbf{4}(\textbf{S} 9.4)
+\begin{enumerate}
+    \item[(a)]I'll first show a proposition.
+\begin{proposition}\label{HW10:Prop:1}
+Let's define $\varphi:G\rightarrow G$ by $\varphi(s) = s^n$. If $(n,g)=1$, then $\varphi$ is a bijective map.
+\end{proposition}
+\begin{proof}
+Since $(n,g)=1$, there exists $k\in \mathbb{N}$ such that $kn\equiv 1\mod g$. If $g_1^n = g_2^n$, then $g_1=g_1^{kn}=g_2^{kn}=g_2$, so $\varphi$ is injective. Since the domain and codomain have same finite cardinality, $\varphi$ is bijective.
+\end{proof}
+\begin{corollary}\label{HW10:Cor:1}
+Let $c_1$ be a conjugacy class in $G$. Then the $\varphi$ maps $c_1$ to another conjugacy class bijectively, i.e. if I write $c_1' = \Im\varphi(c_1)$, then $\varphi|_{c_1}:c_1\rightarrow c'_1$ is bijective.
+\end{corollary}
+\begin{proof}
+Let's consider $\varphi|_{c_i}$, then it is contained in some conjugacy class, in fact, it is surjective on the conjugacy class: if $s_1\in c_i$, then for any $s\in G$, $\varphi(ss_1s^{-1}) = ss_1^ns^{-1}$, so it is contained in some conjugacy class $c'_1$ containing $s_1^n$ and generated any element in the class. Since $\varphi$ is injective, $\varphi|_{c_1}$ is bijective.
+\end{proof}
+\begin{corollary}\label{HW10:Cor:2}
+Let $\{c_1, \ldots, c_h\}$ be the set of conjugacy classes in $G$. Let's define \begin{equation}
+    \Phi:\{c_1, \ldots, c_h\}\rightarrow \{c_1, \ldots, c_h\}
+\end{equation}
+by $\Phi(c_i) = \Im\varphi(c_i)$. Then, $\Phi$ is a bijective map.
+\end{corollary}
+\begin{proof}
+From the above consideration, the map $\Phi:\{c_1, \ldots, c_h\}\rightarrow \{c_1, \ldots, c_h\}$ is well-defeind. Since $\varphi$ is bijective, $\Phi$ is again surjective, so bijective.
+\end{proof}
+Using the proposition, we get
+\begin{equation}
+\begin{split}
+    \langle \Psi^n(\chi),\Psi^n(\chi)\rangle = \frac{1}{g}\sum_{s\in G}\chi(s^n)\chi(s^{-n}) = \frac{1}{g}\sum_{s\in G}\chi(s)\chi(s^{-1}) = \langle \chi, \chi\rangle = 1.
+\end{split}
+\end{equation}
+Also, $\Psi^n(\chi)(1)=\chi(1)>0$. By the problem 9.2, we know that $\Psi^n\chi$ is an irreducible character of $G$.
+\item[(b)] The center of the algebra $\mathbb{C}[G]$ is spanned by $e_c=\sum_{s\in c}s$ where $c$ is a conjugacy class of $G$; in fact, it is a basis. Now, I'll prove a lemma.
+\begin{lemma}
+For two conjugacy classes $c_1,c_2$ in $G$, we get
+\begin{equation}
+    \sum_{s\in c_1}\sum_{s'\in c_2}s^n(s')^n = \sum_{s\in c_1}\sum_{s'\in c_2}(ss')^n.
+\end{equation}
+\end{lemma}
+\begin{proof}
+If $G$ were abelian, then it is easy to see, so assume $G$ is non-abelian. Let's use proposition 13 and algebra homomorphisms $\omega_i$ which sends $\sum_{s\in G}u(s)s\in \mathrm{Cent.}~\mathbb{C}[G]$ to $\mathbb{C}$ by
+\begin{equation}
+    \omega_i\left(\sum_{s\in G}u(s)s\right) = \frac{1}{n_i}\sum_{s\in G}u(s)\chi_i(s),
+\end{equation}
+where $\chi_i$ is the irreducible character corresponding to $\omega_i$ and $n_i=\deg \chi_i$. (For detailed explanation, see Chapter 6.3, \textbf{S}.) Since $(\omega_i)_{i=1}^h$, where $h$ is the number of conjugacy classes in $G$, defines an isomorphism of the center of $\mathbb{C}[G]$ onto the algebra $\mathbb{C}^h$, it is enough to show that 
+\begin{equation}\label{HW10:Eq:11}
+    \omega_i\left(\sum_{s\in c_1}\sum_{s'\in c_2}s^n(s')^n\right) = \omega_i\left(\sum_{s\in c_1}\sum_{s'\in c_2}(ss')^n.\right)
+\end{equation}
+for all $i$.
+
+Now, let's use corollary \ref{HW10:Cor:1}. Let's set $c'_1 = \Im \varphi(c_1)$ and $c'_2 = \Im\varphi(c_2)$, then we get
+\begin{equation}
+\begin{split}
+    \sum_{s\in c_1}s^n &= \sum_{s\in c'_1}s\\
+    \sum_{s'\in c_2}(s')^n &=\sum_{s'\in c'_2}s',
+\end{split}
+\end{equation}
+and it shows that both are in the center of $\mathbb{C}[G]$. Now, we get
+\begin{equation}
+\begin{split}
+    \omega_i\left(\sum_{s\in c_1}\sum_{s'\in c_2}s^n(s')^n\right) &=\omega_i\left(\left(\sum_{s\in c_1}s^n\right)\left(\sum_{s'\in c_2}(s')^n\right)\right)\\
+    &=\omega_i\left(\sum_{s\in c_1}s^n\right)\omega_i\left(\sum_{s'\in c_2}(s')^n\right)\\
+    &=\frac{1}{n^2_i}\sum_{s\in c_1}\Psi^n\chi_i(s)\sum_{s'\in c_2}\Psi^n\chi_i(s').
+\end{split}
+\end{equation}
+From (a), we know that $\Psi^n\chi_i = \chi_j$ for some $j$ since it is irreducible, and $n_i=n_j$ since $\Psi^n\chi_i(1) = \chi_i(1)$. It shows that
+\begin{equation}
+\begin{split}
+    \omega_i\left(\sum_{s\in c_1}\sum_{s'\in c_2}s^n(s')^n\right) &=\frac{1}{n^2_i}\sum_{s\in c_1}\Psi^n\chi_i(s)\sum_{s'\in c_2}\Psi^n\chi_i(s')\\
+    &=\frac{1}{n^2_j}\sum_{s\in c_1}\chi_j(s)\sum_{s'\in c_2}\chi_j(s')\\
+    &=\omega_j\left(\sum_{s\in c_1}s\right)\omega_j\left(\sum_{s'\in c_2}s'\right)\\
+    &=\omega_j\left(\sum_{s\in c_1}\sum_{s'\in c_2}ss'\right).
+\end{split}
+\end{equation}
+Also,
+\begin{equation}
+    \begin{split}
+        \omega_i\left(\sum_{s\in c_1}\sum_{s'\in c_2}(ss')^n.\right) &= \frac{1}{n_i}\sum_{s\in c_1,s'\in c_2}\Psi^n \chi_i(ss')\\
+        &=\frac{1}{n_j}\sum_{s\in c_1,s'\in c_2}\chi_j(ss')\\
+        &=\omega_j\left(\sum_{s\in c_1,s'\in c_2}ss'\right).
+    \end{split}
+\end{equation}
+Therefore, \eqref{HW10:Eq:11} holds and the lemma is true for $(n,g)=1$.
+\end{proof}
+The lemma shows that $\psi_n$ is algebra endomorphism on the center of $\mathbb{C}[G]$ as it shows
+\begin{equation}
+    \psi_n(e_{c_1})\psi_n(e_{c_2}) = \psi_n(e_{c_1}e_{c_2})
+\end{equation}
+for any conjugacy classes $c_1$ and $c_2$ in $G$. By the corollary \ref{HW10:Cor:2}, we know that $\Im\psi_n$ maps the basis $\{e_c\}$ to the basis $\{e_c\}$ surjectively. Since the domain and codomain have same dimension, it shows that $\varphi$ is an algebra automorphism on the center of $\mathbb{C}[G]$. 
+\end{enumerate}
+\noindent \textbf{5}(\textbf{S} 11.1)
+Assume I showed the following proposition: P2: "Let $f$ be a class function on cyclic group $G$ with values in $\mathbb{Q}$ such that $f(x^m)=f(x)$ for all $m$ primes to $g$, then $f\in \mathbb{Q}\otimes R(G)$". Let the original statement P1. It is trivial that P1 implies P2. Also, P2 implies P1: using th. 21' in the textbook, it is enough to show that for any cyclic subgroup $H\leq G$, $\Res_H f\in \mathbb{Q}\otimes R(H)$. 
+
+Since we assumed P2 is true, it is again enough to show that $f(x^m)=f(x)$ for all $m$ prime to $\abs{H}$ for $x\in H$. To show it, let's fix $x\in H$ and $m$ such that $(m,\abs{H})=1$. Note that $(m,\abs{G})$ need not to be $1$. However, there always exists $k\in\mathbb{N}$ such that $(m+k\abs{H}, \abs{G})=1$ by the Dirichlet's theorem on arithmetic progressions: the original statment of the Dirichelt's theorem is that if $(m,\abs{H})=1$, then $m+k\abs{H}$ contains infinitely many primes, which means that there exists $k_0$ such that $(m+k_0\abs{H},\abs{G})=1$. It means that
+\begin{equation}
+    f(x^{m}) = f(x^{m+k_0\abs{H}}) = f(x).
+\end{equation}
+(The second equality is by the assumption of P1.) Therefore, the condition for P2 is satisfied and I showed that P2 implies P1. Now, I can safely reduce $G$ to a cyclic group.
+
+
+Let the generator of $G$ by $x$ and $g=\abs{G}$. Choose any irreducible character $\chi_k$ from $0\leq k\leq g-1$ such that $\chi_k(x) = \exp(2\pi i k/g)$ of $G$, then
+\begin{equation}
+    \langle f, \chi_k\rangle = \sum_{m=1}^{g}f(x^m)\exp\left(\frac{-2\pi ikm}{g}\right).
+\end{equation}
+Now, take partition of $\{1, \ldots, g\}$ such that $(a, g)=q$ for $1\leq q\leq g$, for example, 
+\begin{equation}
+    A_q = \{a\in \{1, \ldots, g\}: (a,g)=q\}.
+\end{equation}
+Since $(a/q, g/q)=1$, we get
+\begin{equation}
+    \sum_{m\in A_q}\exp\left(\frac{-2\pi ikm}{g}\right) = \sum_{m\in A_q}\exp\left(\frac{-2\pi ik(m/q)}{g/q}\right) = \sum_{m\in (\mathbb{Z}/(g/q)\mathbb{Z})^\times}\exp\left(\frac{-2\pi ikm}{g/q}\right) \in \mathbb{Z}
+\end{equation}
+for each $q$ since the $n$th cyclotomic polynomial is in $\mathbb{Z}[x]$ for any $n\geq 1$. Now, I'll show a proposition.
+\begin{proposition}
+For any $a_1,a_2\in\{1, \ldots, g\}$ such that $(a_1,g)=(a_2,g)=q$ for some $q\in\mathbb{Z}$, there exists $m\in\mathbb{N}$ such that $a_1m\equiv a_2\mod g$.
+\end{proposition}
+\begin{proof}
+Consider $a_1/q,a_2/q\in (\mathbb{Z}/(g/q)\mathbb{Z})^\times$, so take $m\in \mathbb{Z}$ such that $(m,g/q)=1$ and $a_1m/q-a_2/q\equiv 0\mod g/q$. It shows that $a_1m-a_2\equiv 0\mod g$. Also, $(m,g)=1$ since $(a_1m,g)=(a_1,g)(m,g)=(a_2,g)$.
+\end{proof}
+The above proposition shows that $f(x^{a_1})=f(x^{a_2})$. Therefore,
+\begin{equation}
+\begin{split}
+    \langle f, \chi\rangle &= \frac{1}{g}\sum_{m=1}^{g}f(x^m)\exp\left(\frac{-2\pi ikm}{g}\right)\\
+    &=\frac{1}{g}\sum_{q=1}^{g}\sum_{m\in A_q}f(x^m)\exp\left(\frac{-2\pi ikm}{g}\right)\\
+    &=\frac{1}{g}\sum_{q=1}^{g}\sum_{m\in A_q}f(x^q)\exp\left(\frac{-2\pi ikm}{g}\right)\\
+    &=\frac{1}{g}\sum_{q=1}^{g}f(x^q)\sum_{m\in A_q}\exp\left(\frac{-2\pi ikm}{g}\right)\in\mathbb{Q},
+\end{split}
+\end{equation}
+for any irreducible character $\chi$ and it shows that $f\in\mathbb{Q}\otimes R(G)$.
+
+In problem 3, we showed that $\Psi^n$ maps $R(G)$ to $R(G)$, so extending the scalar to $\mathbb{Q}$, we can treat that $\Psi^n$ maps $\mathbb{Q}\otimes R(G)$ to $\mathbb{Q}\otimes R(G)$. Also, if $\Im f\subset\mathbb{Z}$, so $\Im\Psi^nf\subset \mathbb{Z}\subset A$, then $(g/(g,n))\Psi^nf\in A\otimes R(G)$ by theorem 23. It means that for any irreducible character $\chi$ of $G$,
+\begin{equation}
+    g/(g,n)\langle \Psi^n f, \chi\rangle \in\mathbb{Q}\cap A = \mathbb{Z}.
+\end{equation}
+Therefore, $(g/(g,n))\Psi^nf\in R(G)$. 
+
+For a class function $f(s) = \delta_{s=1}$, $\Psi^n f$ captures elements $s\in G$ such that $\abs{s}\mid n$, i.e. $\Psi^n f = 1$ if $\abs{s}\mid n$ and $0$ elsewhere. The above result shows that $g/(g,n)1_{\{s:\abs{s}\mid n\}}\in R(G)$, which generalize the result $g \delta_{s=1}$ is the character of regular representation.\\
+
+\noindent \textbf{6}(Thm 23)
+From the class, what I need to show is the following:
+\begin{proposition}\label{HW10:Prop:3}
+For each conjugacy class $c$ of $p$-group $G$, and each irreducible character $\chi$ of $G$, we have $1/(g,n)\sum_{x^n\in c}\chi(x)\in A$.
+\end{proposition}
+and what we actually proved is the following
+\begin{proposition}\label{HW10:Prop:4}
+Let $c$ be a conjugacy class of a $p$-group $G$, let $\chi$ be a character of degree $1$ of $G$,and let $a_c\sum_{x^n\in c}\chi(x)$. Then $a_c\in (g,n)A$.
+\end{proposition}
+To end the proof, I need to show that proposition \ref{HW10:Prop:4} implies \ref{HW10:Prop:3}.
+
+Before start, I'll prove some propositions.
+\begin{proposition}
+For a conjugacy class $c$ of $G$, set $c^{-1} = \{s^{-1}:s\in c\}$, then $c^{-1}$ is again a conjugacy class.
+\end{proposition}
+\begin{proof}
+If $a_1,a_2\in c^{-1}$, then $a_1^{-1},a_2^{-1}\in c$, so there exists $s\in G$ such that $sa_1^{-1}s^{-1} =a_2^{-1}$. It shows that $sa_1s^{-1}=a_2$. Conversely, for fixed $a_1\in c^{-1}$, $sa_1s^{-1}\in c^{-1}$ by the same reason.
+\end{proof}
+\begin{proposition}\label{HW10:Prop:5}
+For a conjugacy class $c$ of $G$ and a subgroup $H\leq G$, $c\cap H$ is a disjoint union of the conjugacy classes in $H$ if $c\cap H\neq \emptyset$.
+\end{proposition}
+\begin{proof}
+Assume $a\in c\cap H$, then for any $s\in H$, $sas^{-1}\in c\cap H$. It ends the proof.
+\end{proof}
+
+From the fact that any irreducible character of $p$-group is induced by a character of degree $1$, for an irreducible character $\chi$ of $G$, choose degree 1 character $\eta$ of $H$ such that $H\leq G$ satisfying $\chi = \Ind_H^G \eta$. Note that any subgroup of $p$-group is again $p$-group, so $H$ is $p$-group. Now,
+\begin{equation}
+    \langle \chi,\Psi^n f_{c^{-1}}\rangle = \frac{1}{g}\sum_{x^n\in c}\chi(x).
+\end{equation}
+On the other hands,
+\begin{equation}
+    \langle \chi,\Psi^n f_{c^{-1}}\rangle = \langle \eta,\Res_H\Psi^n f_{c^{-1}}\rangle =\frac{1}{h}\sum_{x\in H}\eta(x)f_{c^{-1}}(x^{-n}) = \frac{1}{h}\sum_{x\in H, x^n\in c\cap H}\eta(x).
+\end{equation}
+By the proposition \ref{HW10:Prop:5}, $c\cap H$ is a disjoint union of $c_H^i$, where these are conjugacy classes of $H$, so
+\begin{equation}
+    \frac{1}{h}\sum_{x\in H, x^n\in c\cap H}\eta(x) = \frac{1}{h}\sum_i\sum_{x\in H, x^n\in c^i_H}\eta(x)\in (h,n)A
+\end{equation}
+by the \ref{HW10:Prop:4}. Finally, it implies
+\begin{equation}
+    \langle \chi,\Psi^n f_{c^{-1}}\rangle\in (h,n)A\subset (g,n)A,
+\end{equation}
+and we get
+\begin{equation}
+    \frac{1}{(g,n)}\sum_{x^n\in c}\chi(x)\in A.
+\end{equation}
+It ends the proof.
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

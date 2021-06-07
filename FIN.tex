@@ -1,0 +1,529 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{Cl}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{FINAL}
+\end{center}
+박성빈, 수학과, 20202120
+
+Notation: I'll reserve $g=\abs{G}$ and $h=\abs{H}$ if there is no additional mention.\\
+
+\noindent \textbf{1}
+The induced character from $H$ to $G$ is written by
+\begin{equation}
+    \Ind_H^G f(s) = \frac{1}{h}\sum_{\substack{t\in G\\t^{-1}st\in H}} f(t^{-1}st)
+\end{equation}
+for $s\in G$. Let's prove that this is the valid formula. Let $R = \{1=g_1, \ldots, g_{n}\}\subset G$ be the representatives of the left cosets $G/H$ and choose $s\in G$. For $\theta:H\rightarrow GL(V)$, choose a basis of $V$ by $\{v_j\}_{j=1}^m$. Now, choose a basis of $\mathbb{C}[G]\otimes_{\mathbb{C}[H]}V$ by
+\begin{equation}
+    \{g_1\otimes v_1, g_1\otimes v_2, \ldots, g_1\otimes v_m, g_2\otimes v_1, \ldots, g_n\otimes v_m\}.
+\end{equation}
+Let's consider the matrix $\Ind_H^G\theta(s)$ by the action onto $g_i\otimes V$ blocks, then the diagonal block part survives if and only if $s$ maps $g_i\otimes V$ block to $g_i\otimes V$ block, in other words, $g_i^{-1}sg_i\in H$, so
+\begin{equation}
+    s\cdot (g_i\otimes v_j) = g_i\otimes ((g_{i}^{-1}sg_i)\cdot v_j).
+\end{equation}
+Also, if $s$ succeed to make map $g_i\otimes V$ to $g_i\otimes V$, the action to $V$ part is $\theta(g_i^{-1}sg_i)$, so tracing the $\Ind_H^G\theta(s)$ is of the form
+\begin{equation}
+    \Ind_H^G f(s) = \sum_{\substack{i\\g_i^{-1}sg_i\in H}} f(g_i^{-1}sg_i).
+\end{equation}
+Finally, $f$ is the class function in $H$, so for any $h\in H$,
+\begin{equation}
+    f(g_i^{-1}sg_i) = f(h^{-1}g_i^{-1}sg_ih) = f((g_ih)^{-1}s(g_ih)).
+\end{equation}
+It shows that
+\begin{equation}
+    \Ind_H^G f(s) = \frac{1}{h}\sum_{\substack{t\in G\\t^{-1}st\in H}} f(t^{-1}st).
+\end{equation}
+\noindent \textbf{2}
+\begin{enumerate}
+    \item[(a)] Let $\{1=g_1, \ldots, g_{n}\}$ be the representatives of the left cosets $G/H$; note that $n=g/h$. For $s\in G$, $\chi(s)$ counts the elements in the representatives satisfying $g_i^{-1}sg_i\in H$. On the other hand,
+    \begin{equation}
+        \Ind_H^G(1)(s) = \frac{1}{h}\sum_{\substack{t\in G\\ t^{-1}st\in H}} 1.
+    \end{equation}
+    For any $s'\in H$, $(g_is')^{-1}s(g_is')\in H$ is equivalent to saying that $g_i^{-1}sg_i\in H$, so the above sum is equivalent to
+    \begin{equation}
+        \Ind_H^G(1)(s) = \frac{1}{h}\sum_{\substack{t\in G\\ t^{-1}st\in H}} 1 = \sum_{\substack{i:g_i^{-1}sg_i\in H}} 1,
+    \end{equation}
+    so $\chi = \Ind_H^G(1)$.
+    \item[(b)] As $\chi$ is a character, we get
+    \begin{equation}
+    \begin{split}
+        \langle \chi, 1_G\rangle &= \langle \Ind_H^G(1_H), 1_G\rangle\\
+        &= \langle 1_H, \Res_H 1_G\rangle~(\textrm{By the Frobenius reciprocity})\\
+        &=\langle 1_H, 1_H\rangle = 1,
+    \end{split}
+    \end{equation}
+    and $\chi$ contains one irreducible character component $1_H$. It shows that $\psi = \chi- 1_H$ is again a character.
+    \item[(c)] Since 
+    \begin{equation}
+        \langle \chi-1, \chi-1\rangle = \langle \chi, \chi\rangle - 2\langle \chi, 1\rangle + \langle 1, 1\rangle = \langle \chi,\chi\rangle -1,
+    \end{equation}
+    $\psi$ is an irreducible character if and only if $\langle \chi, \chi\rangle = 2$. Furthermore, from the exercise 2.6, $\chi-1$ is irreducible if and only if $G$ acts on $G/H$ doubly transitively, equivalently saying that $\langle \chi, \chi\rangle = \langle \chi^2, 1\rangle = 2$; note that $\chi(s)$ is real-valued for all $s$ as it is induced from the real-valued class function. The doubly transitive condition comes the property that the permutation action on $X\times X$ have characteristic $\chi^2$ and $\langle \chi^2, 1\rangle=2$ if and only if there is only two distinct orbits under the action of $G$. Definitely, $H$ is not a normal subgroup of $G$ if it is doubly transitive on $G/H$.
+\end{enumerate}
+
+\noindent \textbf{3}
+너무 길어서 뒤로 빼겠습니다.\\
+
+\noindent \textbf{4}
+The first condition is translated as follows:
+\begin{equation}
+    \sum_{s\in G}\varphi(s) = 0.
+\end{equation}
+
+In the problem 6.7 in the textbook, which I remember that we solved in the midterm, we showed that $\abs{\chi(s)}\leq \chi(1)$ for irreducible character $\chi$. For each irreducible representation $\chi$,
+\begin{equation}
+\begin{split}
+    \Re\left(\langle \varphi, \chi\rangle\right) &= \sum_{s\in G}\varphi(s^{-1})\Re\left(\chi(s)\right)=\chi(1)\varphi(1)+\sum_{s\neq 1}\varphi(s^{-1})\Re(\chi(s))\\
+    &\geq \chi(1)\varphi(1)+\chi(1)\sum_{s\neq 1}\varphi(s^{-1})=\chi(1)\sum_{s\in G}\varphi(s^{-1}) = 0
+\end{split}
+\end{equation}
+as $\varphi(s)\leq 0$ for $s\neq 1$.
+
+If $\varphi\in R(G)$, the above conditions say that $\varphi\in R^+(G)$, which is a character.\\
+
+\noindent \textbf{5}
+\begin{theorem}
+(Artin's theorem) Let $G$ be a finite group, and $X$ be the set of all the cyclic subgroups of $G$. For any virtual character $\chi\in R(G)$, there exists $\eta_C\in R(C)$ for each $C\in X$ and $k\in \mathbb{N}$ satisfying
+\begin{equation}
+    k\chi = \sum_{C\in X}\Ind_C^G\eta_C.
+\end{equation}
+\end{theorem}
+\begin{definition}
+Let $G$ be a finite group. For a prime $p\in\mathbb{N}$, $x\in G$ is a $p$-element if its order is of the power of $p$. We say $x\in G$ is a $p'$-element if its order is coprime to $p$. A group $H$ is called $p$-elementary group if it is the direct product of a cyclic group $C$ of order coprime to $p$ and a $p$-group $P$, i.e. $H = C\times P$.
+\end{definition}
+\begin{remark}
+Let $G$ be a finite group. To consider elementary subgroup $H$ of $G$, we impose that $H = C\cdot P\simeq$ with the same notation above with the condition that any element in $C$ and $P$ are commutes. This condition says that for $x$ be the generator of $C$, $P\leq Z(x)$. By imposing the commutativity, we can identifying internal direct product of $C$ and $P$ with direct product $C\times P$.
+\end{remark}
+\begin{theorem}\label{FIN:thm:2}
+(Brauer's theorem) Let $G$ be a finite group, and $X'$ be the set of all the elementary subgroups of $G$. For any virtual character $\chi\in R(G)$, there exists $\eta_H\in R(H)$ for each $H\in X'$ satisfying
+\begin{equation}
+    \chi = \sum_{H\in X'}\Ind_H^G\eta_H.
+\end{equation}
+\end{theorem}
+\begin{remark}
+First remark is that $X\subset X'$: for any cyclic subgroup $C$, choose an prime $p$ such that the order of $C$ is coprime to $p$. By writing $C = C\cdot 1$, we know that $C$ is $p$-elementary subgroup. The second remark is that Brauer's theorem can exactly write any $\chi\in R(G)$ into the sum of the induced virtual characters of elementary subgroups, while Artin's theorem only can say that it can write by the sum of the induced virtual characters of cyclic subgroups with coefficient in $\mathbb{Q}$. This difference comes from that $X'$ have larger collection of the subgroups of $G$ than $X$.
+\end{remark}
+
+\noindent \textbf{6}
+I'll show the following proposition.
+\begin{proposition}
+(Ex. 10.2 in the textbook) Let $G=GL_n(k)$, where $k$ is a finite field of characteristic $p$. Show that an element $x\in G$ is a $p$-element if and only if its eigenvalues are all equal to $1$, i.e., $1-x$ is nilpotent; it is a $p'$-elemen if and only if it is semisimple, i.e., diagonalizable in a finite extension of $k$.
+\end{proposition}
+\begin{proof}
+If $\abs{x} = p^k$ for $k\in\mathbb{Z}_{\geq 0}$, $(1-x)^{p^k} = 1-x^{p^k} = 0$, so $(1-x)$ is nilpontent; cf. Frobenius endomorphism. Conversely, assume $1-x$ is nilpotent, then there exists large enough $k\geq 1$ such that $(1-x)^{p^k} = 0$. It means that $x^{p^k} = 1$, and $\abs{x}\mid p^k$, which implies $x$ is $p$-element.
+If $x$ is $p'$-element, then $x^N = 1$ for $(N, p)=1$. The minimum polynomial should divide $q(x) = x^N-1$, which is separable as $(q'(x), q(x)) = (Nx^{N-1}, x^N-1) = (Nx^{N-1}, -1) = 1$. It shows that the minimal polynomial is separable and $x$ is diagonalizable in a finite extension of $k$. Conversely, assume $x$ is diagonalizable in some finite extension of $k$. Since the extended field $k'$ have characteristic $p$, it again have order $p^m$ for some $m\in\mathbb{N}$. By little Fermat's theorem, any non-zero element in the field have order dividing $p^m-1$, which is coprime to $p$. Therefore, writing
+\begin{equation}
+    x = V\Lambda V^{-1},
+\end{equation}
+where $V\in GL_n(k')$ and $\Lambda\in GL_n(k')$ is a diagonal matrix having eigenvalues in the diagonal part, we get the order of $\Lambda$ coprime to $p$. Therefore, $x$ have order coprime to $p$, and it is an $p'$-element.
+\end{proof}
+
+If $x$ is $p$-element, $(1-x)$ is nilpotent by the proposition. Since $(1-x)$ is irreducible polynomial in $F[x]$, it means that each minimal polynomial and characteristic polynomial are of the form $(1-x)^m$ for some $m\in\mathbb{N}$, cf. \textit{Abstract Algebra}, Dummit and Foote, proposition 20 in Section 12.2.
+
+Now, let $x$ be $p'$-element. As in the proof of the proposition, the minimal polynomial of $x$ is separable and divides $x^N-1$ where $N=\abs{x}$. Since the minimal polynomial divides the characteristic polynomial, and characteristic polynomial of $x$ divides some power of the minimal polynomial, the characteristic polynomial completely splits in the finite splitting field extension of $k$ about the minimal polynomial of $x$.
+
+Example: for $p$-element, which is not $p'$-element, choose
+\begin{equation}
+    A = \begin{pmatrix}
+    1 & 1 & 0 & 0 & \hdots & 0\\
+    0 & 1 & 0 & 0 & \hdots &0\\
+    0 & 0 & 1 & 0 & \hdots & 0\\
+    \vdots & \vdots & \ddots & \ddots & \hdots & 0\\
+    0 & 0 & 0 & 0 & 0 & 1
+    \end{pmatrix}
+\end{equation}
+as
+\begin{equation}
+    A^n = \begin{pmatrix}
+    1 & n & 0 & 0 & \hdots & 0\\
+    0 & 1 & 0 & 0 & \hdots &0\\
+    0 & 0 & 1 & 0 & \hdots & 0\\
+    \vdots & \vdots & \ddots & \ddots & \hdots & 0\\
+    0 & 0 & 0 & 0 & 0 & 1
+    \end{pmatrix},
+\end{equation}
+so $\abs{A} = p$.
+
+For $p'$-element which is not $p$-element, choose
+\begin{equation}
+    B = \begin{pmatrix}
+    \delta & 0 & 0 & 0 & \hdots & 0\\
+    0 & 1 & 0 & 0 & \hdots &0\\
+    0 & 0 & 1 & 0 & \hdots & 0\\
+    \vdots & \vdots & \ddots & \ddots & \hdots & 0\\
+    0 & 0 & 0 & 0 & 0 & 1
+    \end{pmatrix},
+\end{equation}
+where $\delta=2$ if $p>2$, non-zero and not $1$ element in $k$ if $p=2$, but $k\not\simeq \mathbb{F}_2$, and a root of $x^2+x+1$ if $k\simeq \mathbb{F}_2$. For $p>2$ case, as $\abs{\delta}\mid p-1$, $B$ is $p'$-element. For $k\simeq \mathbb{F}_2$, note that $\abs{\delta}=3$, so it is again $p'$-element.\\
+
+
+\noindent \textbf{7}
+\begin{enumerate}
+    \item[(a)]Using Brauer's theorem, theorem \ref{FIN:thm:2}, we can write
+\begin{equation}
+    \chi = \sum_{H\in X'}\Ind_H^G\eta_H.
+\end{equation}
+For each $H\in X'$, let's write $\eta_H = \sum_{i=1}^{m_H} n_{H,i}\eta_{H,i}$, where $\eta_{H,i}$ are irreducible characters of $H$ and $n_{H,i}\in\mathbb{Z}$. Using the fact that any irreducible character of $H$, which is supersolvable, are monomials, we know that $\eta_H$ is the sum of monomial characters with integer coefficients. It shows that $\chi$ is the sum of monomial characters with integer coefficients.
+\item[(b)]From the assumption, there exists $r_{i,j}\in\mathbb{R}_+$ and degree $1$ representations $(A_j, \chi_{i,j})$ where $A_j\leq G$ such that
+    \begin{equation}
+        \chi = \sum_j \sum_i r_{i,j} \Ind_{A_j}^G \chi_{i,j}.
+    \end{equation}
+    (I used $i$ to express distinct irreducible characters in same $A_j$.) As $\chi$ is an irreducible character, we get
+    \begin{equation}
+        1=\langle \chi, \chi\rangle = \sum_j\sum_i r_{i,j} \langle \Ind_{A_j}^G \chi_{i,j}, \chi\rangle,
+    \end{equation}
+    and for the other irreducible representations $\chi'$ of $G$,
+    \begin{equation}
+        0=\langle \chi, \chi'\rangle = \sum_j\sum_i r_{i,j} \langle \Ind_{A_j}^G \chi_{i,j}, \chi'\rangle.
+    \end{equation}
+    Since $r_{i,j}>0$ by deleting the terms with $r_{i,j}=0$ and $\langle \Ind_{A_j}^G \chi_{i,j}, \chi'\rangle\in\mathbb{Z}_{\geq 0}$ as both are characters, we get $r_{i,j}\langle \Ind_{A_j}^G \chi_{i,j}, \chi'\rangle=0$ for all irreducible representations of $G$ except $\chi$. Choose one $i,j$ such that $r_{i,j}\langle \Ind_{A_j}^G \chi_{i,j}, \chi\rangle>0$ and denote it $i_0,j_0$. Since the irreducible representations forms an orthonomal basis of class function and $\Ind_{A_{j_0}}^G \chi_{i_0,j_0}\in R^+(G)$, we get $\Ind^G_{A_{j_0}} \chi_{i_0,j_0} = n\chi$ for some $n\in\mathbb{N}$. As a result, we conclude that $n\chi$ is a monomial.
+\end{enumerate}
+
+\noindent \textbf{8}
+Assume I showed the following proposition: P2: "Let $f$ be a class function on cyclic group $G$ with values in $\mathbb{Q}$ such that $f(x^m)=f(x)$ for all $m$ primes to $g$, then $f\in \mathbb{Q}\otimes R(G)$". Let the original statement P1. It is trivial that P1 implies P2. Also, P2 implies P1: using th. 21' in the textbook, it is enough to show that for any cyclic subgroup $H\leq G$, $\Res_H f\in \mathbb{Q}\otimes R(H)$. 
+
+Since we assumed P2 is true, it is again enough to show that $f(x^m)=f(x)$ for all $m$ prime to $\abs{H}$ for $x\in H$. To show it, let's fix $x\in H$ and $m$ such that $(m,\abs{H})=1$. Note that $(m,\abs{G})$ need not to be $1$. However, there always exists $k\in\mathbb{N}$ such that $(m+k\abs{H}, \abs{G})=1$ by the Dirichlet's theorem on arithmetic progressions: the original statment of the Dirichelt's theorem is that if $(m,\abs{H})=1$, then $m+k\abs{H}$ contains infinitely many primes, which means that there exists $k_0$ such that $(m+k_0\abs{H},\abs{G})=1$. It means that
+\begin{equation}
+    f(x^{m}) = f(x^{m+k_0\abs{H}}) = f(x).
+\end{equation}
+(The second equality is by the assumption of P1.) Therefore, the condition for P2 is satisfied and I showed that P2 implies P1. Now, I can safely reduce $G$ to a cyclic group.
+
+Let the generator of $G$ by $x$ and $g=\abs{G}$. Choose any irreducible character $\chi_k$ from $0\leq k\leq g-1$ such that $\chi_k(x) = \exp(2\pi i k/g)$ of $G$, then
+\begin{equation}
+    \langle f, \chi_k\rangle = \sum_{m=1}^{g}f(x^m)\exp\left(\frac{-2\pi ikm}{g}\right).
+\end{equation}
+Now, take partition of $\{1, \ldots, g\}$ such that $(a, g)=q$ for $1\leq q\leq g$, for example, 
+\begin{equation}
+    A_q = \{a\in \{1, \ldots, g\}: (a,g)=q\}.
+\end{equation}
+Since $(a/q, g/q)=1$, we get
+\begin{equation}
+    \sum_{m\in A_q}\exp\left(\frac{-2\pi ikm}{g}\right) = \sum_{m\in A_q}\exp\left(\frac{-2\pi ik(m/q)}{g/q}\right) = \sum_{m\in (\mathbb{Z}/(g/q)\mathbb{Z})^\times}\exp\left(\frac{-2\pi ikm}{g/q}\right) \in \mathbb{Z}
+\end{equation}
+for each $q$ since the $n$th cyclotomic polynomial is in $\mathbb{Z}[x]$ for any $n\geq 1$. Now, I'll show a proposition.
+\begin{proposition}
+For any $a_1,a_2\in\{1, \ldots, g\}$ such that $(a_1,g)=(a_2,g)=q$ for some $q\in\mathbb{Z}$, there exists $m\in\mathbb{N}$ such that $(m,g)=1$ and $a_1m\equiv a_2\mod g$.
+\end{proposition}
+\begin{proof}
+Consider $a_1/q,a_2/q\in (\mathbb{Z}/(g/q)\mathbb{Z})^\times$, so take $m\in \mathbb{Z}$ such that $(m,g/q)=1$ and $a_1m/q-a_2/q\equiv 0\mod g/q$. It shows that $a_1m-a_2\equiv 0\mod g$. Also, $(m,g)=1$ since $(a_1m,g)=(a_1,g)(m,g)=(a_2,g)$.
+\end{proof}
+The above proposition shows that $f(x^{a_1})=f(x^{a_1m})=f(x^{a_2})$. Therefore,
+\begin{equation}
+\begin{split}
+    \langle f, \chi\rangle &= \frac{1}{g}\sum_{m=1}^{g}f(x^m)\exp\left(\frac{-2\pi ikm}{g}\right)\\
+    &=\frac{1}{g}\sum_{q=1}^{g}\sum_{m\in A_q}f(x^m)\exp\left(\frac{-2\pi ikm}{g}\right)\\
+    &=\frac{1}{g}\sum_{q=1}^{g}\sum_{m\in A_q}f(x^q)\exp\left(\frac{-2\pi ikm}{g}\right)\\
+    &=\frac{1}{g}\sum_{q=1}^{g}f(x^q)\sum_{m\in A_q}\exp\left(\frac{-2\pi ikm}{g}\right)\in\mathbb{Q},
+\end{split}
+\end{equation}
+for any irreducible character $\chi$ and it shows that $f\in\mathbb{Q}\otimes R(G)$.
+
+In problem 9.3 (b) in the textbook, we showed that $\Psi^n$ maps $R(G)$ to $R(G)$, so extending the scalar to $\mathbb{Q}$ with the map $1\otimes \Psi^n$, we can treat that $\Psi^n$ maps $\mathbb{Q}\otimes R(G)$ to $\mathbb{Q}\otimes R(G)$ abusing notation. Also, if $\Im f\subset\mathbb{Z}$, so $\Im\Psi^nf\subset \mathbb{Z}\subset A$, then $(g/(g,n))\Psi^nf\in A\otimes R(G)$ by theorem 23 in the textbook. It means that for any irreducible character $\chi$ of $G$,
+\begin{equation}
+    g/(g,n)\langle \Psi^n f, \chi\rangle \in\mathbb{Q}\cap A = \mathbb{Z}.
+\end{equation}
+Therefore, $(g/(g,n))\Psi^nf\in R(G)$. 
+
+For a class function $f(s) = \delta_{s=1}$, $\Psi^n f$ captures elements $s\in G$ such that $\abs{s}\mid n$, i.e. $\Psi^n f(s) = 1$ if $\abs{s}\mid n$ and $0$ elsewhere. The above result shows that $g/(g,n)1_{\{s:\abs{s}\mid n\}}\in R(G)$, which generalize the result $g \delta_{s=1}\in R(G)$ for regular representation with $n=1$ case and $1_G\in R(G)$ for $n=g$ case.\\
+
+
+\noindent \textbf{9}
+In the problem 3.3 in the textbook, we already shows that there exists the canonical isomorphism $\varphi$ between $G$ and $\hat{\hat{G}}$ by mapping $\varphi(s)(\chi) = \chi(s)$ for irreducible representation $\chi$ of $G$. For $\sum_{s\in G}n_s s\in \mathbb{Z}[G]$, let's define $\bar{\varphi}$ by
+\begin{equation}
+    \bar{\varphi}\left(\sum_{s\in G}n_s s\right) \coloneqq\sum_{s\in G}n_s \varphi\left(s\right).
+\end{equation}
+This is a ring isomorphism $\bar{\varphi}$ between $\mathbb{Z}[G]$ and $R(\hat{G})$: it preserves addition, multiplication as
+\begin{equation}
+\begin{split}
+    \bar{\varphi}\left(\left(\sum_{s\in G}n_s s\right)\left(\sum_{s'\in G}n'_{s'} s'\right)\right) &=\sum_{s\in G}\sum_{s'\in G}n_sn'_{s'} \varphi\left(ss'\right)=\bar{\varphi}\left(\sum_{s\in G}n_s s\right)\bar{\varphi}\left(\sum_{s'\in G}n'_{s'} s'\right),
+\end{split}
+\end{equation}
+and identity since
+\begin{equation}
+    \bar{\varphi}(1)(\chi) =\chi(1) = 1,
+\end{equation}
+so $\bar{\varphi}(1) = 1_{\hat{G}}$.
+
+Secondary, I'll show that $A\otimes_{\mathbb{Z}} \mathbb{Z}[G]\simeq A[G]$. Consider the following universal property diagram
+\[
+  \begin{tikzcd}
+    A\times \mathbb{Z}[G] \arrow{r}{i} \arrow[swap]{dr}{\varphi} & A\otimes \mathbb{Z}[G] \arrow{d}{\Phi} \\
+     & A[G]
+  \end{tikzcd}
+\]
+by setting
+\begin{equation}
+    \varphi:(a,\sum_{s\in G}n_s s)\mapsto \sum_{s\in G}an_s s.
+\end{equation}
+As $\varphi$ is a $\mathbb{Z}$ bilinear map, it indues well-defined $\mathbb{Z}$-module homomorphism $\Phi$. As $\varphi$ is surjective, $\Phi$ is surjective. Finally, it is injective: any element in $A\otimes \mathbb{Z}[G]$ can be simplified by the form
+\begin{equation}
+    \sum_{s\in G} a_s\otimes s
+\end{equation}
+by sending the coefficient of $\mathbb{Z}[G]$ part to $A$. Since $\Phi:\sum_{s\in G} a_s\otimes s\mapsto \sum_{s\in G}a_s s$, if two element in $A\otimes \mathbb{Z}[G]$ maps to the same element in $A[G]$, it means two element are in fact same in $A\otimes \mathbb{Z}[G]$. Therefore, $\Phi$ is $\mathbb{Z}$-module isomorphism.
+
+Since $A$ and $\mathbb{Z}[G]$ are $\mathbb{Z}$-algebras, $A\otimes \mathbb{Z}[G]$ have $\mathbb{Z}$-algebra structure. Furthermore, the multiplication structure of two $\mathbb{Z}$-algebras are same. It shows that $A\otimes \mathbb{Z}[G]$ and $A[G]$ are in fact $\mathbb{Z}$-algebra isomorphism.
+
+Now, let's again define $\bar{\bar{\varphi}}$ by $1\otimes \bar{\varphi}$ between $A\otimes \mathbb{Z}[G]\simeq A[G]$ and $A\otimes R(\hat{G})$: as $\mathbb{Z}[G]$ and $R(\hat{G})$ are ring isomorphic, by the elementary property of the tensor product, both are again ring isomorphic. Abusing notation, let's write the final isomorphism $\varphi$. Since it is a ring isomorphism, it is enough to determine $\Spec(A\otimes R(\hat{G}))$ to check $\Spec(A[G])$.
+
+Now, I prove a proposition.
+\begin{proposition}
+Let $G$ be a finite abelian group with primary cyclic group decomposition
+\begin{equation}
+    G\simeq \mathbb{Z}/q_1\mathbb{Z}\oplus \cdots \oplus \mathbb{Z}/q_t\mathbb{Z},
+\end{equation}
+where $q_i$ are powers of primes which are not necessarily distinct. Then we again get
+\begin{equation}
+    \hat{G}\simeq \mathbb{Z}/q_1\mathbb{Z}\oplus \cdots \oplus \mathbb{Z}/q_t\mathbb{Z}.
+\end{equation}
+\end{proposition}
+(Warning: this is not canonical isomorphism.)
+\begin{proof}
+Let the generator of each $\mathbb{Z}/q_i\mathbb{Z}$ part by $x_i$. For a cyclic group $\mathbb{Z}/q_i\mathbb{Z}$, we know that it has irreducible character $\chi^i_k$ such that for the generator $x_i$ of $\mathbb{Z}/q_i\mathbb{Z}$,
+\begin{equation}
+    \chi^i_k(x_i^m) = \exp(\frac{2\pi i km}{q_i}).
+\end{equation}
+Extend this character to $G$ by setting
+\begin{equation}
+    \chi_k^i(x_j) = 1
+\end{equation}
+if $i\neq j$. We can easily check that each $\chi_k^i$ defined on $G$ are irreducible and disjoint to each other for $k$ and $i$ by computing $\langle \cdot, \cdot \rangle$. Also,
+\begin{equation}
+    (\chi_1^i)^{k}(x_i) = \left(\exp(\frac{2\pi i}{q_i})\right)^{k} = \chi_k^i(x_i),
+\end{equation}
+so $\chi_1^i$ is a generator of cyclic subgroup of order $q_i$ in $G$. Let the subgroup $C_i$ for each $i$. Finally, we know that $C_iC_j = C_jC_i$ for each $i,j$ since $\hat{G}$ is abelian and $\oplus_{i=1}^{m-1} C_i\cap C_m = \{1\}$ for all $1<m\leq t$ since each $C_i$ have non-zero function value only on $x_i$. It shows that 
+\begin{equation}
+    \oplus_{i=1}^t \mathbb{Z}/q_i\mathbb{Z} \simeq \oplus_{i=1}^t C_i = \hat{G}
+\end{equation}
+\end{proof}
+
+Using this group isomorphism, we can extend it to group ring isomorphism between $R(G)$ and $R(\hat{G})$. Also, we know that $A\otimes R(G)$ and $A\otimes R(\hat{G})$ are isomorphic: we can easily see this using the property of the tensor product by applying tensor product on the exact sequence
+\begin{equation}
+    0\rightarrow R(G)\rightarrow R(\hat{G})\rightarrow 0.
+\end{equation}
+Let the final ring isomorphism $\psi:A[G]\rightarrow A\otimes R(G)$. Since we already know what is the prime ideals in $A\otimes R(G)$ in the class, by pulling back the prime ideals using $\psi$, we get $\Spec(A[G])$.\\
+
+
+
+\noindent \textbf{10}
+(I'll write in Korean.)
+여러 수학 과목을 들으면서 느낀 점이 있다면 예전에 많은 이들이 해 놓아서 잘 정립된 분야를 공부할 때 보통 non-trivial한 property들이 중심을 꽉 잡고 있고, 그 외의 정리들은 그 non-trivial한 property들의 따름 정리로써 따라온다고 생각합니다. 저 같은 경우 이 과목을 들으면서 non-trivial하다고 느낀 성질들이 1. character를 보면 representation을 classification할 수 있다. 와 2. Artin and Brauer's theorem이라고 생각합니다. Tool로써 tricky하다고 생각하는 것은 Frobenius reciprocity formula와 (이름은 모르겠지만)
+\begin{equation}\label{Final:Eq:100}
+    \Ind(\psi\cdot \Res\varphi) = (\Ind\psi)\cdot \varphi
+\end{equation}
+라고 생각합니다. The most favorite을 하나 고르라고 하셨으니 이 중에서 하나를 고르면 \eqref{Final:Eq:100}를 고를 것 같습니다. 다른 tool들이나 증명에서 사용하는 것들은 뭔가 열심히 생각하면 그래도 어떻게든 생각해낼 수 있겠다 생각은 들지만 저 tool은 뭔가 안 될 것 같은 statement를 풀어낼 때 약방의 감초와 같은 역할로 들어가기 때문입니다. 예를 들어 저를 아주 골치아프게 하였던 Exercise 10.6과 같은 문제를 풀 때 저 식이 얼마나 강력하고 직관과 어긋나는지를 배울 수 있었습니다. 사실 식을 봐도 말이 안 된다고 생각하는 것이, $\Ind$를 취하면 normal subgroup에 대해서 취하는 게 아닌 이상 보통 character가 배배 꼬일 것이라고 예상을 하지만, $\Res$ 붙인 것 하나를 free pass하듯이 그대로 끌고 나오기 때문입니다. 저 식 때문에 문제 풀면서 머리도 많이 아팠지만 그 만큼 과목을 재밌게 들을 수 있었기 때문에 The most favorite one in this class로 저 식을 고르겠습니다.\\
+
+
+\noindent \textbf{3}
+I'll assume the fact from the exercise 9.2 and 9.3 (b) in the textbook. I could put it in this paper, but it will make this solution too long. (In fact, this solution is from my homework for 9.4)
+
+\begin{enumerate}
+    \item[(a)]I'll first show a proposition.
+\begin{proposition}\label{HW10:Prop:1}
+Let's define $\varphi:G\rightarrow G$ by $\varphi(s) = s^n$. If $(n,g)=1$, then $\varphi$ is a bijective map.
+\end{proposition}
+\begin{proof}
+Since $(n,g)=1$, there exists $k\in \mathbb{N}$ such that $kn\equiv 1\mod g$. If $g_1^n = g_2^n$, then $g_1=g_1^{kn}=g_2^{kn}=g_2$, so $\varphi$ is injective. Since the domain and codomain have same finite cardinality, $\varphi$ is bijective.
+\end{proof}
+\begin{corollary}\label{HW10:Cor:1}
+Let $c_1$ be a conjugacy class in $G$. Then the $\varphi$ maps $c_1$ to another conjugacy class bijectively, i.e. if I write $c_1' = \Im\varphi(c_1)$, then $\varphi|_{c_1}:c_1\rightarrow c'_1$ is bijective.
+\end{corollary}
+\begin{proof}
+Let's consider $\varphi|_{c_i}$, then it is contained in some conjugacy class, in fact, it is surjective on the conjugacy class: if $s_1\in c_i$, then for any $s\in G$, $\varphi(ss_1s^{-1}) = ss_1^ns^{-1}$, so it is contained in some conjugacy class $c'_1$ containing $s_1^n$ and generated any element in the class. Since $\varphi$ is injective, $\varphi|_{c_1}$ is bijective.
+\end{proof}
+\begin{corollary}\label{HW10:Cor:2}
+Let $\{c_1, \ldots, c_h\}$ be the set of conjugacy classes in $G$. Let's define \begin{equation}
+    \Phi:\{c_1, \ldots, c_h\}\rightarrow \{c_1, \ldots, c_h\}
+\end{equation}
+by $\Phi(c_i) = \Im\varphi(c_i)$. Then, $\Phi$ is a bijective map.
+\end{corollary}
+\begin{proof}
+From the above consideration, the map $\Phi:\{c_1, \ldots, c_h\}\rightarrow \{c_1, \ldots, c_h\}$ is well-defeind. Since $\varphi$ is bijective, $\Phi$ is again surjective, so bijective.
+\end{proof}
+Using the proposition, we get
+\begin{equation}
+\begin{split}
+    \langle \Psi^n(\chi),\Psi^n(\chi)\rangle = \frac{1}{g}\sum_{s\in G}\chi(s^n)\chi(s^{-n}) = \frac{1}{g}\sum_{s\in G}\chi(s)\chi(s^{-1}) = \langle \chi, \chi\rangle = 1.
+\end{split}
+\end{equation}
+Also, $\Psi^n(\chi)(1)=\chi(1)>0$. By the problem 9.2, we know that $\Psi^n\chi$ is an irreducible character of $G$.
+\item[(b)] The center of the algebra $\mathbb{C}[G]$ is spanned by $e_c=\sum_{s\in c}s$ where $c$ is a conjugacy class of $G$; in fact, it is a basis. Now, I'll prove a lemma.
+\begin{lemma}
+For two conjugacy classes $c_1,c_2$ in $G$, we get
+\begin{equation}
+    \sum_{s\in c_1}\sum_{s'\in c_2}s^n(s')^n = \sum_{s\in c_1}\sum_{s'\in c_2}(ss')^n.
+\end{equation}
+\end{lemma}
+\begin{proof}
+If $G$ were abelian, then it is easy to see, so assume $G$ is non-abelian. Let's use proposition 13 and algebra homomorphisms $\omega_i$ which sends $\sum_{s\in G}u(s)s\in \mathrm{Cent.}~\mathbb{C}[G]$ to $\mathbb{C}$ by
+\begin{equation}
+    \omega_i\left(\sum_{s\in G}u(s)s\right) = \frac{1}{n_i}\sum_{s\in G}u(s)\chi_i(s),
+\end{equation}
+where $\chi_i$ is the irreducible character corresponding to $\omega_i$ and $n_i=\deg \chi_i$. (For detailed explanation, see Chapter 6.3 in the textbook.) Since $(\omega_i)_{i=1}^h$, where $h$ is the number of conjugacy classes in $G$, defines an isomorphism of the center of $\mathbb{C}[G]$ onto the algebra $\mathbb{C}^h$, it is enough to show that 
+\begin{equation}\label{HW10:Eq:11}
+    \omega_i\left(\sum_{s\in c_1}\sum_{s'\in c_2}s^n(s')^n\right) = \omega_i\left(\sum_{s\in c_1}\sum_{s'\in c_2}(ss')^n.\right)
+\end{equation}
+for all $i$.
+
+Now, let's use corollary \ref{HW10:Cor:1}. Let's set $c'_1 = \Im \varphi(c_1)$ and $c'_2 = \Im\varphi(c_2)$, then we get
+\begin{equation}
+\begin{split}
+    \sum_{s\in c_1}s^n &= \sum_{s\in c'_1}s\\
+    \sum_{s'\in c_2}(s')^n &=\sum_{s'\in c'_2}s',
+\end{split}
+\end{equation}
+and it shows that both are in the center of $\mathbb{C}[G]$. Now, we get
+\begin{equation}
+\begin{split}
+    \omega_i\left(\sum_{s\in c_1}\sum_{s'\in c_2}s^n(s')^n\right) &=\omega_i\left(\left(\sum_{s\in c_1}s^n\right)\left(\sum_{s'\in c_2}(s')^n\right)\right)\\
+    &=\omega_i\left(\sum_{s\in c_1}s^n\right)\omega_i\left(\sum_{s'\in c_2}(s')^n\right)\\
+    &=\frac{1}{n^2_i}\sum_{s\in c_1}\Psi^n\chi_i(s)\sum_{s'\in c_2}\Psi^n\chi_i(s').
+\end{split}
+\end{equation}
+From (a), we know that $\Psi^n\chi_i = \chi_j$ for some $j$ since it is irreducible, and $n_i=n_j$ since $\Psi^n\chi_i(1) = \chi_i(1)$. It shows that
+\begin{equation}
+\begin{split}
+    \omega_i\left(\sum_{s\in c_1}\sum_{s'\in c_2}s^n(s')^n\right) &=\frac{1}{n^2_i}\sum_{s\in c_1}\Psi^n\chi_i(s)\sum_{s'\in c_2}\Psi^n\chi_i(s')\\
+    &=\frac{1}{n^2_j}\sum_{s\in c_1}\chi_j(s)\sum_{s'\in c_2}\chi_j(s')\\
+    &=\omega_j\left(\sum_{s\in c_1}s\right)\omega_j\left(\sum_{s'\in c_2}s'\right)\\
+    &=\omega_j\left(\sum_{s\in c_1}\sum_{s'\in c_2}ss'\right).
+\end{split}
+\end{equation}
+Also,
+\begin{equation}
+    \begin{split}
+        \omega_i\left(\sum_{s\in c_1}\sum_{s'\in c_2}(ss')^n.\right) &= \frac{1}{n_i}\sum_{s\in c_1,s'\in c_2}\Psi^n \chi_i(ss')\\
+        &=\frac{1}{n_j}\sum_{s\in c_1,s'\in c_2}\chi_j(ss')\\
+        &=\omega_j\left(\sum_{s\in c_1,s'\in c_2}ss'\right).
+    \end{split}
+\end{equation}
+Therefore, \eqref{HW10:Eq:11} holds and the lemma is true for $(n,g)=1$.
+\end{proof}
+The lemma shows that $\psi_n$ is algebra endomorphism on the center of $\mathbb{C}[G]$ as it shows
+\begin{equation}
+    \psi_n(e_{c_1})\psi_n(e_{c_2}) = \psi_n(e_{c_1}e_{c_2})
+\end{equation}
+for any conjugacy classes $c_1$ and $c_2$ in $G$. By the corollary \ref{HW10:Cor:2}, we know that $\Im\psi_n$ maps the basis $\{e_c\}$ to the basis $\{e_c\}$ surjectively. Since the domain and codomain have same dimension, it shows that $\varphi$ is an algebra automorphism on the center of $\mathbb{C}[G]$. 
+\end{enumerate}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================

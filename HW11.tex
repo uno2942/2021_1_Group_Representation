@@ -1,0 +1,439 @@
+%Calculus Homework
+\documentclass[a4paper, 12pt]{article}
+
+%================================================================================
+%Package
+	\usepackage{amsmath, amsthm, amssymb, latexsym, mathtools, mathrsfs, physics, amsfonts}
+	\usepackage{dsfont, txfonts, soul, stackrel, tikz-cd, graphicx, titlesec, etoolbox}
+	\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+	\usepackage{fancyhdr}
+	\usepackage[shortlabels]{enumitem}
+	\usepackage[pdfmenubar=true, pdfborder	={0 0 0 [3 3]}]{hyperref}
+	\usepackage{kotex}
+
+%================================================================================
+\usepackage{verbatim}
+\usepackage{physics}
+\usepackage{makebox}
+\usepackage{pst-node}
+
+%================================================================================
+%Layout
+	%Page layout
+	\addtolength{\hoffset}{-50pt}
+	\addtolength{\headheight}{+10pt}
+	\addtolength{\textwidth}{+75pt}
+	\addtolength{\voffset}{-50pt}
+	\addtolength{\textheight}{+75pt}
+	\newcommand{\Space}{1em}
+	\newcommand{\Vspace}{\vspace{\Space}}
+	\newcommand{\ran}{\textrm{ran }}
+	\setenumerate{listparindent=\parindent}
+
+%================================================================================
+%Statement
+	\newtheoremstyle{Mytheorem}%
+	{1em}{1em}%
+	{\slshape}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\newtheoremstyle{Mydefinition}%
+	{1em}{1em}%
+	{}{}%
+	{\bfseries}{.}%
+	{ }{}
+
+	\theoremstyle{Mydefinition}
+	\newtheorem{statement}{Statement}
+	\newtheorem{definition}[statement]{Definition}
+	\newtheorem{definitions}[statement]{Definitions}
+	\newtheorem{remark}[statement]{Remark}
+	\newtheorem{remarks}[statement]{Remarks}
+	\newtheorem{example}[statement]{Example}
+	\newtheorem{examples}[statement]{Examples}
+	\newtheorem{question}[statement]{Question}
+	\newtheorem{questions}[statement]{Questions}
+	\newtheorem{problem}[statement]{Problem}
+	\newtheorem{exercise}{Exercise}[section]
+	\newtheorem*{comment*}{Comment}
+	%\newtheorem{exercise}{Exercise}[subsection]
+
+	\theoremstyle{Mytheorem}
+	\newtheorem{theorem}[statement]{Theorem}
+	\newtheorem{corollary}[statement]{Corollary}
+	\newtheorem{corollaries}[statement]{Corollaries}
+	\newtheorem{proposition}[statement]{Proposition}
+	\newtheorem{lemma}[statement]{Lemma}
+	\newtheorem{claim}{Claim}
+	\newtheorem{claimproof}{Proof of claim}[claim]
+	\newenvironment{myproof1}[1][\proofname]{%
+  \proof[\textit Proof of problem #1]%
+}{\endproof}
+
+%================================================================================
+%Header & footer
+	\fancypagestyle{myfency}{%Plain
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\fancypagestyle{myfirstpage}{%Firstpage
+	\fancyhf{}
+	\fancyhead[L]{}
+	\fancyhead[C]{}
+	\fancyhead[R]{}
+	\fancyfoot[L]{}
+	\fancyfoot[C]{}
+	\fancyfoot[R]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}}
+
+	\pagestyle{myfency}
+
+%================================================================================
+
+%***************************
+%*** Additional Command ****
+%***************************
+
+\DeclareMathOperator{\cl}{Cl}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\co}{co}
+\DeclareMathOperator{\ball}{ball}
+\DeclareMathOperator{\wk}{wk}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotZ}[1]{\ensuremath{\mathbb{Z}/p^{#1}\mathbb{Z}}}
+\pagecolor{black}
+\color{white}
+%================================================================================
+%Document
+\begin{document}
+\thispagestyle{myfirstpage}
+\begin{center}
+	\Large{HW11}
+\end{center}
+박성빈, 수학과, 20202120
+
+I refered some articles in the internet, stackexchange, and stackoverflow and write the link of those sites. Because of the length of the url, I shorten the links in this homework.
+
+I'll write some useful theorems which will be used in this homework. For some theorems, it will supplement the talks in the class. Furthermore, our rings are commutative and have $1$ if there is no mention.
+\begin{theorem}\label{HW11:TH:1}
+If $T$ is integral over $R$, then both have same krull dimension.
+\end{theorem}
+\begin{proof}
+See \textit{Commutative Rings}, Kaplansky, Theorem 48, p. 32.
+\end{proof}
+\begin{theorem}\label{HW11:TH:4}
+Let $f:A\rightarrow B$ be an integral extension. For a maximal ideal $M$ in $B$, $f^{-1}(B)$ is again a maximal ideal in $A$.
+\end{theorem}
+\begin{proof}
+See \textit{Commutative Algebra}, Atiyah, corollary 5.8, p. 61.
+\end{proof}
+
+\begin{theorem}\label{HW11:TH:2}
+Let $f:A\rightarrow B$ be a ring homomorphism, then it induces the continuous map $f^*:\Spec(B)\rightarrow \Spec(A)$ by $f^*(p_B) = f^{-1}(p_B)$ for $p_B\in \Spec(B)$. If $B$ is integral over $A$, then $f^*$ is a surjective and a closed map.
+\end{theorem}
+\begin{proof}
+See \textit{Commutative Algebra}, Atiyah, p. 13, p. 62, and p. 67.
+\end{proof}
+\begin{theorem}\label{HW11:TH:3}
+$\Spec(A)$ is irreducible if and only if the nilradical of $A$ is prime ideal.
+\end{theorem}
+\begin{proof}
+See \textit{Commutative Algebra}, Atiyah, p. 13.
+\end{proof}
+\begin{remark}\label{HW11:RM:1}
+If the nilradical of $A$ is prime ideal, then $\Spec(A)$ is connected since there is no disjoint open set. It proves that "$\Spec(A)$ is connected", where the $A$ in the statement is defined in the textbook as $A$ is integral domain.
+\end{remark}
+
+Before solving the problems, let's define some global notation clarifying the notation in the textbook. Set $g=\abs{G}$ and $\mu = \exp(2\pi ij/g)$. Let's write 
+\begin{equation}\label{HW11:Eq:1}
+    \mathbb{Z}\xrightarrow{i_1} A\xrightarrow{i_2}A\otimes_{\mathbb{Z}} R(G)\xrightarrow{i_3}A^{\cl(G)},
+\end{equation}
+where
+\begin{equation}
+\begin{split}
+    &A \coloneqq \oplus_{j=0}^{g-1} \mathbb{Z}\mu^j\\
+    &i_2(a) = a\otimes 1_G~\textrm{ and}\\
+    &i_3(a\otimes f) = af,
+\end{split}
+\end{equation}
+where $a\in A$ and $f\in R(G)$. Note that the maps are integral extensions, so it induces well-defined surjective closed map
+\begin{equation}
+    \Spec(A^{\cl(G)})\xrightarrow{i^*_3}\Spec(A\otimes_{\mathbb{Z}} R(G))\xrightarrow{i^*_2}\Spec(A)\xrightarrow{i_1^*}\Spec(\mathbb{Z})
+\end{equation}
+by the theorem \ref{HW11:TH:2}.
+
+Now, I'll show a proposition in the textbook.
+\begin{proposition}
+If $M$ is a maximal ideal in $A$, then $A/M$ is finite, in fact, $\abs{A/M}=p^n$ for some prime $p$ and $n$.
+\end{proposition}
+\begin{proof}
+Since $M$ is maximal ideal, $i_1^*(M)$ is maximal ideal in $\mathbb{Z}$ by the theorem \ref{HW11:TH:2}. Therefore, $i_1$ induces the map
+\begin{equation}
+    \mathbb{Z}/(i_1^{-1}(M))\xrightarrow{\bar{i}_1}A/M.
+\end{equation}
+Note that this map is injective field homomorphism. Considering $\bar{i}_1$ as a $\mathbb{Z}$-module homomorphism, we get $\Char(A/M) = p$. It shows that for any roots of unity $\mu$ of $g$, $p\mu = 0$ in $A/M$, so $A/M$ can be considered as a subring of $\sum_{i=1}^g \mathbb{F}_p\mu_i$, where $\{\mu_i\}$ is the set of roots of unity of $g$ with $\mu_1 = 1$. It ends the proof.
+\end{proof}
+\begin{proposition}\label{HW11:Prop:1}
+$A^{\cl(G)}$ is integral over $\mathbb{Z}$. It implies that $A\otimes R(G)$ is integral over $\mathbb{Z}$.
+\end{proposition}
+\begin{proof}
+Choose $a=(a_1, \ldots, a_h)\in A^{\cl(G)}$. For each $a_i$, it is integral over $\mathbb{Z}$, so there exists monic polynomial $p_i(x)\in\mathbb{Z}[x]$ such that $p_i(a_i) = 0$. In $A^{\cl(G)}$, it is
+\begin{equation}
+    p_i((a_1, \ldots, a_h)) = (p_i(a_1), \ldots, p_i(a_h)),
+\end{equation}
+and it definitely have $0$ at $i$th position. Now, set $p(x) = \prod_{i=1}^h p_i(x)$, then each $i$th polynomial generate $0$ at $i$th position, so $p(a)=0$. Also, it is monic polynomial in $\mathbb{Z}[x]$ since each $p_i$ are monic. Since $A\otimes R(G)$ is a subring of $A^{\cl(G)}$, it is integral over $\mathbb{Z}$.
+\end{proof}
+
+Let $B$ be a $A$-algebra and let $\varphi:A\rightarrow B$ be the map sending $A$ to the center of $B$. Now, we can consider $B\otimes_{\mathbb{Z}} R(G)$ by drawing commutative diagram
+\[
+  \begin{tikzcd}
+    B\times R(G) \arrow{r}{i} \arrow[swap]{dr}{f} & B\otimes R(G) \arrow{d}{\Phi} \\
+     & B^{cl(G)}
+  \end{tikzcd}
+\]
+where $i$ is the inclusion map and
+\begin{equation}
+    f:(b, \chi) \mapsto b(\varphi\circ \chi),
+\end{equation}
+i.e. for $s\in G$, $f((b,\chi))(s) = b\varphi(\chi(s))$. Since $f$ is $\mathbb{Z}$-bilinear, $\Phi$ is a well-defined $\mathbb{Z}$-module homomorphism. Also, $B$ and $R(G)$ are $\mathbb{Z}$-algebra, so $B\otimes R(G)$ is again $\mathbb{Z}$-algebra.
+
+\begin{corollary}\label{HW11:Cor:4}
+$B^{\cl(G)}$ is integral over $B$. This implies that $B\otimes R(G)$ is integral over $B$
+\end{corollary}
+\begin{proof}
+We can not say that $B$ is integral over $\mathbb{Z}$, but we know that $B$ is integral over itself, so by applying the proof of proposition \ref{HW11:Prop:1}, we get the first result. Since $B\otimes R(G)$ is a subring of $B^{\cl(G)}$ by $\Phi$, we get the second result. 
+\end{proof}
+
+\begin{proposition}
+Ex. 10.4 (Discussed with Jeong Dasol.)
+\end{proposition}
+\begin{proof}
+I'll write a non-zero prime ideal in $A$ by $M$ since it is in fact a maximal ideal; note that krull dimension of $A$ is $1$, and it is integral domain. Choose $x\in G$ and take decomposition $x=x_rx_u$ where $x_r$ is the $p'$-element and $x_u$ is $p$-element. Set $H = \langle x_r\rangle \times \langle x_u\rangle$, then it is an elementary subgroup of $G$. Since $H$ is an abelian group, its characters are all degree $1$. For $H_1 = \langle x_r\rangle$ and $H_2 = \langle x_u\rangle$, choose degree 1 irreducible characters on each group and write $\chi_i$ and $\eta_j$. Extend both characters on $G$ by setting $\chi_i(x_u)=\eta_j(x_r) = 1$; it is well-defined since each are degree $1$ and $H$ is abelian. Finally, $\chi_i\eta_j$ spans all the irreducible characters of $H$, cf. chapter 3.2. Now, choose arbitrary $\xi\in A\otimes R(G)$, then we can write
+\begin{equation}
+    \Res_H\xi = \sum_{i,j}a_{ij}\chi_i\eta_j.
+\end{equation}
+Also, choose large enough $n$ such that $x_u^{p^n} = 1$, then
+\begin{equation}
+\begin{split}
+    \xi(x)^q &= \left(\Res_H\xi(x)\right)^q = \left(\sum_{i,j}a_{ij}\chi_i(x_r)\eta_j(x_u)\right)^{p_n}\equiv \sum_{i,j}a^{p_n}_{ij}\chi_i(x_r^{p_n})\eta_j(1)\\
+    &\equiv \sum_{i,j}a^{p_n}_{ij}\chi_i(x_r^{p_n}) \equiv \xi(x_r)^q\mod M.
+\end{split}
+\end{equation}
+It shows that $(\xi(x)-\xi(x_r))^q\in M$, so $\xi(x)\equiv \xi(x_r)\mod M$.
+\end{proof}
+
+From now on, I'll prove the main problems.
+
+\noindent \textbf{1}(\textbf{S} 11.2)
+Let's take quotient on \eqref{HW11:Eq:1}. Note that non-zero prime ideals in each ring is maximal by the theorem \ref{HW11:TH:1}. Choose a maximal ideal $M$ in $A$ and choose a conjugacy class $c$ in $G$. For the maximal ideal $M_c$ in $\mathbb{A}^{\cl(G)}$, we get the well-defined induced maps
+\begin{equation}
+    \mathbb{Z}/(i^{-1}_1(M))\xrightarrow{\bar{i}_1} A/M\xrightarrow{\bar{i}_2}(A\otimes_{\mathbb{Z}} R(G))/P_{M,c}\xrightarrow{\bar{i}_3}A^{\cl(G)}/M_c.
+\end{equation}
+Note that all the field homomorphisms are non-trivial mapping $1$ to $1$, so those are injective. Also, by identifying $A^{\cl(G)}\simeq \oplus_{i=1}^h A$ where $h=\abs{\cl(G)}$, $A^{\cl(G)}/M_c\simeq A/M$ as a field by the projection $\pi_c:A^{\cl(G)}\rightarrow A/M$ such that $\pi_c((a_1, \ldots, a_h)) = [a_c]\in A/M$: $\ker\pi_c =M_c$. If I show that $\bar{i}_3\circ \bar{i}_2$ is surjective, then it ends the proof: if $\bar{i}_2$ is not surjective, then there exists $f\in (A\otimes R(G))/P_{M,c}$, and $\bar{i}_3(f)$ is not in the image of $\bar{i}_3\circ \bar{i}_2$ as $\bar{i}_3$ is injective, which is contradiction. However, if I choose $[(a_1, \ldots, a_h)]\in A^{\cl(G)}/M_c$, then I just choose $\pi_c((a_1, \ldots, a_h)) = [a_c]$ in $A/M$. Now, we get 
+\begin{equation}
+    \bar{i}_3\circ \bar{i}_2([a_c]) = [(a_c, a_c,\ldots ,a_c)] = [(a_1, \ldots, a_h)].
+\end{equation}
+As $\bar{i_2}$ is bijective, the residue field of $P_{M,c}$ is isomorphic to $A/M$.\\
+
+\noindent \textbf{2}(\textbf{S} 11.3)
+(Idea: We don't know what is $B$, but at least, we know that it contains some integer by the mapping $\varphi:1_A\mapsto 1_B$. I'll use this property.)
+
+Let's consider a sequence
+\begin{equation}
+    \mathbb{Z}\xrightarrow{i_1} A\xrightarrow{\varphi} B\xrightarrow{i_2}B\otimes_{\mathbb{Z}} R(G)\xrightarrow{i_3}B^{\cl(G)},
+\end{equation}
+where $\varphi:A\rightarrow B$ is the ring homomorphism into the center of $B$ with $1_A\mapsto 1_B$. By theorem \ref{HW11:TH:2}, we know that the above sequence induces
+\begin{equation}
+    \Spec(B^{\cl(G)})\xrightarrow{i^*_3}\Spec(B\otimes_{\mathbb{Z}} R(G))\xrightarrow{i^*_2}\Spec(B)\xrightarrow{\varphi^*}\Spec(A)\xrightarrow{i_1^*}\Spec(\mathbb{Z}).
+\end{equation}
+Also, by the corollary \ref{HW11:Cor:4}, we know that $i_3^*$ and $i_2^*$ are surjective and closed. Now, let's choose a prime ideal $M$ in $B$ and a conjugacy class $c$ in $G$. Let's consider the prime ideal $M_c$ in $B^{\cl (G)}$, then $P_{M,c} = i_3^{-1}(M_c)$ is a prime ideal in $B\otimes R(G)$ by the map $i_3^*$. Since $i_3^*$ is surjective, any prime ideal $\mathfrak{m}$ in $B\otimes R(G)$ is of the form $P_{M,c}$, where $M$ is a prime ideal of $B^{\cl(G)}$ and $c$ a conjugacy class.
+
+\begin{proposition}
+Let $M$ be a prime ideal in $B$ and consider an integral domain $B/M$. Set $N=\Char B/M$.
+\begin{enumerate}
+    \item If $N=0$, then $P_{M, c_1} = P_{M, c_2}$ if and only if $c_1=c_2$.
+    \item If $0<N$, $N$ is some prime number $p\in \mathbb{Z}$. Also, $P_{M, c_1}=P_{M,c_2}$ if and only if $c_1'=c_2'$, which is $p'$-component of $c_1$ and $c_2$ defined in the proposition 30'.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+To prove (i), I need to show that $c_1\neq c_2$ implies $P_{M, c_1}\neq P_{M, c_2}$. For element $x_1\in c_1$ and $x_2\in c_2$ in $G$, choose $p$ such that $(p, \abs{x_1}\abs{x_2})=1$. Now, we can say that $x_1$ is $p'$-element. From lemma 8, there exists integer valued $\psi\in A\otimes R(G)$ such that $\psi(x_1)\neq 0$ and $\psi(c_2)=0$. It shows that $\psi\in P_{M, c_2}\setminus P_{M, c_1}$, and we get $P_{M, c_1}\neq P_{M, c_2}$.
+
+Now, assume $N>0$. Since $B/M$ is an integral domain, $N$ should be a prime $p$. If $p\cdot 1_B\neq 0$, then $p\in M$, and if $p\cdot 1_B=0$, then $p\in\ker\varphi$, so $p\in \varphi^{-1}(M)\cap \mathbb{Z}$. For any $\chi\in A\otimes R(G)$ and $x\in G$, let $x_r$ be the $p'$-component of $x$. By the exercise 10.4, $\chi(x)\equiv \chi(x_r)\mod \varphi^{-1}(M)$, so $\varphi(\chi(x))\equiv \varphi(\chi(x_r))\mod M$. It shows that $P_{M, c_1}\cap \Im\varphi(A\otimes R(G)) = P_{M, c'_1}\cap \Im\varphi(A\otimes R(G))$. However, if $c_1'\neq c_2'$, by the lemma 8, we know that $P_{M, c'_1}\cap \Im\varphi(A\otimes R(G)) \neq P_{M, c'_2}\cap \Im\varphi(A\otimes R(G))$: we can impose some integer $n\not\equiv 0\mod p$ on $c'_1$ and $0$ on $c_2'$, which shows that $\varphi(n) = \varphi(n\cdot 1_A) = (n\% p)\cdot 1_B\not\in M$ by the definition of $N$. ($\%$ is remainder operator.)
+\end{proof}
+
+
+\noindent \textbf{3}(\textbf{S} 11.4)
+Note that $R(G)$ contains $\mathbb{Z}$, so the inclusion $i:R(G)\rightarrow A\otimes R(G)$ an integral extension with same krull dimension 1. Using theorem \ref{HW11:TH:2}, we know that $i^*:\Spec(A\otimes R(G))\rightarrow \Spec(R(G))$ is a surjective closed map. More precisely, any prime ideal in $R(G)$ is of the form $P_{M, c}\cap R(G)$, where $P_{M,c}$ is the prime ideal in $A\otimes R(G)$ following the notation in the textbook. Now, I need to check the conditions on prime ideals in $A\otimes R(G)$ that $i^*$ maps to the same prime ideal. I'll prove a proposition.
+\begin{proposition}
+Let $R$ be a ring, $G$ a finite group of automorphisms of $R$, and $R^G$ the subring of $R$ which are invariant under $G$. Also, assume $R$ is integral over $R^G$. (In fact, we don't have to assume it. See the reference in the last.) Let $p:\Spec R\rightarrow \Spec R^G$ denotee the morphism induced by the inclusion $i:R^G\rightarrow R$, then $p(x_1)=p(x_2)$ if and only if there exists a $\sigma\in G$ such that $\sigma(x_1)=x_2$.(This is the problem 3.20 in Chapter 2 in \textit{Algebraic geometry and arithmetic curves}, Qing Liu.)
+\end{proposition}
+\begin{proof}
+If $x$ is a prime ideal and $\sigma\in G$, $\sigma(x)$ is a prime ideal since $ab\in \sigma(x)$ means that $(\sigma^{-1}a)(\sigma^{-1}(b))\in x$, so $a$ or $b$ is in $\sigma(x)$. It shows that $G$ acts on $\Spec R$.
+
+Assume $\sigma(x_1)=x_2$. Since $i$ is injective, $i^{-1}(a)=a$ if $\sigma(a)=a$ for all $\sigma \in G$ and $\emptyset$ otherwise by identifying $R^G\subset R$. Therefore,
+\begin{equation}
+    p(x_1) = i^{-1}(x_1) = i^{-1}\left(\cap_{\sigma \in G}\sigma(x_1)\right) = i^{-1}(x_2) = p(x_2).
+\end{equation}
+Conversely, assume $p(x_1)=p(x_2)$. Now, for some non-zero $a \in x_1$, 
+\begin{equation}
+    \prod_{\sigma\in G}\sigma(a)\in p(x_1)=p(x_2)\subset x_2,
+\end{equation}
+so there exists $\sigma\in G$ such that $\sigma(a)\in x_2$, i.e. $a\in \sigma(x_2)$ abusing notation since $x_2$ is prime. It shows that
+\begin{equation}
+    x_1\subset \cup_{\sigma\in G}\sigma(x_2).
+\end{equation}
+Using prime avoidance lemma, cf. \textit{Commutative algebra}, Atiyah, proposition 1.11, p. 8, we know that $x_1\subset \sigma(x_2)$ for some $\sigma\in G$. Finally, using incomparable condition for the integral extension, cf. \textit{Commutative algebra}, Kaplansky, theorem 44, p. 29, we get $p_1=\sigma(p_2)$. It ends the proof.
+(This is the proof from "https://bit.ly/2SH8wcp".)
+\end{proof}
+
+Note that our problem perfectly fits with the proposition by applying the automorphism group $\Gamma$, $R = A\otimes R(G)$, and $R^{\Gamma} = R(G)$. Checking what is $\Gamma$, we easily see that $K = \mathbb{Q}(\mu_g)$, where $\mu_g$ is the primitive $g$th root of unity: as $\mu_g\in A$, $\mu_g\in K$ and $\mathbb{Q}\in K$, so $\mathbb{Q}(\mu_g)\subset K$. Conversely, $K$ is the smallest field containing $A$, so $K\subset \mathbb{Q}(\mu_g)$. Therefore, it is a cyclotomic extension and the Galois group of $K/\mathbb{Q}$ is isomorphic to $(\mathbb{Z}/g\mathbb{Z})^\times$.
+
+Let $\sigma_k\in \Gamma$ by setting $\sigma(\mu_g) = \mu_g^k$ for $(k,g)=1$, then we get
+\begin{equation}
+    \sigma_k\left(\sum_{i=1}^h a_i\otimes \chi_i\right) = \sum_{i=1}^h \sigma_k(a_i)\otimes \chi_i
+\end{equation}
+where $\chi_i$ are the irreducible characters of $G$.
+
+Using the above proposition, we know that $i^*(x_1)=i^*(x_2)$ for $x_1,x_2\in \Spec(A\otimes R(G))$ if and only if there exists $\sigma\in \mathrm{Gal}(\mathbb{Q}(\mu_g)/\mathbb{Q})$ such that $x_1 = \sigma(x_2)$. Finally, we combine the condition with the proposition 30', then we exactly get the condition when the primes of the form $P_{M,c}$ in $A\otimes R(G)$ maps to the same prime ideal in $R(G)$.
+
+Addition: I tried to figure out what is the explicit form of the prime. There were some hard points, however, figuring out the explicit form: First, the Galois action only acts on the coefficient of irreducible characters, so we can not know how the $P_{M,c}$ moves: even I can not know whether $c$ moves to another class. Second, The prime ideal in cyclotomic integer is not easy to describe. See "https://bit.ly/3c77Zr5".\\
+
+\noindent \textbf{4}(\textbf{S} 11.5)
+In the problem 3.3, we already shows that there exists the canonical isomorphism $\varphi$ between $G$ and $\hat{\hat{G}}$ by mapping $\varphi(g)(\chi) = \chi(g)$ for irreducible representation $\chi$ of $G$. This isomorphism extends to the ring isomorphism $\bar{\varphi}$ between $\mathbb{Z}[G]$ and $R(\hat{G})$, and again $1\otimes \bar{\varphi}$ between $A\otimes \mathbb{Z}[G]\simeq A[G]$ and $A\otimes R(\hat{G})$. Abusing notation, let the final isomorphism $\varphi$. Since it is a ring isomorphism, it is enough to determine $\Spec(A\otimes R(\hat{G}))$ to check $\Spec(A[G])$.
+
+Now, I prove a proposition.
+\begin{proposition}
+Let $G$ be a finite abelian group with primary cyclic group decomposition
+\begin{equation}
+    G\simeq \mathbb{Z}/q_1\mathbb{Z}\oplus \cdots \oplus \mathbb{Z}/q_t\mathbb{Z},
+\end{equation}
+where $q_i$ are powers of primes which are not necessarily distinct. Then we again get
+\begin{equation}
+    \hat{G}\simeq \mathbb{Z}/q_1\mathbb{Z}\oplus \cdots \oplus \mathbb{Z}/q_t\mathbb{Z}.
+\end{equation}
+\end{proposition}
+(Warning: this is not canonical isomorphism.)
+\begin{proof}
+Let the generator of each $\mathbb{Z}/q_i\mathbb{Z}$ part by $x_i$. For a cyclic group $\mathbb{Z}/q_i\mathbb{Z}$, we know that it has irreducible character $\chi^i_k$ such that for the generator $x_i$ of $\mathbb{Z}/q_i\mathbb{Z}$,
+\begin{equation}
+    \chi^i_k(x_i^m) = \exp(\frac{2\pi i km}{q_i}).
+\end{equation}
+Extend this character to $G$ by setting
+\begin{equation}
+    \chi_k^i(x_j) = 1
+\end{equation}
+if $i\neq j$. We can easily check that each $\chi_k^i$ defined on $G$ are irreducible and disjoint to each other for $k$ and $i$ by computing $\langle \cdot, \cdot \rangle$. Also,
+\begin{equation}
+    (\chi_1^i)^{k}(x_i) = \left(\exp(\frac{2\pi i}{q_i})\right)^{k} = \chi_k^i(x_i),
+\end{equation}
+so $\chi_1^i$ is a generator of cyclic subgroup of order $q_i$ in $G$. Let the subgroup $C_i$ for each $i$. Finally, we know that $C_iC_j = C_jC_i$ for each $i,j$ since $\hat{G}$ is abelian and $\oplus_{i=1}^{m-1} C_i\cap C_m = \{1\}$ for all $1<m\leq t$ since each $C_i$ have non-zero function value only on $x_i$. It shows that 
+\begin{equation}
+    \oplus_{i=1}^t \mathbb{Z}/q_i\mathbb{Z} \simeq \oplus_{i=1}^t C_i = \hat{G}
+\end{equation}
+\end{proof}
+
+Using this group isomorphism, we know that $A\otimes R(G)$ and $A\otimes R(\hat{G})$ are isomorphic: we can easily see this using the property of the tensor product: apply tensor product on the exact sequence
+\begin{equation}
+    0\rightarrow R(G)\rightarrow R(\hat{G})\rightarrow 0.
+\end{equation}
+Let the ring isomorphism $\varphi:A[G]\rightarrow A\otimes R(G)$. Since we already know what is the prime ideals in $A\otimes R(G)$, by pulling back the prime ideals using $\varphi$, we get $\Spec(A[G])$.\\
+
+\noindent \textbf{5}(\textbf{S} 11.6)
+Note that $A$ has krull dimension 1 and is integral domain, so any non-zero prime ideal in $A$ is maximal ideal. Fix a maximal ideal $M$ with character $p$. By the exercise 10.4, we get $f(c)\equiv f(c')\mod M$ for any conjugacy class $c$ with $p$-regular class $c'$ of $c$ for any $f\in A\otimes R(G)$. Therefore, $A\otimes R(G)\subset B$.
+
+Note that $A\otimes R(G)\subset B\subset A^{\cl(G)}$ and each are integral extension. Therefore, it is enough to show that for any prime $M_c$ in $A^{\cl(G)}$, $M_c\cap B = P'_{M, c}$ satisfies the same condition in proposition 30': for prime ideal $\mathfrak{p} = P'_{M,c}$ in $B$, $\mathfrak{p}\cap A$ is a prime ideal. It shows that $\mathfrak{p}$ determines $M$ uniquely.
+
+Assume $M=0$. From theorem 23', we know that $g1_c\in A\otimes R(G)$ for any class $c$ in $G$, so if $c_1\neq c_2$, then $P'_{M, c_1}\neq P'_{M, c_2}$. Now, assume $M\neq 0$ with residue character $p$ with the same notation in proposition 30' (ii). By the definition of $B$, if $f\in P'_{M,c_1}$, then $f\in P'_{M,c'_1}$ as $f(c_1)\in M$ implies $f(c_1')\in M$ for any $p$-regular class $c'_1$. The converse is also true, so we get $P'_{M,c_1} = P'_{M, c'_1}$. Finally, the lemma 8 shows that there exists integer valued $f\in A\otimes R(G)$ for fixed $x\in c_1'$ such that $f(x)\not\in p\mathbb{Z}$ and $f(s)=0$ for each $p'$-element $s$ not conjugate to $x$, which shows that $f\not\in M_{c'_1}$ as $M_{c'_1}\cap \mathbb{Z} = p\mathbb{Z}$. Since $f(c'_2) = 0\in M$, it shows that $P'_{M, c_1} = P'_{M, c'_1} = P'_{M, c'_2} = P'_{M, c_2}$ if and only if $c'_1=c'_2$. It shows that two rings have the same spectrum of form $P_{M, c}$ (resp. $P'_{M, c}$).
+
+Let $G=\mathbb{Z}_4$ with generator $t$. Every class in $G$ have $2$-regular component class $1$. $A = \mathbb{Z}[i]$, which is Gaussian integer. The Gaussian integer Euclidean domain, so prime ideals are principal ideal and maximal ideal. Define a function $f\in A^{\cl(G)}$ by setting $f(1)=1$, $f(t)=2+i$, $f(t^2)=4-i$, and $f(t^3)=6-i$. For any maximal ideal $M$ with residue class $p>2$, $p$-regular class of $t^i$ is $t^i$, so it automatically satisfies the condition for $B$. For $p=2$, we know that $M=\langle 1-i\rangle = \langle 1+i\rangle$; since $i(1-i)^2=(1-i)(1+i) = 2$ and $1\pm i$ are Gaussian primes. The $2'$ component for any elements in $G$ is $1$, so $f\in B$. Let's claim that
+\begin{equation}
+    f = \sum_{i=0}^3 a_j\chi_j,
+\end{equation}
+where $a_j\in \mathbb{C}$ and $\chi_j(t) = \mu = \exp(2\pi ij/4)$. The above condition shows that
+\begin{equation}
+    \begin{pmatrix}
+    1 & 1 & 1 & 1\\
+    1 & i & -1 & -i\\
+    1 & -1 & 1 & -1\\
+    1 & -i & -1 & i
+    \end{pmatrix}
+    \begin{pmatrix}
+    a_0\\
+    a_1\\
+    a_2\\
+    a_3
+    \end{pmatrix} = \begin{pmatrix}
+    1\\ 2+i\\4-i\\6-i
+    \end{pmatrix}.
+\end{equation}
+    The solution is
+    \begin{equation}
+        (a_0,a_1,a_2,a_3) = \left(-\frac{1}{4}+\frac{5i}{4}, -\frac{3}{4}-\frac{i}{4}, -\frac{5}{4}-\frac{3i}{4}, \frac{13}{4}-\frac{i}{4}\right)\not\in A^{4}.
+    \end{equation}
+    It shows that $B$ is strictly larger than $A\otimes R(G)$.\\
+
+\noindent \textbf{6}-\textbf{8}(\textbf{S} 11.7)
+\begin{enumerate}
+    \item[(a)] If $H\cap c =\emptyset$, then for any $f\in R(H)$ and $x\in c$,
+    \begin{equation}
+         \Ind_H^G f(x) = \sum_{\substack{s\in G\\ sxs^{-1}\in H}} f(sxs^{-1}) = 0,
+    \end{equation}
+    so $f\in P_{0,c}$ and $\Im (A\otimes \Ind_H^G)\subset P_{0,c}$. Conversely, if $x\in H\cap c$ for some $x\in G$, let $c' = \{sxs^{-1}:s\in H\}$. This is a class in $H$ containing $x$, so $h1_{c'}\in A\otimes R(H)$. Since
+    \begin{equation}
+        h\Ind_H^G 1_{c'}(x) = \sum_{\substack{s\in G\\sxs^{-1}\in c'}}1_{c'}(sxs^{-1})>0,
+    \end{equation}
+    we get $\Im(A\otimes \Ind_H^G)\not\subset P_{0,c}$.
+    
+    \item[(b)] Since $p\in A$, $M$ has residue characteristic $p$.
+    
+    Assume $H$ contains no $p$-elementary subgroup associated with an element of $c$. If $f\in A\otimes R(H)$, then $\Im f\subset A$. Therefore, by the lemma 11, we know that $\Ind_H^G f(c)\in pA$, and $pA\subset M$. It shows that $I_H\subset P_{M,c}$.
+    
+    Conversely, assume $H$ contains a $p$-elementary subgroup associated with an element $x\in c$. By the lemma 8, there exists an integer valued $f\in A\otimes R(H)$ such that $f' = \Ind_H^G f$ satisfies $f'(x)\in \mathbb{Z}$, but $f'(x)\not\equiv 0\mod p$, which means that $f'\not\in P_{M,c}$. It shows that $I_H\not\subset P_{M,c}$.
+    \item[(c)]
+    \begin{theorem}
+    theorem 18
+    \end{theorem}
+    \begin{proof}
+    To prove theorem 18, it is enough to show that $A\otimes V_p$ has finite index in $A\otimes R(G)$ and the index is prime to $p$. First, assume that the index finite, later I'll check this condition.
+    
+    Let $X(p)$ be the family of $p$-elementary subgroups of $G$. Consider an ideal $I$ generated by $I_H$ for each $H\in X(p)$. If $I=A\otimes R(G)$, then it ends the proof, so we can safely set $I$ be a proper ideal. Note that it is contained in some maximal ideal of the form $P_{M,c}$ where $M$ is a maximal ideal in $A$ and a class $c$ in $G$. If $A/M$ has characteristic different from $p$, it ends the proof since $p\not\in I$, so assume $p\in M$. Let's write $p$-regular class of $c$ by $c'$. Choose a $p$-elementary subgroup $H$ associated with an element of $c'$ By (b), we know that $I_H\not\subset P_{M, c'} = P_{M,c}$, which is contradiction since $H\in X(p)$. Therefore, its conclusion is that $M\cap \mathbb{Z}$ have prime different problem $p$, so the index of $V_p$ in $R(G)$ is prime to $p$; in this step, I use the finite index assumption.
+    
+    Now, let's show that $V_p$ has finite index in $R(G)$. It is equivalent to say that there exists $l\in\mathbb{N}$ such that $l\cdot 1_G \in V_p$. Now, we use Artin's theorem. Artin's theorem says that for the set of cyclic groups $Y$ in $G$, there exists $l\in\mathbb{N}$ and $\chi_H\in R(H)$ such that
+    \begin{equation}
+        l1_G = \sum_{H\in Y}\Ind_H^G \chi_H.
+    \end{equation}
+    For each cyclic group $H$, there exists a generator $t_H$, and consider the $p$-elementary subgroup $P_H$ associated to $(t_H)_r$. Since $(t_H)_u\in Z((t_H)_r)$, $H\leq P_H$. Therefore,
+    \begin{equation}
+        l1_G = \sum_{H\in Y}\Ind_H^G \chi_H = \sum_{H\in Y}\Ind_{P_H}^G\left(\Ind_H^{P_H}\chi_H\right),
+    \end{equation}
+    which shows that $l1_G\in V_p$. It ends the proof.
+    \end{proof}
+    
+    \begin{theorem}
+    Theorem 23'''
+    \end{theorem}
+    \begin{proof}
+    Assume there exists $H\in I$ such that $H$ does not contains any elementary subgroups of $G$. For $g=1,2$ such $H$ does not exist, so assume $g>2$. It means that $I_H$ is contained in $P_{M,c}$ for all maximal ideal $M$ in $A$ and conjugacy class $c$: for any maximal ideal $M$ having residue class $p$ and conjugacy class $c$, we know that $P_{M,c}=P_{M, c'}$ where $c'$ is $p$-regular class associated with $c$, so by (b), $I_H\subset P_{M,c'} = P_{M,c}$. Since all the maximal ideals in $A\otimes R(G)$ is of the form $P_{M,c}$ with non-zero prime ideals $M$, we get $I_H$ is contained in the Jacobson ideal of $A\otimes R(G)$.
+    
+    Now, we know that $\Ind_H^G r_H = r_G$, so $r_G\in I_H$. By the property of Jacobson radical, cf. \textit{Commutative Algebra}, Atiyah, p. 6, we get $1-fr_G$ is a unit in $A\otimes R(G)$ for all $f\in A\otimes R(G)$. However, for $f = 1_G$, $\chi = 1_g-r_G$ is not unit: note that $\chi(1)=1-g$ and $\chi(s) = 1$ for $s\neq 1$. If $g=1$, then $\chi$ is not unit since $\chi(1)=1$, so assume $g>2$. If It was unit, there exists $\eta\in A\otimes R(G)$ such that $\eta(1)=\frac{1}{1-g}$ and $\eta(s) = 1$ for $s\neq 1$. However, $\eta(1)\in A$, so if $g>2$, $\eta(1)\in A\cap \mathbb{Q}=\mathbb{Z}$, which is not possible. It ends the proof.
+    \end{proof}
+\end{enumerate}
+%________________________________________________________________________
+\end{document}
+
+%================================================================================
