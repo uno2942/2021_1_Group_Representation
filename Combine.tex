@@ -130,9 +130,20 @@ This is my solution set of the \textit{Linear Representations of Finite Groups},
 
 If time permits, I'll supplement the exercises in the chapter 4 and 5.
 
-Reading guide: If you only know about the group, you will struggle to read after chapter 3. If you are familiar with undergraduate abstract algebra, it will be easy to read the book and solution while you don't enter chapter 12. In chapter 12, some facts from commutative algebra is necessary, so I'll writes some fact in front of the solution at that chapter.
+Reading guide: If you only know about the group, you will struggle to read after chapter 3. (The only advanced fact while chapter 3 is the advanced linear algebra.) If you are familiar with undergraduate abstract algebra, it will be easy to read the book and solution while you don't enter chapter 12. In chapter 12, some facts from commutative algebra is necessary, so I'll writes some fact in front of the solution at that chapter.
 
 As the lecture also gave some exercises in the \textit{Abstract Algebra}, Dummit and Foote, 3rd ed., I'll include some solutions about those exercises.\\
+
+General notation
+\begin{enumerate}
+    \item[$G$] will denote a group.
+    \item[$H$] will generally denote a subgroup of $G$.
+    \item[$g$] will denote the order of $G$, but sometimes denote an element in $G$; if you confused with it, it is my fault. By the same reason $h$ will denote the order of $H$.
+    \item[$s$,$t$] will denote elements of $G$.
+    \item[$V$,$W$] will denote $\mathbb{F}$-vector space. $\mathbb{F}=\mathbb{C}$ in this paper; note that it may not be $\mathbb{C}$ after chapter 12.
+    \item[$\rho$,$\eta$] will denote group representations.
+    \item[$\chi$] will denote group character.
+\end{enumerate}
 
 \noindent \textbf{D\&F} 10.4.2
 As $\mathbb{Z}$ and $\mathbb{Z}/2\mathbb{Z}$ is tensored by $\mathbb{Z}$,
@@ -550,16 +561,36 @@ It shows that $N$ is contained in the kernel of induced presentation.\\
 
 \newpage
 \section{Chapter 2}
+Before solving the problems, I'll first show a useful proposition.
+\begin{proposition}
+Let $\rho:G\rightarrow GL(V)$ be a group representation and $s\in G$, then $\rho(s)$ is diagonalizable.
+\end{proposition}
+\begin{proof}
+You need some fact about minimal polynomial of matrices in linear algebra; see chapter 11 in \textit{Abstract Algebra}, Dummit and Foote.
+
+Since $s^{\abs{G}} = 1$, $\rho(s)$ has minimal polynomial dividing $x^{\abs{G}}-1$. Since $x^{\abs{G}}-1$ is a separable polynomial in $\mathbb{C}[x]$ and $\mathbb{C}$ is algebraically closed, $\rho(s)$ is diagonalizable.
+\end{proof}
+
+\noindent \textbf{S} 2.1
+Using proposition 3, we get
+\begin{equation}
+\begin{split}
+    (\chi+\chi')^2_\sigma(s) &= \frac{1}{2}\left((\chi(s)+\chi'(s))^2 + (\chi+\chi')(s^2)\right)^2 \\
+    &= \frac{1}{2}\left((\chi(s)^2 + \chi(s^2)) + (\chi'(s)^2 + \chi'(s^2))\right)^2 + \chi(s)\chi'(s) \\
+    &= \chi^2_\sigma(s) + \chi'^2_\sigma(s) + \chi(s)\chi'(s).
+\end{split}
+\end{equation}
+It shows that $(\chi+\chi')^2_\sigma = \chi^2_\sigma + \chi'^2_\sigma + \chi\chi'$. By the same computation, we also get $(\chi+\chi')^2_\alpha = \chi^2_\alpha(s) + \chi'^2_\alpha(s) + \chi(s)\chi'(s)$.\\
 
 \noindent \textbf{S} 2.2
 Let's enumerate $X=\{x_1, \ldots, x_n\}$. Let's define index set $I_s = \{i\in \{1, \ldots, n\}:s\cdot x_i = x_i\}$, Writing $\rho_s$ as a matrix $A_s = (a_{ij})$ with basis $\{x_1, \ldots, x_n\}$, we get $a_{ji} = 1$ if and only if $s\cdot x_i = x_j$. Therefore,
 \begin{equation}
-    \tr A_s = \sum_{i=1}^n a_{ii} = \sum_{i\in I} 1 = \abs{I}. 
+    \tr A_s = \sum_{i=1}^n a_{ii} = \sum_{i\in I} 1 = \abs{I_s}. 
 \end{equation}
 It shows that $\chi_{X}(s) = \tr A_s$ is the number of elements of $X$ fixed by $s$.\\
 
 \noindent \textbf{S} 2.3
-I'll first show the uniqueness: If there exist such representations $\rho'_1$ and $\rho'_2$, then for fixed $x'\in V'$ and $s\in G$,
+I'll first show the uniqueness: if there exist such representations $\rho'_1$ and $\rho'_2$, then for fixed $x'\in V'$ and $s\in G$,
 \begin{equation}
     \langle \rho_s x, \left((\rho'_1)_s-(\rho'_2)_s\right)x'\rangle = \langle x,x'\rangle - \langle x,x'\rangle = 0
 \end{equation}
@@ -636,7 +667,7 @@ It ends the proof.
 Remark: If $V_2=\mathbb{C}$, then $W=V_1'$ and $\rho_s$ corresponds to the dual representation of $\rho$.\\
 
 \noindent \textbf{S} 2.5
-This problem is continuation of problem 2. For each irreducible representation component of $\rho$, if it is not isomorphic to the trivial(=unit) representation, the scalar product with trivial representation is $0$, and $1$ if it is isomorphic to the representation. Therefore, we get the identity.\\
+This problem is continuation of problem \textbf{D\&F} 18.3.6. For each irreducible representation component of $\rho$, if it is not isomorphic to the trivial(=unit) representation, the scalar product with trivial representation is $0$, and $1$ if it is isomorphic to the representation. Therefore, we get the identity.\\
 
 \noindent \textbf{S} 2.6
 \begin{enumerate}
@@ -685,8 +716,6 @@ This problem is continuation of problem 2. For each irreducible representation c
     \end{equation}
     By theorem 5, we get the equivalence of (iii) and (iv).
 \end{enumerate}
-\newpage
-
 
 \noindent \textbf{S} 2.7
 Let $r$ be the regular representation on $W$ with basis $\{e_s\}_{s\in G}$. Since $G$ acts on $\{e_s\}$ transitively, by the previous homework, we know that $W$ has only one unit representation $1$, which is irreducible. Therefore, for any character with $\rho_s = 0$ for all $s\neq 1$, for $c\in \mathbb{C}$ with $cr_G = \rho$,
@@ -764,14 +793,14 @@ For fixed $x\in G$, let's define $\varphi_x:\hat{G}\rightarrow \mathbb{C}$ by $\
 \newpage
 
 
-\noindent \textbf{S} 3.3.4
+\noindent \textbf{S} 3.4
 From example 1, we know that the regular representation $\rho$ on $G$ is induced by the regular representation $\theta$ on $H$. Let's decompose $\rho=\oplus_{i=1}^n \rho_i$ and $\theta = \oplus_{i=1}^m \theta_i$ into irreducible representations. By Corollary 5.1 in chapter 2, every irreducible representations on $G$ and $H$ is contained in $\rho$ and $\theta$.
 
 Let $\rho'_i$ be the induced representation of $\theta_i$, then by example 3, we know that $\oplus_{i=1}^m \rho'_i$ is induced by $\oplus_{i=1}^m \theta_i$. By the uniqueness of induced representation, $\oplus_{i=1}^m \rho'_i$ and $\rho$ are isomorphic, so each irreducible components of $\rho$ is contained in some $\rho'_i$, which shows the statement in the problem.
 
 Since $A\leq G$ is abelian, each $\theta_i$ has degree 1. It means that the induced representation $\rho'_i$ of $\theta_i$ has degree $g/a$ for all $i$, so each $\rho_i$ should have degree not greater than $g/a$.\\
 
-\noindent \textbf{S} 3.3.5
+\noindent \textbf{S} 3.5
 Before start, I'll show that $\rho$ is a well-defined representation. For $s_1,s_2\in G$, $(\rho_{s_1}(\rho_{s^{-1}_1})f)(u) = f(us_1s_1^{-1}) = f(u)$ and by the same reason, $(\rho_{s^{-1}_1}(\rho_{s_1})f)(u) = f(u)$, so $\rho_s\in GL(V)$ for all $s\in G$. Also,
 \begin{equation}
     (\rho_{s_1s^{-1}_2}f)(u) = f(us_1s^{-1}_2) = (\rho_{s_1}(\rho_{s^{-1}_2}f))(u) = (\rho_{s_1}(\rho^{-1}_{s_2}f))(u).
@@ -812,7 +841,7 @@ Therefore, $\phi=f$.
 
 By writing $W_{\sigma_i} = \mathrm{span}\{\rho_{\sigma_i}f_{w_1}, \ldots, \rho_{\sigma_i}f_{w_m}\}$, we get $V = \oplus_{\sigma\in R}W_\sigma$, which means that $\rho$ is induced by $\theta$.\\
 
-\noindent \textbf{S} 3.3.6
+\noindent \textbf{S} 3.6
 Since $G=H\times K$, $hk=kh$ for all $h\in H$ and $k\in K$. It shows that $H \trianglelefteq G$ and $G/H\simeq K$. Therefore, We can take the representatives of $G/H$ by the elements of $K$, and for any $k\in K$ and $h\in H$, we get $h(kH) = kH$. I'll write the representatives $R = \{k_1, \ldots, k_n\}$ with $n=\abs{K}$ if enumerating is necessary.
 
 Let $W$ and $L$ be vector spaces such that $\theta:H\rightarrow GL(W)$ and $r_K:K\rightarrow GL(L)$, i.e. $L$ has basis $\{e_k\}_{k\in K}$. Since $\rho:G\rightarrow GL(V)$ is induced by $\theta$, we can write
